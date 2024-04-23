@@ -13,7 +13,7 @@ use MongoDB\BSON\UTCDateTime;
 use Illuminate\Support\Facades\Auth;
 
 
-class CaseController extends Controller
+class RDOController extends Controller
 {
     /**
      * Display a listing of the resource.

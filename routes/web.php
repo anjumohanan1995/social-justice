@@ -40,5 +40,9 @@ Route::post('/user-store', [UsersController::class, 'userStore'])->name('userSto
 
 
 Route::get('case-register', [CaseController::class, 'caseRegister'])->name("case.register");
+Route::post('case-register', [CaseController::class, 'storecaseRegister'])->name("case.store");
+Route::resource('cases', CaseController::class);
+Route::get('cases-list/get', [CaseController::class, 'getCaseList'])->name("get.cases-list");
 
 
+rdo-cases

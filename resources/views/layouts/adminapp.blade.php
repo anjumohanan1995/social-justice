@@ -445,7 +445,25 @@
                     </svg><span>Case         </span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
                   <ul class="sidebar-submenu" style="display: none;">
                     <li><a href="{{ url('/case-register') }}">Register Case</a></li>
-                    <li><a href="{{ url('/roles') }}">Roles</a></li>
+                    <li><a href="{{ url('/cases') }}">Case List</a></li>
+                  </ul>
+                </li>
+                @elseif(Auth::user()->role =='RDO')
+                 <li class="sidebar-main-title">
+                  <div>
+                    <h6 class="lan-8">Case List</h6>
+                  </div>
+                </li>
+                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="svg/icon-sprite.svg#stroke-project"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="svg/icon-sprite.svg#fill-project"></use>
+                    </svg><span>Case         </span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
+                  <ul class="sidebar-submenu" style="display: none;">
+                    <li><a href="{{ url('/rdo-cases') }}">All Cases</a></li>
+                    {{-- <li><a href="{{ url('/cases') }}">Case List</a></li> --}}
                   </ul>
                 </li>
 
