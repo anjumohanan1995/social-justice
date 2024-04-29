@@ -5,6 +5,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CaseController;
+use App\Http\Controllers\RDOController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,6 @@ Route::resource('cases', CaseController::class);
 Route::get('cases-list/get', [CaseController::class, 'getCaseList'])->name("get.cases-list");
 
 
-rdo-cases
+Route::get('rdo-cases', [RDOController::class, 'index'])->name("case.list");
+Route::get('rdo/cases-list/get', [RDOController::class, 'getCaseList'])->name("rdo.get.cases-list");
+

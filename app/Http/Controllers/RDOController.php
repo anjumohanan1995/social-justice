@@ -22,15 +22,11 @@ class RDOController extends Controller
      */
     public function index()
     {
-        return view("user.case-list");
+        return view("rdo.case-list");
         
     }
 
-    public function caseRegister()
-    {
-        $districts = District::get();
-        return view("user.case-register",compact('districts'));
-    }
+    
 
 
     
@@ -51,79 +47,7 @@ class RDOController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storecaseRegister(Request $request)
-    {
-        //dd( $request);
-        
-
-        $validate = Validator::make($request->all(),
-        [
-          'opposition_name' => 'required',
-          'case_details' => 'required' ,
-          'opposition_address' => 'required' ,
-
-      
-        ]);
-        if ($validate->fails()) {
-            //dd($validate);
-            return Redirect::back()->withInput()->withErrors($validate);
-        }
-
-        $data =CaseDetails::create([
-            'opposition_name' => @$request->opposition_name? $request->opposition_name:'',
-            'opposition_address' => @$request->opposition_address?$request->opposition_address:'',
-            'pincode' => @$request->pincode?$request->pincode:'',
-            'opp_phone' => @$request->opp_phone?$request->opp_phone:'',
-            'case_details' => @$request->case_details?$request->case_details:'',
-            'user_id'=> Auth::user()->id,
-        ]);
-
-
-        $currentDate = now();
-
-        // Extract year, month, and day from the current date
-        $currentYear = $currentDate->year;
-        $currentMonth = $currentDate->month;
-        $currentDay = $currentDate->day;
-
-        // Generate the application number format (STDD00YYYYMMDD)
-        $applicationNumber = "CASE00" . $currentYear . str_pad($currentMonth, 2, '0', STR_PAD_LEFT) . str_pad($currentDay, 2, '0', STR_PAD_LEFT);
-
-        // Get the count of existing applications for the current month
-        $existingApplicationsCount = CaseDetails::where('created_at', '>=', new UTCDateTime($currentDate->startOfMonth()->timestamp * 1000))
-            ->where('created_at', '<', new UTCDateTime($currentDate->endOfMonth()->timestamp * 1000))
-            ->count();
-
-        //dd($existingApplicationsCount);
-
-        // Increment the count to get the unique application number
-        $applicationNumber .= str_pad($existingApplicationsCount + 1, 2, '0', STR_PAD_LEFT);
-       // $applicationNumber = 'STDD002023122820';
-
-        $Count = CaseDetails::where('case_id', $applicationNumber)->count();
-        //dd($user);
-        if ($Count > 0) {
-            $applicationNumber1 = "CASE00" . $currentYear . str_pad($currentMonth, 2, '0', STR_PAD_LEFT) . str_pad($currentDay, 2, '0', STR_PAD_LEFT);
-            $existingApplicationsCount = CaseDetails::where('created_at', '>=', new UTCDateTime($currentDate->startOfMonth()->timestamp * 1000))
-                ->where('created_at', '<', new UTCDateTime($currentDate->endOfMonth()->timestamp * 1000))
-                ->count();
-            /// dd($existingApplicationsCount);
-
-            // Increment the count to get the unique application number
-            $incrementedCount = $existingApplicationsCount + 1;
-            $applicationNumber1 .= str_pad($incrementedCount, 2, '0', STR_PAD_LEFT);
-
-            $applicationNo =  $applicationNumber1;
-            // dd($applicationNumber1);
-        } else {
-            $applicationNo = $applicationNumber;
-        }
-
-        $update = CaseDetails::where('_id', $data->id)->update(['case_id' => $applicationNo]);
-        return redirect()->back()->with('success','Case Added successfully.');
-
-   
-    }
+    
 
     /**
      * Display the specified resource.
@@ -190,15 +114,15 @@ class RDOController extends Controller
         $searchValue = $search_arr['value']; // Search value
 
             // Total records
-            $totalRecord = CaseDetails::where('user_id',Auth::user()->id)->where('deleted_at',null)->orderBy('created_at','desc');
+            $totalRecord = CaseDetails::where('deleted_at',null)->orderBy('created_at','desc');
             $totalRecords = $totalRecord->select('count(*) as allcount')->count();
 
 
-            $totalRecordswithFilte = CaseDetails::where('user_id',Auth::user()->id)->where('deleted_at',null)->orderBy('created_at','desc');
+            $totalRecordswithFilte = CaseDetails::where('deleted_at',null)->orderBy('created_at','desc');
             $totalRecordswithFilter = $totalRecordswithFilte->select('count(*) as allcount')->count();
 
             // Fetch records
-            $items = CaseDetails::where('user_id',Auth::user()->id)->where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder);
+            $items = CaseDetails::where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder);
             $records = $items->skip($start)->take($rowperpage)->get();
     
             $data_arr = array();
@@ -211,7 +135,7 @@ class RDOController extends Controller
                 $opposition_address =  $record->opposition_address;
                 $case_details  =  $record->case_details;
                 $case_id  =  $record->case_id;
-                $edit = '<a  href="' . url('cases/'.$id.'/edit') . '" class="btn btn-primary edit-btn">Edit</a>&nbsp;&nbsp;<button class="btn btn-danger delete-btn" data-id="'.$id.'">Delete</button>';
+                $edit = '';
 
                 $data_arr[] = array(
                     "id" => $i,
