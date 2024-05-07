@@ -48,4 +48,6 @@ Route::get('cases-list/get', [CaseController::class, 'getCaseList'])->name("get.
 
 Route::get('rdo-cases', [RDOController::class, 'index'])->name("case.list");
 Route::get('rdo/cases-list/get', [RDOController::class, 'getCaseList'])->name("rdo.get.cases-list");
+Route::get('rdo/cases-list/gett', [RDOController::class, 'getCaseList'])->name("rdo.get.cases-listt");
+// khlklkldf
 
