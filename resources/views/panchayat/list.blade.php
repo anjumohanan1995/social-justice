@@ -22,44 +22,34 @@
                             <span>If you are looking to emulate the UI of spreadsheet programs such as Excel with DataTables, the combination of KeyTable and AutoFill will take you a long way there!</span> --}}
                             </div>
                             <div class="card-body">
-                                <div class=" m-4 d-flex ">
-                                <h4 class="card-title mg-b-10 me-2">
-                                    All Cases
+                                <div class=" m-4 d-flex justify-content-between">
+                                <h4 class="card-title mg-b-10">
+                                    Panchayat
                                 </h4>
-                                <div>
-                                
-                                </div>
-                                <div class="col-md-6 justify-content-between d-flex">
-                                    <input type="text" id="casenumber" class="form-control me-2" placeholder="Search by Case number">
-                                    <input type="text" id="name" class="form-control" placeholder="Search by Name">
-                                </div>
-                                                             
-                                {{-- <div class="col-md-1 col-6 text-center">
+                                <div class="col-md-1 col-6 text-center">
                                     <div class="task-box primary  mb-0">
-                                        <a class="text-white" href="{{ route('users.create') }}">
+                                        <a class="text-white" href="{{ route('panchayat.create') }}">
                                             <p class="mb-0 tx-12">Add </p>
                                             <h3 class="mb-0"><i class="fa fa-plus"></i></h3>
                                         </a>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
                             <div class="dt-ext table-responsive custom-scrollbar">
                                 <table class="display" id="keytable">
                                     <thead>
                                         <tr>
                                             <th>SL No</th>
-                                            <th>Case ID</th>
-                                            <th>Opposition Name</th>
-                                            <th>Opposition Address</th>
-                                            <th>Case Details</th>
+                                            <th>District</th>
+                                            <th>Panchayat</th>
                                             <th>ACTION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                   
-                                       
+
+
                                     </tbody>
-                                  
+
                                 </table>
                             </div>
                             </div>
@@ -72,56 +62,43 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-
-
-
-    //=================
-
-
     $(document).ready(function(){
 
      	var table = $('#keytable').DataTable({
-            
             processing: true,
             serverSide: true,
-     
-	        buttons:[
+	        buttons: [
 	            'copyHtml5',
 	            'excelHtml5',
 	            'csvHtml5',
 	            'pdfHtml5'
 	        ],
+             "ajax": {
 
-            "ajax":{
-
-			       	"url": "{{ route('get.cases-list') }}",
+			       	"url": "{{ route('getPanchayatList') }}",
 			       	"data": function ( d ) {
 			        	return $.extend( {}, d, {
-				          
+
 			          	});
        				}
        			},
 
             columns: [
                 { data: 'id' },
-                { data: 'case_id' },
-                { data: 'opposition_name' },
-                { data: 'opposition_address' },
-                { data: 'case_details' },
+                { data: 'district' },
+                { data: 'panchayat' },
                 { data: 'edit' }
 			],
             "order": [0, 'desc'],
             'ordering': true
-            
         });
-        table.draw();
-             
+      	table.draw();
     });
     $(document).on('click', '.delete-btn', function() {
         var Id = $(this).data('id');
         if (confirm('Are you sure you want to delete this item?')) {
             $.ajax({
-                url: '/users/' + Id,
+                url: '/panchayat/' + Id,
                 type: 'POST', // Use POST method
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -141,90 +118,5 @@
             });
         }
     });
-    
-$("#casenumber").on('keyup',function(){
-    var keytable = $('#keytable').DataTable();
-    keytable.destroy();
-    var table = $('#keytable').DataTable({
-            
-            processing: true,
-            serverSide: true,
-    
-	        buttons:[
-	            'copyHtml5',
-	            'excelHtml5',
-	            'csvHtml5',
-	            'pdfHtml5'
-	        ],
-
-            "ajax":{
-
-			       	"url": "{{ route('get.cases-list') }}",
-			       	"data": function ( d ) {
-			        	return $.extend( {}, d, {
-				          "casenumber":$("#casenumber").val(),
-                          "name":$("#name").val(),
-			          	});
-       				}
-       			},
-
-            columns: [
-                { data: 'id' },
-                { data: 'case_id' },
-                { data: 'opposition_name' },
-                { data: 'opposition_address' },
-                { data: 'case_details' },
-                { data: 'edit' }
-			],
-            "order": [0, 'desc'],
-            'ordering': true
-        });
-      	table.draw();
-
-})
-
-$("#name").on('keyup',function(){
-    var keytable = $('#keytable').DataTable();
-    keytable.destroy();
-    var table = $('#keytable').DataTable({
-            
-            processing: true,
-            serverSide: true,
-            searching:true,
-    
-	        buttons:[
-	            'copyHtml5',
-	            'excelHtml5',
-	            'csvHtml5',
-	            'pdfHtml5'
-	        ],
-
-            "ajax":{
-
-			       	"url": "{{ route('get.cases-list') }}",
-			       	"data": function ( d ) {
-			        	return $.extend( {}, d, {
-				          "casenumber":$("#casenumber").val(),
-                          "name":$("#name").val(),
-			          	});
-       				}
-       			},
-
-            columns: [
-                { data: 'id' },
-                { data: 'case_id' },
-                { data: 'opposition_name' },
-                { data: 'opposition_address' },
-                { data: 'case_details' },
-                { data: 'edit' }
-			],
-            "order": [0, 'desc'],
-            'ordering': true
-        });
-      	table.draw();
-        
-
-})
-
 </script>
 @endsection

@@ -60,9 +60,9 @@ class CaseController extends Controller
         [
           'opposition_name' => 'required',
           'case_details' => 'required' ,
-          'opposition_address' => 'required' ,
-
-      
+          'opposition_address' => 'required',
+          'district_id' => 'required', 
+          'police_station' => 'required',
         ]);
         if ($validate->fails()) {
             //dd($validate);
@@ -71,6 +71,8 @@ class CaseController extends Controller
 
         $data =CaseDetails::create([
             'opposition_name' => @$request->opposition_name? $request->opposition_name:'',
+            'district_id' => @$request->district_id? $request->district_id:'',
+            'police_station' => @$request->police_station? $request->police_station:'',
             'opposition_address' => @$request->opposition_address?$request->opposition_address:'',
             'pincode' => @$request->pincode?$request->pincode:'',
             'opp_phone' => @$request->opp_phone?$request->opp_phone:'',
@@ -144,7 +146,9 @@ class CaseController extends Controller
      */
     public function edit($id)
     {
-        
+        $cases = CaseDetails::find($id);
+        $districts = District::get();
+        return view('user.case-edit',compact('cases','districts'));
     }
 
     /**
@@ -156,7 +160,31 @@ class CaseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $validate = Validator::make($request->all(),
+        [
+          'opposition_name' => 'required',
+          'case_details' => 'required' ,
+          'opposition_address' => 'required',
+          'district_id' => 'required', 
+          'police_station' => 'required',
+        ]);
+        if ($validate->fails()) {
+            //dd($validate);
+            return Redirect::back()->withInput()->withErrors($validate);
+        }
+        $case = CaseDetails::find($id);
+        $data = $case->update([
+            'opposition_name' => @$request->opposition_name? $request->opposition_name:'',
+            'district_id' => @$request->district_id? $request->district_id:'',
+            'police_station' => @$request->police_station? $request->police_station:'',
+            'opposition_address' => @$request->opposition_address?$request->opposition_address:'',
+            'pincode' => @$request->pincode?$request->pincode:'',
+            'opp_phone' => @$request->opp_phone?$request->opp_phone:'',
+            'case_details' => @$request->case_details?$request->case_details:'',
+            'user_id'=> Auth::user()->id,
+        ]);
+
+        return redirect()->route('cases.index')->with('success','Case Updated successfully.');
     }
 
     /**
@@ -199,6 +227,12 @@ class CaseController extends Controller
 
             // Fetch records
             $items = CaseDetails::where('user_id',Auth::user()->id)->where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder);
+            if($request->casenumber){
+                $items->where('case_id',$request->casenumber);
+            }
+            if($request->name){
+                $items->where('opposition_name',$request->name);
+            }
             $records = $items->skip($start)->take($rowperpage)->get();
     
             $data_arr = array();

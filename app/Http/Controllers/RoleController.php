@@ -29,7 +29,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        
+
         return view("admin.user-management.role.create");
     }
 
@@ -41,14 +41,14 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        
+
 
         $validate = Validator::make($request->all(),
         [
           'name' => 'required',
-          
 
-      
+
+
         ]);
         if ($validate->fails()) {
             //dd($validate);
@@ -57,12 +57,12 @@ class RoleController extends Controller
 
         Role::create([
             'name' => @$request->name? $request->name:'',
-       
+
         ]);
 
         return redirect()->route('roles.index')->with('success','Role Added successfully.');
 
-   
+
     }
 
     /**
@@ -86,7 +86,7 @@ class RoleController extends Controller
     {
         $data = Role::findOrFail($id);
 
-     
+
         return view('admin.user-management.role.edit', ['data' => $data,]);
     }
 
@@ -110,7 +110,7 @@ class RoleController extends Controller
 
         // Update the role with the data from the request
         $data->name = $request->name;
-      
+
         // Update other attributes as needed
         // Save the updated role
         $data->save();
@@ -138,7 +138,7 @@ class RoleController extends Controller
 
     public function getRoles(Request $request)
     {
-        
+
         ## Read value
         $draw = $request->get('draw');
         $start = $request->get("start");
@@ -165,7 +165,7 @@ class RoleController extends Controller
             // Fetch records
             $items = Role::where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder);
             $records = $items->skip($start)->take($rowperpage)->get();
-    
+
             $data_arr = array();
             $i=$start;
 
@@ -173,7 +173,7 @@ class RoleController extends Controller
                 $i++;
                 $id = $record->id;
                 $name = $record->name;
-                
+
                 $edit = '<a  href="' . url('roles/'.$id.'/edit') . '" class="btn btn-primary edit-btn">Edit</a>&nbsp;&nbsp;<button class="btn btn-danger delete-btn" data-id="'.$id.'">Delete</button><a href="' . url('roles/'.$name.'/editPermission') . '"><button class="btn-btn-primary">Permission</button></a>';
 
                 $data_arr[] = array(
@@ -183,7 +183,7 @@ class RoleController extends Controller
                     "edit" => $edit
                 );
             }
-            
+
             $response = array(
             "draw" => intval($draw),
             "iTotalRecords" => $totalRecords,
@@ -235,7 +235,7 @@ class RoleController extends Controller
              return redirect()->route('roles.index')
 
                     ->with('success','Permission added successfully');
-          
+
 
         }
         else{
@@ -244,7 +244,7 @@ class RoleController extends Controller
                 'permission' => $data['permission'],
                 'sub_permissions' =>$sub
             ]);
-       
+
             return redirect()->route('roles.index')
 
             ->with('success','Permission added successfully');
@@ -252,5 +252,5 @@ class RoleController extends Controller
     }
 
 
-    
+
 }

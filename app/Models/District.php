@@ -14,7 +14,11 @@ class District extends Eloquent
 
     protected $fillable = [
         'name',
-        'district_id'
-    
+        'district'
+
     ];
+
+
+
+
 }

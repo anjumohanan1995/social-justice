@@ -13,10 +13,19 @@ class CaseDetails extends Eloquent
     protected $connection = 'mongodb';
     protected $collection = 'case_details';
 
-    protected $guarded = [];
+    // protected $guarded = [];
     protected $fillable = [
         'opposition_name',
-        'district_id','opposition_address','pincode','opp_phone','case_details','case_id','status','user_id'
+        'district_id','police_station_id','opposition_address','pincode','opp_phone','case_details','case_id','status','user_id'
     
     ];
+
+    public function district() {
+        return $this->belongsTo(District::class);
+    }
+
+    public function policestation() {
+        return $this->belongsTo(policestation::class);
+    }
+
 }

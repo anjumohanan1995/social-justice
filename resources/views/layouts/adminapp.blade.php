@@ -41,12 +41,12 @@
     <link id="color" rel="stylesheet" href="{{ asset('admin/css/color-1.css')}}" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/css/responsive.css')}}">
-  
+
   </head>
-  <body> 
+  <body>
     <!-- loader starts-->
     <div class="loader-wrapper">
-      <div class="loader"> 
+      <div class="loader">
         <div class="loader4"></div>
       </div>
     </div>
@@ -62,7 +62,7 @@
           <form class="form-inline search-full col" action="#" method="get">
             <div class="form-group w-100">
               <div class="Typeahead Typeahead--twitterUsers">
-                <div class="u-posRelative"> 
+                <div class="u-posRelative">
                   <input class="demo-input Typeahead-input form-control-plaintext w-100" type="text" placeholder="Search Riho .." name="q" title="" autofocus>
                   <div class="spinner-border Typeahead-spinner" role="status"><span class="sr-only">Loading... </span></div><i class="close-search" data-feather="x"></i>
                 </div>
@@ -70,7 +70,7 @@
               </div>
             </div>
           </form>
-          <div class="header-logo-wrapper col-auto p-0">  
+          <div class="header-logo-wrapper col-auto p-0">
             <div class="logo-wrapper"> <a href="index.html"><img class="img-fluid for-light" src="{{ asset('admin/images/logo_dark.png')}}" alt="logo-light"><img class="img-fluid for-dark" src="{{ asset('admin/images/logo.png')}}" alt="logo-dark"></a></div>
             <div class="toggle-sidebar"> <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i></div>
           </div>
@@ -83,8 +83,8 @@
             {{-- <div class="welcome-content d-xl-block d-none"><span class="text-truncate col-12">Here’s what’s happening with your store today. </span></div> --}}
           </div>
           <div class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 pull-right right-header p-0 ms-auto">
-            <ul class="nav-menus"> 
-              <li class="d-md-block d-none"> 
+            <ul class="nav-menus">
+              <li class="d-md-block d-none">
                 <div class="form search-form mb-0">
                   <div class="input-group"><span class="input-icon">
                       <svg>
@@ -93,9 +93,9 @@
                       <input class="w-100" type="search" placeholder="Search"></span></div>
                 </div>
               </li>
-              <li class="d-md-none d-block"> 
+              <li class="d-md-none d-block">
                 <div class="form search-form mb-0">
-                  <div class="input-group"> <span class="input-show"> 
+                  <div class="input-group"> <span class="input-show">
                       <svg id="searchIcon">
                         <use href="svg/icon-sprite.svg#search-header"></use>
                       </svg>
@@ -150,19 +150,19 @@
                   </div>
                 </div>
               </li>
-              <li> 
+              <li>
                 <div class="mode"><i class="moon" data-feather="moon"> </i></div>
               </li>
               <li class="onhover-dropdown notification-down">
-                <div class="notification-box"> 
-                  <svg> 
+                <div class="notification-box">
+                  <svg>
                     <use href="svg/icon-sprite.svg#notification-header"></use>
                   </svg><span class="badge rounded-pill badge-secondary">4 </span>
                 </div>
-                <div class="onhover-show-div notification-dropdown"> 
-                  <div class="card mb-0"> 
+                <div class="onhover-show-div notification-dropdown">
+                  <div class="card mb-0">
                     <div class="card-header">
-                      <div class="common-space"> 
+                      <div class="common-space">
                         <h4 class="text-start f-w-600">Notitications</h4>
                         <div><span>4 New</span></div>
                       </div>
@@ -178,13 +178,13 @@
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
                           <div class="tab-pane fade show active" id="pills-aboutus" role="tabpanel" aria-labelledby="pills-aboutus-tab">
-                            <div class="user-message"> 
+                            <div class="user-message">
                               <div class="cart-dropdown notification-all">
                                 <ul>
                                   <li class="pr-0 pl-0 pb-3 pt-3">
                                     <div class="media"><img class="img-fluid b-r-5 me-3 img-60" src="{{ asset('admin/images/receiver-img.jpg')}}" alt="">
                                       <div class="media-body"><a class="f-light f-w-500" href="../template/product.html">Men Blue T-Shirt</a>
-                                        <div class="qty-box"> 
+                                        <div class="qty-box">
                                           <div class="input-group"> <span class="input-group-prepend">
                                               <button class="btn quantity-left-minus" type="button" data-type="minus" data-field="">- </button></span>
                                             <input class="form-control input-number" type="text" name="quantity" value="1"><span class="input-group-prepend">
@@ -198,14 +198,14 @@
                                   </li>
                                 </ul>
                               </div>
-                              <ul> 
+                              <ul>
                                 <li>
                                   <div class="user-alerts"><img class="user-image rounded-circle img-fluid me-2" src="{{ asset('admin/images/5.jpg')}}" alt="user"/>
                                     <div class="user-name">
-                                      <div> 
+                                      <div>
                                         <h6><a class="f-w-500 f-14" href="../template/user-profile.html">Floyd Miles</a></h6><span class="f-light f-w-500 f-12">Sir, Can i remove part in des...</span>
                                       </div>
-                                      <div> 
+                                      <div>
                                         <svg>
                                           <use href="{{ asset('admin/svg/icon-sprite.svg')}}#more-vertical"></use>
                                         </svg>
@@ -216,10 +216,10 @@
                                 <li>
                                   <div class="user-alerts"><img class="user-image rounded-circle img-fluid me-2" src="{{ asset('admin/images/6.jpg')}}" alt="user"/>
                                     <div class="user-name">
-                                      <div> 
+                                      <div>
                                         <h6><a class="f-w-500 f-14" href="../template/user-profile.html">Dianne Russell</a></h6><span class="f-light f-w-500 f-12">So, what is my next work ?</span>
                                       </div>
-                                      <div> 
+                                      <div>
                                         <svg>
                                           <use href="{{ asset('admin/svg/icon-sprite.svg')}}#more-vertical"></use>
                                         </svg>
@@ -231,8 +231,8 @@
                             </div>
                           </div>
                           <div class="tab-pane fade" id="pills-blog" role="tabpanel" aria-labelledby="pills-blog-tab">
-                            <div class="notification-card"> 
-                              <ul> 
+                            <div class="notification-card">
+                              <ul>
                                 <li class="notification d-flex w-100 justify-content-between align-items-center">
                                   <div class="d-flex w-100 notification-data justify-content-center align-items-center gap-2">
                                     <div class="user-alerts flex-shrink-0"><img class="rounded-circle img-fluid img-40" src="{{ asset('admin/images/3.jpg')}}" alt="user"/></div>
@@ -281,7 +281,7 @@
                             </div>
                           </div>
                           <div class="tab-pane fade" id="pills-contactus" role="tabpanel" aria-labelledby="pills-contactus-tab">
-                            <div class="cart-dropdown mt-4"> 
+                            <div class="cart-dropdown mt-4">
                               <ul>
                                 <li class="pr-0 pl-0 pb-3">
                                   <div class="media"><img class="img-fluid b-r-5 me-3 img-60" src="{{ asset('admin/images/cart-img.jpg')}}" alt="">
@@ -301,7 +301,7 @@
                                 <li class="pr-0 pl-0 pb-3 pt-3">
                                   <div class="media"><img class="img-fluid b-r-5 me-3 img-60" src="{{ asset('admin/images/receiver-img.jpg')}}" alt="">
                                     <div class="media-body"><a class="f-light f-w-500" href="../template/product.html">Men Cotton Blend Blue T-Shirt</a>
-                                      <div class="qty-box"> 
+                                      <div class="qty-box">
                                         <div class="input-group"> <span class="input-group-prepend">
                                             <button class="btn quantity-left-minus" type="button" data-type="minus" data-field="">- </button></span>
                                           <input class="form-control input-number" type="text" name="quantity" value="1"><span class="input-group-prepend">
@@ -319,7 +319,7 @@
                               </ul>
                             </div>
                           </div>
-                          <div class="card-footer pb-0 pr-0 pl-0"> 
+                          <div class="card-footer pb-0 pr-0 pl-0">
                             <div class="text-center"> <a class="f-w-700" href="private-chat.html">
                                 <button class="btn btn-primary" type="button" title="btn btn-primary">Check all</button></a></div>
                           </div>
@@ -329,7 +329,7 @@
                   </div>
                 </div>
               </li>
-              <li class="profile-nav onhover-dropdown"> 
+              <li class="profile-nav onhover-dropdown">
                 <div class="media profile-media"><img class="b-r-10" src="{{ asset('admin/images/profile.png')}}" alt="">
                   <div class="media-body d-xxl-block d-none box-col-none">
                     <div class="d-flex align-items-center gap-2"> <span>Alex Mora </span><i class="middle fa fa-angle-down"> </i></div>
@@ -351,11 +351,11 @@
             </ul>
           </div>
           <script class="result-template" type="text/x-handlebars-template">
-            <div class="ProfileCard u-cf">                        
+            <div class="ProfileCard u-cf">
             <div class="ProfileCard-avatar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay m-0"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg></div>
-            <div class="ProfileCard-details"> 
+            <div class="ProfileCard-details">
             <div class="ProfileCard-realName">{{Auth::user()->name }}</div>
-            </div> 
+            </div>
             </div>
           </script>
           <script class="empty-template" type="text/x-handlebars-template"><div class="EmptyMessage">Your search turned up 0 results. This most likely means the backend is down, yikes!</div></script>
@@ -379,7 +379,7 @@
                   <div class="mobile-back text-end"> <span>Back </span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
                 </li>
                 <li class="pin-title sidebar-main-title">
-                  <div> 
+                  <div>
                     <h6>Pinned</h6>
                   </div>
                 </li>
@@ -394,7 +394,7 @@
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-home"></use>
-                    </svg><span class="lan-3">Dashboards</span>
+                    </svg><span class="lan-3">Dashboard</span>
                     {{-- <div class="according-menu"><i class="fa fa-angle-right"></i></div> --}}
                     </a>
                   {{-- <ul class="sidebar-submenu" style="display: none;">
@@ -404,7 +404,7 @@
                   </ul> --}}
                 </li>
                 {{-- <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
-                    <svg class="stroke-icon"> 
+                    <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-widget"></use>
                     </svg>
                     <svg class="fill-icon">
@@ -429,7 +429,7 @@
                     <li> <a href="hide-on-scroll.html">Hide Nav Scroll</a></li>
                   </ul>
                 </li> --}}
-     
+
                 @if(Auth::user()->role =='User')
                  <li class="sidebar-main-title">
                   <div>
@@ -485,109 +485,28 @@
                     <li><a href="{{ url('/roles') }}">Roles</a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{ url('/policestation') }}">
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-file"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-file"></use>
-                    </svg><span>File manager</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="kanban.html">
-                    <svg class="stroke-icon">
-                      <use href="svg/icon-sprite.svg#stroke-board"></use>
-                    </svg>
-                    <svg class="fill-icon">
-                      <use href="svg/icon-sprite.svg#fill-board"></use>
-                    </svg><span>kanban Board</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
-                    <svg class="stroke-icon">
-                      <use href="svg/icon-sprite.svg#stroke-ecommerce"></use>
-                    </svg>
-                    <svg class="fill-icon">
-                      <use href="svg/icon-sprite.svg#fill-ecommerce"></use>
-                    </svg><span>Ecommerce</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
-                  <ul class="sidebar-submenu" style="display: none;">
-                    <li> <a href="add-products.html">Add Products</a></li>
-                    <li><a href="product.html">Product</a></li>
-                    <li><a href="category.html">Category page</a></li>
-                    <li><a href="product-page.html">Product page</a></li>
-                    <li><a href="list-products.html">Product list</a></li>
-                    <li><a href="payment-details.html">Payment Details</a></li>
-                    <li><a href="order-history.html">Order History</a></li>
-                    <li><a class="submenu-title" href="#">Invoices<span class="sub-arrow"><i class="fa fa-angle-right"></i></span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
-                      <ul class="nav-sub-childmenu submenu-content" style="display: none;">
-                        <li><a href="invoice-1.html">Invoice-1</a></li>
-                        <li><a href="invoice-2.html">Invoice-2</a></li>
-                        <li><a href="invoice-3.html">Invoice-3</a></li>
-                        <li><a href="invoice-4.html">Invoice-4</a></li>
-                        <li><a href="invoice-5.html">Invoice-5</a></li>
-                        <li><a href="invoice-template.html">Invoice-6</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="cart.html">Cart</a></li>
-                    <li><a href="list-wish.html">Wishlist</a></li>
-                    <li><a href="checkout.html">Checkout</a></li>
-                    <li><a href="pricing.html">Pricing      </a></li>
-                  </ul>
-                </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="letter-box.html">
-                    <svg class="stroke-icon">
-                      <use href="svg/icon-sprite.svg#stroke-email"></use>
-                    </svg>
-                    <svg class="fill-icon">
-                      <use href="svg/icon-sprite.svg#fill-email"></use>
-                    </svg><span>Letter Box   </span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
-                  <ul class="sidebar-submenu" style="display: none;">
-                    <li><a href="email-application.html">Email App</a></li>
-                    <li><a href="email-compose.html">Email Compose</a></li>
-                  </ul>
-                </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
-                    <svg class="stroke-icon">
-                      <use href="svg/icon-sprite.svg#stroke-chat"></use>
-                    </svg>
-                    <svg class="fill-icon">
-                      <use href="svg/icon-sprite.svg#fill-chat"></use>
-                    </svg><span>Chat</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
-                  <ul class="sidebar-submenu" style="display: none;">
-                    <li><a href="private-chat.html">Private Chat</a></li>
-                    <li> <a href="group-chat.html">Group Chat</a></li>
-                  </ul>
-                </li>
-                <li class="sidebar-list"> <i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title" href="#">
-                    <svg class="stroke-icon"> 
-                      <use href="svg/icon-sprite.svg#stroke-user"></use>
-                    </svg>
-                    <svg class="fill-icon">
-                      <use href="svg/icon-sprite.svg#fill-user"></use>
-                    </svg><span>Users</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
-                  <ul class="sidebar-submenu" style="display: none;">
-                    <li><a href="user-profile.html">Users Profile</a></li>
-                    <li><a href="edit-profile.html">Users Edit</a></li>
-                    <li><a href="user-cards.html">Users Cards</a></li>
-                  </ul>
-                </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="bookmark.html">
-                    <svg class="stroke-icon">
-                      <use href="svg/icon-sprite.svg#stroke-bookmark"></use>
-                    </svg>
-                    <svg class="fill-icon">
-                      <use href="svg/icon-sprite.svg#fill-bookmark"> </use>
-                    </svg><span>Bookmarks</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="contacts.html">
-                    <svg class="stroke-icon">
-                      <use href="svg/icon-sprite.svg#stroke-contact"></use>
-                    </svg>
-                    <svg class="fill-icon">
-                      <use href="svg/icon-sprite.svg#fill-contact"> </use>
-                    </svg><span>Contacts</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="task.html">
-                    <svg class="stroke-icon">
-                      <use href="svg/icon-sprite.svg#stroke-task"></use>
-                    </svg>
-                    <svg class="fill-icon">
-                      <use href="svg/icon-sprite.svg#fill-task"> </use>
-                    </svg><span>Tasks</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
+                    </svg><span>Police Station</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{ url('/panchayat') }}">
+                        <svg class="stroke-icon">
+                          <use href="svg/icon-sprite.svg#stroke-file"></use>
+                        </svg>
+                        <svg class="fill-icon">
+                          <use href="svg/icon-sprite.svg#fill-file"></use>
+                        </svg><span>Panchayat</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{ url('/orders') }}">
+                        <svg class="stroke-icon">
+                          <use href="svg/icon-sprite.svg#stroke-file"></use>
+                        </svg>
+                        <svg class="fill-icon">
+                          <use href="svg/icon-sprite.svg#fill-file"></use>
+                        </svg><span>Orders</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
+               
                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="calendar-basic.html">
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-calendar"></use>
@@ -616,13 +535,13 @@
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-search"> </use>
                     </svg><span>Search Result</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-main-title"> 
+                <li class="sidebar-main-title">
                   <div>
                     <h6>Forms &amp; Table</h6>
                   </div>
                 </li>
                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
-                    <svg class="stroke-icon"> 
+                    <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-form"></use>
                     </svg>
                     <svg class="fill-icon">
@@ -1005,7 +924,7 @@
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-editors"></use>
                     </svg><span>Editors</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
-                  <ul class="sidebar-submenu" style="display: none;"> 
+                  <ul class="sidebar-submenu" style="display: none;">
                     <li><a href="quilleditor.html">Quill editor</a></li>
                     <li><a href="ace-code-editor.html">ACE code editor  </a></li>
                   </ul>
@@ -1024,7 +943,7 @@
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-support-tickets"></use>
                     </svg><span>Support Ticket</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-             
+
               @endif
               </div>
             </div>
@@ -1052,7 +971,7 @@
       </div>
     </div>
     <!-- latest jquery-->
-   
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Bootstrap js-->
     <script src="{{ asset('admin/js/bootstrap.bundle.min.js') }}"></script>
@@ -1070,8 +989,8 @@
     <script src="{{ asset('admin/js/slick.min.js') }}"></script>
     <script src="{{ asset('admin/js/slick.js') }}"></script>
     <script src="{{ asset('admin/js/header-slick.js') }}"></script>
-    
-  
+
+
     <script src="{{ asset('admin/js/facePrint.js') }}"></script>
     <script src="{{ asset('admin/js/testHelper.js') }}"></script>
     <script src="{{ asset('admin/js/custom-transition-texture.js') }}"></script>
@@ -1109,16 +1028,20 @@
 
     <script src="{{ asset('admin/js/tooltip-init.js') }}"></script>
       <script >
-   
+
       $(document).ready(function () {
        // alert("kk");
-       
+
             $("#keytable").DataTable();
-       
+
       });
+
+      $(".close").click(function(){
+        $(".alert").hide();
+      })
     </script>
     <!-- Plugins JS Ends-->
-  
+
 
   </body>
 </html>
