@@ -90,7 +90,7 @@
                       <svg>
                         <use href="svg/icon-sprite.svg#search-header"></use>
                       </svg>
-                      <input class="w-100" type="search" placeholder="Search"></span></div>
+                      <input class="w-100" type="search" placeholder="Search" hidden></span></div>
                 </div>
               </li>
               <li class="d-md-none d-block">
@@ -104,7 +104,7 @@
                       </div></span></div>
                 </div>
               </li>
-              <li class="onhover-dropdown">
+              <li class="onhover-dropdown" hidden>
                 <svg>
                   <use href="svg/icon-sprite.svg#star"></use>
                 </svg>
@@ -150,10 +150,10 @@
                   </div>
                 </div>
               </li>
-              <li>
+              <li hidden>
                 <div class="mode"><i class="moon" data-feather="moon"> </i></div>
               </li>
-              <li class="onhover-dropdown notification-down">
+              <li class="onhover-dropdown notification-down" hidden>
                 <div class="notification-box">
                   <svg>
                     <use href="svg/icon-sprite.svg#notification-header"></use>
@@ -330,16 +330,16 @@
                 </div>
               </li>
               <li class="profile-nav onhover-dropdown">
-                <div class="media profile-media"><img class="b-r-10" src="{{ asset('admin/images/profile.png')}}" alt="">
+                <div class="media profile-media"><img class="b-r-10" src="{{ asset('admin/images/user.png')}}" alt="">
                   <div class="media-body d-xxl-block d-none box-col-none">
-                    <div class="d-flex align-items-center gap-2"> <span>Alex Mora </span><i class="middle fa fa-angle-down"> </i></div>
-                    <p class="mb-0 font-roboto">Admin</p>
+                    <div class="d-flex align-items-center gap-2"> <span>{{ Auth::user()->name }}</span><i class="middle fa fa-angle-down"> </i></div>
+                    {{-- <p class="mb-0 font-roboto">Admin</p> --}}
                   </div>
                 </div>
                 <ul class="profile-dropdown onhover-show-div">
-                  <li><a href="user-profile.html"><i data-feather="user"></i><span>My Profile</span></a></li>
-                  <li><a href="letter-box.html"><i data-feather="mail"></i><span>Inbox</span></a></li>
-                  <li> <a href="edit-profile.html"> <i data-feather="settings"></i><span>Settings</span></a></li>
+                  <li><a href="{{url('profile')}}"><i data-feather="user"></i><span>My Profile</span></a></li>
+                  {{-- <li><a href="letter-box.html"><i data-feather="mail"></i><span>Inbox</span></a></li>
+                  <li> <a href="edit-profile.html"> <i data-feather="settings"></i><span>Settings</span></a></li> --}}
                   <li><a class="btn btn-pill btn-outline-primary btn-sm"  href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">Log Out</a>
@@ -354,7 +354,7 @@
             <div class="ProfileCard u-cf">
             <div class="ProfileCard-avatar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay m-0"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg></div>
             <div class="ProfileCard-details">
-            <div class="ProfileCard-realName">{{Auth::user()->name }}</div>
+            <div class="ProfileCard-realName">{{ Auth::user()->name }}</div>
             </div>
             </div>
           </script>
@@ -506,41 +506,41 @@
                         <svg class="fill-icon">
                           <use href="svg/icon-sprite.svg#fill-file"></use>
                         </svg><span>Orders</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-               
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="calendar-basic.html">
+
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="calendar-basic.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-calendar"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-calender"></use>
                     </svg><span>Calendar</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="social-app.html">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="social-app.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-social"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-social"> </use>
                     </svg><span>Social App</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="to-do.html">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="to-do.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-to-do"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-to-do"> </use>
                     </svg><span>To-Do</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="search.html">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="search.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-search"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-search"> </use>
                     </svg><span>Search Result</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-main-title">
+                <li class="sidebar-main-title" hidden>
                   <div>
                     <h6>Forms &amp; Table</h6>
                   </div>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-form"></use>
                     </svg>
@@ -578,7 +578,7 @@
                     </li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title active" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title active" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-table"></use>
                     </svg>
@@ -604,12 +604,12 @@
                     <li><a href="jsgrid-table.html">Js Grid Table        </a></li>
                   </ul>
                 </li>
-                <li class="sidebar-main-title">
+                <li class="sidebar-main-title" hidden>
                   <div>
                     <h6>Components</h6>
                   </div>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-ui-kits"></use>
                     </svg>
@@ -633,7 +633,7 @@
                     <li><a href="list.html">Lists</a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-bonus-kit"></use>
                     </svg>
@@ -661,7 +661,7 @@
                     <li><a href="timeline-v-1.html">Timeline </a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-animation"></use>
                     </svg>
@@ -676,7 +676,7 @@
                     <li><a href="wow.html">Wow Animation</a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-icons"></use>
                     </svg>
@@ -692,7 +692,7 @@
                     <li><a href="whether-icon.html">Whether Icon</a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-button"></use>
                     </svg>
@@ -707,7 +707,7 @@
                     <li><a href="button-group.html">Button Group</a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-charts"></use>
                     </svg>
@@ -727,40 +727,40 @@
                     <li><a href="chart-peity.html">Peity Chart</a></li>
                   </ul>
                 </li>
-                <li class="sidebar-main-title">
+                <li class="sidebar-main-title" hidden>
                   <div>
                     <h6>Pages</h6>
                   </div>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="landing-page.html">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="landing-page.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-landing-page"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-landing-page"></use>
                     </svg><span>Landing page</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="sample-page.html">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="sample-page.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-sample-page"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-sample-page"></use>
                     </svg><span>Sample page</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="internationalization.html">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="internationalization.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-internationalization"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-internationalization"></use>
                     </svg><span>Internationalization</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="../starter-kit/index.html" target="_blank">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="../starter-kit/index.html" target="_blank" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-starter-kit"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-starter-kit"></use>
                     </svg><span>Starter kit</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="mega-menu sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="mega-menu sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-others"></use>
                     </svg>
@@ -839,12 +839,12 @@
                     </div>
                   </div>
                 </li>
-                <li class="sidebar-main-title">
+                <li class="sidebar-main-title" hidden>
                   <div>
                     <h6>Miscellaneous</h6>
                   </div>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-gallery"></use>
                     </svg>
@@ -859,7 +859,7 @@
                     <li><a href="gallery-hover.html">Hover Effects</a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-blog"></use>
                     </svg>
@@ -872,14 +872,14 @@
                     <li><a href="add-post.html">Add Post</a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="faq.html">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="faq.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-faq"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-faq"></use>
                     </svg><span>FAQ</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-job-search"></use>
                     </svg>
@@ -893,7 +893,7 @@
                     <li><a href="job-apply.html">Apply</a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-learning"></use>
                     </svg>
@@ -905,7 +905,7 @@
                     <li><a href="learning-detailed.html">Detailed Course</a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-maps"></use>
                     </svg>
@@ -917,7 +917,7 @@
                     <li><a href="vector-map.html">Vector Maps</a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-editors"></use>
                     </svg>
@@ -929,14 +929,14 @@
                     <li><a href="ace-code-editor.html">ACE code editor  </a></li>
                   </ul>
                 </li>
-                <li class="sidebar-list"> <i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="knowledgebase.html">
+                <li class="sidebar-list"> <i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="knowledgebase.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-knowledgebase"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-knowledgebase"></use>
                     </svg><span>Knowledgebase</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="support-ticket.html">
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="support-ticket.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-support-tickets"></use>
                     </svg>

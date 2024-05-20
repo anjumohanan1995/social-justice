@@ -37,6 +37,9 @@ Route::any('/district',[App\Http\Controllers\AdminController::class, 'district']
 Route::resource('users', UsersController::class);
 Route::get('users-management/users-list/get', [UsersController::class, 'getUsersList'])->name("get.users-list");
 
+//profile
+Route::get('/profile', [UsersController::class, 'profile'])->name('profile');
+
 Route::resource('roles', RoleController::class);
 Route::get('users-management/roles-list/get', [RoleController::class, 'getRoles'])->name("get.roles");
 Route::get('/roles/{id}/editPermission', [RoleController::class, 'editPermission'])->name('edit-rolePermission');
@@ -49,10 +52,14 @@ Route::get('case-register', [CaseController::class, 'caseRegister'])->name("case
 Route::post('case-register', [CaseController::class, 'storecaseRegister'])->name("case.store");
 Route::resource('cases', CaseController::class);
 Route::get('cases-list/get', [CaseController::class, 'getCaseList'])->name("get.cases-list");
+Route::get('/ViewCases/{id}',[CaseController::class, 'ViewCases'])->name('ViewCases');
 
 
 Route::get('rdo-cases', [RDOController::class, 'index'])->name("case.list");
 Route::get('rdo/cases-list/get', [RDOController::class, 'getCaseList'])->name("rdo.get.cases-list");
+Route::get('/ViewRdoCases/{id}',[RDOController::class, 'ViewRdoCases'])->name('ViewRdoCases');
+Route::post('/caseDataRdoApprove',[RDOController::class, 'caseDataRdoApprove'])->name('caseData.Rdo.approve');
+Route::post('/caseDataRdoReject',[RDOController::class, 'caseDataRdoReject'])->name('caseData.Rdo.reject');
 
 //police station
 

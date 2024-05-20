@@ -23,7 +23,7 @@ class CaseController extends Controller
     public function index()
     {
         return view("user.case-list");
-        
+
     }
 
     public function caseRegister()
@@ -33,7 +33,7 @@ class CaseController extends Controller
     }
 
 
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -42,7 +42,7 @@ class CaseController extends Controller
      */
     public function create()
     {
-       
+
     }
 
     /**
@@ -54,14 +54,14 @@ class CaseController extends Controller
     public function storecaseRegister(Request $request)
     {
         //dd( $request);
-        
+
 
         $validate = Validator::make($request->all(),
         [
           'opposition_name' => 'required',
           'case_details' => 'required' ,
           'opposition_address' => 'required',
-          'district_id' => 'required', 
+          'district_id' => 'required',
           'police_station' => 'required',
         ]);
         if ($validate->fails()) {
@@ -124,7 +124,7 @@ class CaseController extends Controller
         $update = CaseDetails::where('_id', $data->id)->update(['case_id' => $applicationNo]);
         return redirect()->back()->with('success','Case Added successfully.');
 
-   
+
     }
 
     /**
@@ -165,7 +165,7 @@ class CaseController extends Controller
           'opposition_name' => 'required',
           'case_details' => 'required' ,
           'opposition_address' => 'required',
-          'district_id' => 'required', 
+          'district_id' => 'required',
           'police_station' => 'required',
         ]);
         if ($validate->fails()) {
@@ -201,7 +201,7 @@ class CaseController extends Controller
 
     public function getCaseList(Request $request)
     {
-        
+
         ## Read value
         $draw = $request->get('draw');
         $start = $request->get("start");
@@ -234,7 +234,7 @@ class CaseController extends Controller
                 $items->where('opposition_name',$request->name);
             }
             $records = $items->skip($start)->take($rowperpage)->get();
-    
+
             $data_arr = array();
             $i=$start;
 
@@ -245,7 +245,7 @@ class CaseController extends Controller
                 $opposition_address =  $record->opposition_address;
                 $case_details  =  $record->case_details;
                 $case_id  =  $record->case_id;
-                $edit = '<a  href="' . url('cases/'.$id.'/edit') . '" class="btn btn-primary edit-btn">Edit</a>&nbsp;&nbsp;<button class="btn btn-danger delete-btn" data-id="'.$id.'">Delete</button>';
+                $edit = '<a  href="' . url('cases/'.$id.'/edit') . '" class="btn btn-primary edit-btn">Edit</a>&nbsp;&nbsp;<button class="btn btn-danger delete-btn" data-id="'.$id.'">Delete</button>&nbsp;&nbsp;<a  href="' . route('ViewCases', $id) . '" class="btn btn-primary edit-btn">view</a>';
 
                 $data_arr[] = array(
                     "id" => $i,
@@ -256,7 +256,7 @@ class CaseController extends Controller
                     "edit" => $edit
                 );
             }
-            
+
             $response = array(
             "draw" => intval($draw),
             "iTotalRecords" => $totalRecords,
@@ -267,7 +267,14 @@ class CaseController extends Controller
             return response()->json($response);
     }
 
-    
+    public function ViewCases($id)
+    {
+        $opposition = CaseDetails::find($id);
+        $opposition = CaseDetails::with('district', 'user')->findOrFail($id);
+        return view('user.case-view',compact('opposition'));
+    }
 
-    
+
+
+
 }

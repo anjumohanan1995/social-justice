@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
         'mobile' => '9865326592',
         'role' => 'Super Admin',
         'password' => Hash::make('12345678')
-        
+
     ]);
 }
 }

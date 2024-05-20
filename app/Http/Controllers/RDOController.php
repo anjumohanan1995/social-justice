@@ -23,13 +23,13 @@ class RDOController extends Controller
     public function index()
     {
         return view("rdo.case-list");
-        
+
     }
 
-    
 
 
-    
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +38,7 @@ class RDOController extends Controller
      */
     public function create()
     {
-       
+
     }
 
     /**
@@ -47,7 +47,7 @@ class RDOController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
+
 
     /**
      * Display the specified resource.
@@ -68,7 +68,7 @@ class RDOController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**
@@ -80,7 +80,7 @@ class RDOController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
     }
 
     /**
@@ -97,7 +97,7 @@ class RDOController extends Controller
 
     public function getCaseList(Request $request)
     {
-        
+
         ## Read value
         $draw = $request->get('draw');
         $start = $request->get("start");
@@ -124,7 +124,7 @@ class RDOController extends Controller
             // Fetch records
             $items = CaseDetails::where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder);
             $records = $items->skip($start)->take($rowperpage)->get();
-    
+
             $data_arr = array();
             $i=$start;
 
@@ -137,6 +137,8 @@ class RDOController extends Controller
                 $case_id  =  $record->case_id;
                 $edit = '';
 
+                $edit = '<a  href="' . route('ViewRdoCases', $id) . '" class="btn btn-primary edit-btn">view</a>';
+
                 $data_arr[] = array(
                     "id" => $i,
                     "opposition_name" => $opposition_name,
@@ -146,7 +148,7 @@ class RDOController extends Controller
                     "edit" => $edit
                 );
             }
-            
+
             $response = array(
             "draw" => intval($draw),
             "iTotalRecords" => $totalRecords,
@@ -157,7 +159,15 @@ class RDOController extends Controller
             return response()->json($response);
     }
 
-    
 
-    
+    public function ViewRdoCases($id)
+    {
+        $opposition = CaseDetails::find($id);
+        $opposition = CaseDetails::with('district', 'user')->findOrFail($id);
+        return view('rdo.rdo-case-view',compact('opposition'));
+    }
+
+
+
+
 }

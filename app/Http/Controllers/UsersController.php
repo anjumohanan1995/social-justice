@@ -43,7 +43,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        
+
 
         $validate = Validator::make($request->all(),
         [
@@ -52,7 +52,7 @@ class UsersController extends Controller
           'password' => 'required' ,
           'role' => 'required' ,
 
-      
+
         ]);
         if ($validate->fails()) {
             //dd($validate);
@@ -69,7 +69,7 @@ class UsersController extends Controller
 
         return redirect()->route('users.index')->with('success','User Added successfully.');
 
-   
+
     }
 
     /**
@@ -148,7 +148,7 @@ class UsersController extends Controller
 
     public function getUsersList(Request $request)
     {
-        
+
         ## Read value
         $draw = $request->get('draw');
         $start = $request->get("start");
@@ -175,7 +175,7 @@ class UsersController extends Controller
             // Fetch records
             $items = User::where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder);
             $records = $items->skip($start)->take($rowperpage)->get();
-    
+
             $data_arr = array();
             $i=$start;
 
@@ -195,7 +195,7 @@ class UsersController extends Controller
                     "edit" => $edit
                 );
             }
-            
+
             $response = array(
             "draw" => intval($draw),
             "iTotalRecords" => $totalRecords,
@@ -221,7 +221,7 @@ class UsersController extends Controller
                 'password' => 'required',
                 'confirm_password' => 'required|same:password',
             ]
-           
+
         );
         if ($validator->fails()) {
             // Captcha validation failed
@@ -234,7 +234,7 @@ class UsersController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => @$data['email'],
-          
+
             'password' => Hash::make($data['password']),
             'pincode' => $data['pincode'],
             'phone' => $data['phone'],
@@ -249,5 +249,11 @@ class UsersController extends Controller
 
     }
 
-    
+    public function profile()
+    {
+        $user = User::where('_id', auth()->user()->id)->where('deleted_at', null)->first();
+        return view('profile.view_profile', compact('user'));
+    }
+
+
 }
