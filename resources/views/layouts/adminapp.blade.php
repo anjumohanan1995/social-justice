@@ -467,6 +467,19 @@
                   </ul>
                 </li>
 
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="svg/icon-sprite.svg#stroke-project"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="svg/icon-sprite.svg#fill-project"></use>
+                    </svg><span>Orders         </span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
+                  <ul class="sidebar-submenu" style="display: none;">
+                    <li><a href="{{ url('/rdo-orders') }}">All Orders</a></li>
+                    {{-- <li><a href="{{ url('/cases') }}">Case List</a></li> --}}
+                  </ul>
+                </li>
+
                 @else
                 <li class="sidebar-main-title">
                   <div>
@@ -1028,6 +1041,8 @@
 
     <script src="{{ asset('admin/js/tooltip-init.js') }}"></script>
       <script >
+
+
 
       $(document).ready(function () {
        // alert("kk");

@@ -61,6 +61,10 @@ Route::get('/ViewRdoCases/{id}',[RDOController::class, 'ViewRdoCases'])->name('V
 Route::post('/caseDataRdoApprove',[RDOController::class, 'caseDataRdoApprove'])->name('caseData.Rdo.approve');
 Route::post('/caseDataRdoReject',[RDOController::class, 'caseDataRdoReject'])->name('caseData.Rdo.reject');
 
+Route::get('rdo-orders', [RDOController::class, 'rdoOders'])->name("orders.list");
+Route::get('rdo/orders-list/get', [RDOController::class, 'getOrderList'])->name("rdo.get.orders-list");
+Route::get('/ViewRdoOrders/{id}',[RDOController::class, 'ViewRdoOrders'])->name('ViewRdoOrders');
+
 //police station
 
 Route::get('/policestation',[PoliceStationController::class,'index'])->name('policestation');

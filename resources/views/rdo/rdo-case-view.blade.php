@@ -77,146 +77,172 @@
                         }
                     </style>
 
-                    <div class="container">
-                        <div class="form-container">
-                            <h2 class="form-title">Case ID: {{ @$opposition->case_id }}</h2>
-                            <div class="row form-section">
-                                <div class="col-md-4">
-                                    <h5>Beneficiary</h5>
-                                    <div class="mb-3">
-                                        <label for="beneficiaryName" class="form-label">Name:</label>
-                                        <p class="form-data">{{ @$opposition->user->name }}</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="beneficiaryAddress" class="form-label">Address:</label>
-                                        <p class="form-data">{{ @$opposition->user->address }}</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="beneficiaryDistrict" class="form-label">District:</label>
-                                        <p class="form-data">{{ @$opposition->user->district->name }}</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="beneficiaryPincode" class="form-label">Pincode:</label>
-                                        <p class="form-data">{{ @$opposition->user->pincode }}</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="beneficiaryPhone" class="form-label">Phone Number:</label>
-                                        <p class="form-data">{{ @$opposition->user->phone }}</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="beneficiaryEmail" class="form-label">Email:</label>
-                                        <p class="form-data">{{ @$opposition->user->email }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <h5>Opposition</h5>
-                                    <div class="mb-3">
-                                        <label for="oppositionName" class="form-label">Name:</label>
-                                        <p class="form-data">{{ @$opposition->opposition_name }}</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="oppositionAddress" class="form-label">Address:</label>
-                                        <p class="form-data">{{ @$opposition->opposition_address }}</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="oppositionDistrict" class="form-label">District:</label>
-                                        <p class="form-data">{{ @$opposition->district->name }}</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="oppositionPincode" class="form-label">Pincode:</label>
-                                        <p class="form-data">{{ @$opposition->pincode }}</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="oppositionPhone" class="form-label">Phone Number:</label>
-                                        <p class="form-data">{{ @$opposition->opp_phone }}</p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="oppositionEmail" class="form-label">Email:</label>
-                                        <p class="form-data">test@gmail.com</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <button id="submitButton" class="btn btn-primary">File for Appeal</button>
-                                        </div><br><br><br><br><br>
-                                        <div class="mb-3">
-                                            <label for="executionPetition" class="form-label">Execution Petition:</label>
-                                            <input type="file" class="form-control" id="executionPetition" name="executionPetition">
-                                        </div>
+<div class="container">
+    <div class="form-container">
+        <h2 class="form-title">Case ID: {{ @$opposition->case_id }}</h2>
+        <div class="row form-section">
+            <div class="col-md-4">
+                <h5 style="font-weight: bold; text-decoration: underline;">Beneficiary</h5>
+                <div class="mb-3">
+                    <label for="beneficiaryName" class="form-label">Name:</label>
+                    <p class="form-data">{{ @$opposition->user->name }}</p>
+                </div>
+                <div class="mb-3">
+                    <label for="beneficiaryAddress" class="form-label">Address:</label>
+                    <p class="form-data">{{ @$opposition->user->address }}</p>
+                </div>
+                <div class="mb-3">
+                    <label for="beneficiaryDistrict" class="form-label">District:</label>
+                    <p class="form-data">{{ @$opposition->user->district->name }}</p>
+                </div>
+                <div class="mb-3">
+                    <label for="beneficiaryPincode" class="form-label">Pincode:</label>
+                    <p class="form-data">{{ @$opposition->user->pincode }}</p>
+                </div>
+                <div class="mb-3">
+                    <label for="beneficiaryPhone" class="form-label">Phone Number:</label>
+                    <p class="form-data">{{ @$opposition->user->phone }}</p>
+                </div>
+                <div class="mb-3">
+                    <label for="beneficiaryEmail" class="form-label">Email:</label>
+                    <p class="form-data">{{ @$opposition->user->email }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h5 style="font-weight: bold; text-decoration: underline;">Opposition</h5>
+                <div class="mb-3">
+                    <label for="oppositionName" class="form-label">Name:</label>
+                    <p class="form-data">{{ @$opposition->opposition_name }}</p>
+                </div>
+                <div class="mb-3">
+                    <label for="oppositionAddress" class="form-label">Address:</label>
+                    <p class="form-data">{{ @$opposition->opposition_address }}</p>
+                </div>
+                <div class="mb-3">
+                    <label for="oppositionDistrict" class="form-label">District:</label>
+                    <p class="form-data">{{ @$opposition->district->name }}</p>
+                </div>
+                <div class="mb-3">
+                    <label for="oppositionPincode" class="form-label">Pincode:</label>
+                    <p class="form-data">{{ @$opposition->pincode }}</p>
+                </div>
+                <div class="mb-3">
+                    <label for="oppositionPhone" class="form-label">Phone Number:</label>
+                    <p class="form-data">{{ @$opposition->opp_phone }}</p>
+                </div>
+                <div class="mb-3">
+                    <label for="oppositionEmail" class="form-label">Email:</label>
+                    <p class="form-data">test@gmail.com</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h5 style="font-weight: bold; text-decoration: underline;">Stakeholder</h5>
+            </div>
 
-                                </div>
 
-                                <div class="settings-icon">
-                                    <a class="approveItem"  data-id="{{ @$opposition->id }}"><i class="fa fa-check bg-success me-1"></i></a>
-                                    &nbsp;&nbsp;  <a class="rejectItem" data-id="{{ @$opposition->id }}"><i class="fa fa-ban bg-danger "></i></a>
-                                 </div>
+        </div>
 
-                            </div>
-                        </div>
+        <div class="d-flex justify-content-center">
+            <button class="uploadItem btn btn-success" id="myBtn">Approve</button>&nbsp;&nbsp;&nbsp;
+            <button class="rejectItem btn btn-danger" data-id="{{ @$opposition->id }}">Reject</button>
+        </div>
+
+
+    </div>
+
+
+</div>
+{{-- submit modal --}}
+<div class="modal fade" id="upload-popup" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Upload the Order</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="uploadOrderForm">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="orderType" class="form-label">Order Type:</label>
+                        <select id="orderType" class="form-select" name="orderType">
+                            <option value="maintanence">Order for maintenance - Pay</option>
+                            <option value="protection">Protection</option>
+                            <option value="property">Property</option>
+                        </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="orderFile" class="form-label">Upload File:</label>
+                        <input type="file" id="orderFile" name="orderFile" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="approveItem btn btn-success" data-id="{{ @$opposition->id }}">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <div class="modal fade" id="approve-popup" style="display: none">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                           <div class="modal-content country-select-modal border-0">
-                              <div class="modal-header offcanvas-header">
-                                 <h6 class="modal-title">Are you sure?</h6>
-                                 <button aria-label="Close"
-                                    class="btn-close" data-bs-dismiss="modal" type="button"><span
-                                    aria-hidden="true">×</span></button>
-                              </div>
-                              <div class="modal-body p-5">
-                                 <div class="text-center">
-                                    <h4>Are you sure to Approve this Application?</h4>
-                                 </div>
-                                 <form id="ownForm">
-                                    @csrf
-                                    <div class="text-center">
-                                       <h5>Reason for Approve</h5>
-                                       <textarea class="form-control" name="approve_reason" id="approve_reason" requred></textarea>
-                                       <span id="rejection"></span>
-                                    </div>
-                                    <input type="hidden" id="requestId" name="requestId" value="" />
-                                    <div class="text-center">
-                                       <button type="button" onclick="approve()"
-                                          class="btn btn-primary mt-4 mb-0 me-2">Yes</button>
-                                       <button class="btn btn-default mt-4 mb-0" data-bs-dismiss="modal"
-                                          type="button">No</button>
-                                    </div>
-                                 </form>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="modal fade" id="rejection-popup">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                           <div class="modal-content country-select-modal border-0">
-                              <div class="modal-header offcanvas-header">
-                                 <h6 class="modal-title">Are you sure to reject this Application?</h6>
-                                 <button
-                                    aria-label="Close" class="btn-close" data-bs-dismiss="modal"
-                                    type="button"><span aria-hidden="true">×</span></button>
-                              </div>
-                              <div class="modal-body p-5">
-                                 <form id="ownForm">
-                                    @csrf
-                                    <div class="text-center">
-                                       <h5>Reason for Reject</h5>
-                                       <textarea class="form-control" name="reason" id="reason" requred></textarea>
-                                       <span id="rejection"></span>
-                                    </div>
-                                    <input type="hidden" id="requestId2" name="requestId2"
-                                       value="" />
-                                    <div class="text-center">
-                                       <button type="button" onclick="reject()"
-                                          class="btn btn-primary mt-4 mb-0 me-2">Yes</button>
-                                       <button class="btn btn-default mt-4 mb-0" data-bs-dismiss="modal"
-                                          type="button">No</button>
-                                    </div>
-                                 </form>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
+
+
+
+<!-- Approve Modal -->
+<div class="modal fade" id="approve-popup" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Are you sure?</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <h4>Are you sure to Approve this Application?</h4>
+                </div>
+                <form id="approveForm">
+                    @csrf
+                    <div class="text-center">
+                        <h5>Reason for Approval</h5>
+                        <textarea class="form-control" name="approve_reason" id="approve_reason" required></textarea>
+                        <span id="approval-error"></span>
+                    </div>
+                    <input type="hidden" id="requestId" name="requestId" value="" />
+                    <div class="text-center">
+                        <button type="button" onclick="approve()" class="btn btn-primary mt-4 mb-0 me-2">Yes</button>
+                        <button type="button" class="btn btn-default mt-4 mb-0" data-bs-dismiss="modal">No</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reject Modal -->
+<div class="modal fade" id="rejection-popup" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Are you sure to reject this Application?</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="rejectForm">
+                    @csrf
+                    <div class="text-center">
+                        <h5>Reason for Rejection</h5>
+                        <textarea class="form-control" name="reason" id="reason" required></textarea>
+                        <span id="rejection-error"></span>
+                    </div>
+                    <input type="hidden" id="requestId2" name="requestId2" value="" />
+                    <div class="text-center">
+                        <button type="button" onclick="reject()" class="btn btn-primary mt-4 mb-0 me-2">Yes</button>
+                        <button type="button" class="btn btn-default mt-4 mb-0" data-bs-dismiss="modal">No</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -229,87 +255,95 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        $(document).on("click", ".approveItem", function() {
-            var id =$(this).attr('data-id');
-                $('#requestId').val($(this).attr('data-id') );
-                $('#approve-popup').modal('show');
-
-
-                });
-         $(document).on("click", ".rejectItem", function() {
-                    $('#requestId2').val($(this).attr('data-id') );
-                $('#rejection-popup').modal('show');
-                });
-            function approve() {
-                 var reason = $('#approve_reason').val();
-                var reqId = $('#requestId').val();
-
-            $.ajax({
-                        url: "{{ route('caseData.Rdo.approve') }}",
-                        type: "POST",
-                        data: {
-                            "id": reqId,
-                            "reason" :reason,
-                            "_token": "{{ csrf_token() }}"
-                        },
-                        success: function(response) {
-                            toastr.success(response.success, 'Success!')
-                            $('#success').show();
-                            $('#approve-popup').modal('hide');
-                            $('#success_message').fadeIn().html(response.success);
-                            setTimeout(function() {
-                                $('#success_message').fadeOut("slow");
-                            }, 2000);
-
-                            setTimeout(function() {
-        window.location.reload();
-        }, 2000);
-
-                        }
-                    });
-        }
-        function reject() {
-                var reason = $('#reason').val();
-
-                if($('#reason').val() == ""){
-                    rejection.innerHTML = "<span style='color: red;'>"+"Please enter the reason for Reject</span>";
-                }
-                else{
-                    rejection.innerHTML ="";
-                    var reqId = $('#requestId2').val();
-                console.log(reqId);
-                $.ajax({
-
-                    url: "{{ route('caseData.Rdo.reject') }}",
-                    type: "POST",
-                        data: {
-                            "id": reqId,
-                            "reason" :reason,
-                            "_token": "{{ csrf_token() }}"
-                        },
-                    success: function(response) {
-                        console.log(response.success);
-                        toastr.success(response.success, 'Success!')
-                            $('#rejection-popup').modal('hide');
-                            $('#success_message').fadeIn().html(response.success);
-                                setTimeout(function() {
-                                    $('#success_message').fadeOut("slow");
-                                }, 2000 );
-
-                                setTimeout(function() {
-        window.location.reload();
-        }, 2000);
-
-                    }
-                })
-
-                }
-             }
-
-
-     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(document).on("click", ".uploadItem", function() {
+                console.log("Upload button clicked");
+                $('#upload-popup').modal('show');
+            });
+
+            $(document).on("click", ".approveItem", function() {
+                console.log("Approve button clicked");
+                var id = $(this).attr('data-id');
+                $('#requestId').val(id);
+                $('#approve-popup').modal('show');
+            });
+
+            $(document).on("click", ".rejectItem", function() {
+                console.log("Reject button clicked");
+                var id = $(this).attr('data-id');
+                $('#requestId2').val(id);
+                $('#rejection-popup').modal('show');
+            });
+        });
+
+        function approve() {
+            var reason = $('#approve_reason').val();
+            var reqId = $('#requestId').val();
+            var ordertype = $('#orderType').val();
+            var orderfile = $('#orderFile').val();
+
+            $.ajax({
+                url: "{{ route('caseData.Rdo.approve') }}",
+                type: "POST",
+                data: {
+                    "id": reqId,
+                    "reason": reason,
+                    "ordertype": ordertype,
+                    "orderfile": orderfile,
+                    "_token": "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    toastr.success(response.success, 'Success!');
+                    $('#approve-popup').modal('hide');
+                    $('#success_message').fadeIn().html(response.success);
+                    setTimeout(function() {
+                        $('#success_message').fadeOut("slow");
+                    }, 2000);
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 2000);
+                }
+            });
+        }
+
+        function reject() {
+            var reason = $('#reason').val();
+            if (reason == "") {
+                $('#rejection-error').html("<span style='color: red;'>Please enter the reason for rejection</span>");
+            } else {
+                $('#rejection-error').html("");
+                var reqId = $('#requestId2').val();
+
+                $.ajax({
+                    url: "{{ route('caseData.Rdo.reject') }}",
+                    type: "POST",
+                    data: {
+                        "id": reqId,
+                        "reason": reason,
+                        "_token": "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        toastr.success(response.success, 'Success!');
+                        $('#rejection-popup').modal('hide');
+                        $('#success_message').fadeIn().html(response.success);
+                        setTimeout(function() {
+                            $('#success_message').fadeOut("slow");
+                        }, 2000);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000);
+                    }
+                });
+            }
+        }
+    </script>
+
+
+
+
 @endsection

@@ -16,7 +16,11 @@ class CaseDetails extends Eloquent
     // protected $guarded = [];
     protected $fillable = [
         'opposition_name',
-        'district_id','police_station_id','opposition_address','pincode','opp_phone','case_details','case_id','status','user_id'
+        'district_id','police_station_id','opposition_address','pincode','opp_phone','case_details','case_id','status','user_id',
+        'Rdo_status',
+        'Rdo_status_date',
+        'Rdo_status_id',
+        'Rdo_status_reason'
 
     ];
 
