@@ -8,7 +8,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h4>No Permission</h4>
+                        <h4>Access Denied!</h4>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
@@ -19,7 +19,7 @@
                                     </svg>
                                 </a>
                             </li>
-                            <li class="breadcrumb-item">No Permission</li>
+                            <li class="breadcrumb-item">Access Denied!</li>
                         </ol>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger text-center">
                         <strong>Access Denied!</strong> You do not have permission to access this page.
                     </div>
                 </div>
