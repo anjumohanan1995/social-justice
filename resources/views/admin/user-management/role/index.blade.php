@@ -1,5 +1,22 @@
 @extends('layouts.adminapp')
+@php
+use App\Models\RolePermission;
+    use Illuminate\Support\Facades\Auth;
 
+    $user = Auth::user();
+    $role = $user->role;
+
+    // Fetch the permissions for the current user's role
+    $permission = RolePermission::where('role', $role)->first();
+
+    // Ensure the permissions are decoded only if they are not already arrays
+    $permissions = $permission && is_string($permission->permission) ? json_decode($permission->permission, true) : ($permission->permission ?? []);
+    $sub_permissions = $permission && is_string($permission->sub_permissions) ? json_decode($permission->sub_permissions, true) : ($permission->sub_permissions ?? []);
+    $hasEditPermissionPermission = in_array('edit-permission', $sub_permissions) || $user->role == 'Admin';
+    $hasAddRolePermission = in_array('add-role', $sub_permissions) || $user->role == 'Admin';
+    $hasEditRolePermission = in_array('edit-role', $sub_permissions) || $user->role == 'Admin';
+    $hasDeleteRolePermission = in_array('delete-role', $sub_permissions) || $user->role == 'Admin';
+@endphp
 @section('content')
     <div class="page-body">
         <div class="container-fluid">
@@ -27,12 +44,14 @@
                                     All Roles
                                 </h4>
                                 <div class="col-md-1 col-6 text-center">
+                                    @if ($hasAddRolePermission)
                                     <div class="task-box primary  mb-0">
                                         <a class="text-white" href="{{ route('roles.create') }}">
                                             <p class="mb-0 tx-12">Add </p>
                                             <h3 class="mb-0"><i class="fa fa-plus"></i></h3>
                                         </a>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="dt-ext table-responsive custom-scrollbar">
@@ -41,7 +60,10 @@
                                         <tr>
                                             <th>SL No</th>
                                             <th>NAME</th>
-                                            <th>ACTION</th>
+                                            @if ($hasEditRolePermission || $hasDeleteRolePermission)
+                                                <th>ACTION</th>
+                                            @endif
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -93,10 +115,10 @@
                                             </ul>
                                         </td>
                                     </tr> --}}
-                               
-                                       
+
+
                                     </tbody>
-                                  
+
                                 </table>
                             </div>
                             </div>
@@ -125,7 +147,7 @@
 			       	"url": "{{ route('get.roles') }}",
 			       	"data": function ( d ) {
 			        	return $.extend( {}, d, {
-				           
+
 			          	});
        				}
        			},
@@ -133,8 +155,10 @@
             columns: [
                 { data: 'id' },
                 { data: 'name' },
-              
+
+            @if ($hasEditRolePermission || $hasDeleteRolePermission)
                 { data: 'edit' }
+            @endif
 			],
             "order": [0, 'desc'],
             'ordering': true

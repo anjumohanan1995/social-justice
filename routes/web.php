@@ -34,19 +34,25 @@ Route::get('/home', [App\Http\Controllers\AdminController::class, 'index'])->nam
 
 Route::any('/district',[App\Http\Controllers\AdminController::class, 'district'])->name("district");
 
+Route::group(['middleware' => ['check.permission:user-management']], function () {
 Route::resource('users', UsersController::class);
 Route::get('users-management/users-list/get', [UsersController::class, 'getUsersList'])->name("get.users-list");
+});
 
 //profile
 Route::get('/profile', [UsersController::class, 'profile'])->name('profile');
 
+Route::group(['middleware' => ['check.permission:user-management']], function () {
 Route::resource('roles', RoleController::class);
 Route::get('users-management/roles-list/get', [RoleController::class, 'getRoles'])->name("get.roles");
-Route::get('/roles/{id}/editPermission', [RoleController::class, 'editPermission'])->name('edit-rolePermission');
-Route::post('/roles/addPermission/{id}', [RoleController::class, 'addPermission'])->name('roles.permission.store');
 Route::get('/user-registration', [UsersController::class, 'userRegistration']);
 Route::post('/user-store', [UsersController::class, 'userStore'])->name('userStore');
+});
 
+Route::group(['middleware' => ['check.permission:role-management']], function () {
+Route::get('/roles/{id}/editPermission', [RoleController::class, 'editPermission'])->name('edit-rolePermission');
+Route::post('/roles/addPermission/{id}', [RoleController::class, 'addPermission'])->name('roles.permission.store');
+});
 
 Route::get('case-register', [CaseController::class, 'caseRegister'])->name("case.register");
 Route::post('case-register', [CaseController::class, 'storecaseRegister'])->name("case.store");
@@ -62,7 +68,7 @@ Route::post('/caseDataRdoApprove',[RDOController::class, 'caseDataRdoApprove'])-
 Route::post('/caseDataRdoReject',[RDOController::class, 'caseDataRdoReject'])->name('caseData.Rdo.reject');
 
 //police station
-
+Route::group(['middleware' => ['check.permission:police-station-management']], function () {
 Route::get('/policestation',[PoliceStationController::class,'index'])->name('policestation');
 Route::post('/policestation',[PoliceStationController::class, 'store'])->name('policestation.store');
 Route::get('/policestation.create',[PoliceStationController::class, 'create'])->name('policestation.create');
@@ -71,7 +77,7 @@ Route::get('/policestation/{id}/edit',[PoliceStationController::class, 'edit']);
 Route::put('/policestation/{id}',[PoliceStationController::class, 'update'])->name('policestation.update');
 Route::delete('/policestation/{id}',[PoliceStationController::class,'destroy' ])->name('policestation/delete');
 //police station
-
+});
 //Panchayat
 
 Route::get('/panchayat',[PanchayatController::class,'index'])->name('panchayat.index');
@@ -93,3 +99,8 @@ Route::get('/orders',[OrdersController::class,'index'])->name('orders.index');
 Route::get('/orders-create',[OrdersController::class, 'create'])->name('orders.create');
 Route::post('/orders',[OrdersController::class, 'store'])->name('orders.store');
 Route::get('/orders-list',[OrdersController::class, 'getOrdersList'])->name('getOrdersList');
+
+
+Route::get('/no-permission', function () {
+    return view('/user/no-permission');
+});

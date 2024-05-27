@@ -24,18 +24,19 @@ class PermissionSeeder extends Seeder
     public function getPermissions()
     {
         return [
-            
+
             ['name' => 'user-management', 'sub_permission' => json_encode([
                 "users-list",
                 "add-user",
-                "edit-user"
-
+                "edit-user",
+                "delete-user"
                 ]
             )],
             ['name' => 'role-management', 'sub_permission' => json_encode([
                 "role-list",
                 "add-role",
-                "edit-role"
+                "edit-role",
+                "delete-role"
 
                 ]
             )],
@@ -43,11 +44,42 @@ class PermissionSeeder extends Seeder
                 "permission-list",
                 "add-permission",
                 "edit-permission"
+                ]
+            )],
+            ['name' => 'case-management', 'sub_permission' => json_encode([
+                "case-list",
+                "add-case",
+                "edit-case",
+                "delete-case"
+
+                ]
+            )],
+            ['name' => 'police-station-management', 'sub_permission' => json_encode([
+                "police-station-list",
+                "add-police-station",
+                "edit-police-station",
+                "delete-police-station"
+
+                ]
+            )],
+            ['name' => 'orders-management', 'sub_permission' => json_encode([
+                "orders-list",
+                "add-orders",
+                "edit-orders",
+                "delete-orders"
+
+                ]
+            )],
+            ['name' => 'panchayat-management', 'sub_permission' => json_encode([
+                "panchayat-list",
+                "add-panchayat",
+                "edit-panchayat",
+                "delete-panchayat"
 
                 ]
             )],
 
-           
+
         ];
     }
 }

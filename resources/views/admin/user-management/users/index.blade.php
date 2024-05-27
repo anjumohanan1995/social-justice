@@ -1,5 +1,22 @@
 @extends('layouts.adminapp')
+@php
+use App\Models\RolePermission;
+    use Illuminate\Support\Facades\Auth;
 
+    $user = Auth::user();
+    $role = $user->role;
+
+    // Fetch the permissions for the current user's role
+    $permission = RolePermission::where('role', $role)->first();
+
+    // Ensure the permissions are decoded only if they are not already arrays
+    $permissions = $permission && is_string($permission->permission) ? json_decode($permission->permission, true) : ($permission->permission ?? []);
+    $sub_permissions = $permission && is_string($permission->sub_permissions) ? json_decode($permission->sub_permissions, true) : ($permission->sub_permissions ?? []);
+
+    $hasAddUserPermission = in_array('add-user', $sub_permissions) || $user->role == 'Admin';
+    $hasEditUserPermission = in_array('edit-user', $sub_permissions) || $user->role == 'Admin';
+    $hasDeleteUserPermission = in_array('delete-user', $sub_permissions) || $user->role == 'Admin';
+@endphp
 @section('content')
     <div class="page-body">
         <div class="container-fluid">
@@ -27,12 +44,15 @@
                                     All Users
                                 </h4>
                                 <div class="col-md-1 col-6 text-center">
-                                    <div class="task-box primary  mb-0">
-                                        <a class="text-white" href="{{ route('users.create') }}">
-                                            <p class="mb-0 tx-12">Add </p>
-                                            <h3 class="mb-0"><i class="fa fa-plus"></i></h3>
-                                        </a>
-                                    </div>
+                                    @if ($hasAddUserPermission)
+                                        <div class="task-box primary  mb-0">
+                                            <a class="text-white" href="{{ route('users.create') }}">
+                                                <p class="mb-0 tx-12">Add </p>
+                                                <h3 class="mb-0"><i class="fa fa-plus"></i></h3>
+                                            </a>
+                                        </div>
+                                    @endif
+
                                 </div>
                             </div>
                             <div class="dt-ext table-responsive custom-scrollbar">
@@ -43,7 +63,9 @@
                                             <th>NAME</th>
                                             <th>EMAIL</th>
                                             <th>ROLE</th>
-                                            <th>ACTION</th>
+                                            @if ($hasEditUserPermission || $hasDeleteUserPermission)
+                                                <th>ACTION</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -95,10 +117,10 @@
                                             </ul>
                                         </td>
                                     </tr> --}}
-                               
-                                       
+
+
                                     </tbody>
-                                  
+
                                 </table>
                             </div>
                             </div>
@@ -127,7 +149,7 @@
 			       	"url": "{{ route('get.users-list') }}",
 			       	"data": function ( d ) {
 			        	return $.extend( {}, d, {
-				           
+
 			          	});
        				}
        			},
@@ -137,7 +159,9 @@
                 { data: 'name' },
                 { data: 'email' },
                 { data: 'role' },
-                { data: 'edit' }
+                @if ($hasEditUserPermission || $hasDeleteUserPermission)
+                    { data: 'edit' }
+                @endif
 			],
             "order": [0, 'desc'],
             'ordering': true

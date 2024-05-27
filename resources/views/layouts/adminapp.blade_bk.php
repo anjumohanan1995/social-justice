@@ -1,49 +1,3 @@
-@php
-    use App\Models\RolePermission;
-    use Illuminate\Support\Facades\Auth;
-
-    $user = Auth::user();
-    $role = $user->role;
-
-    // Fetch the permissions for the current user's role
-    $permission = RolePermission::where('role', $role)->first();
-
-    // Ensure the permissions are decoded only if they are not already arrays
-    $permissions = $permission && is_string($permission->permission) ? json_decode($permission->permission, true) : ($permission->permission ?? []);
-    $sub_permissions = $permission && is_string($permission->sub_permissions) ? json_decode($permission->sub_permissions, true) : ($permission->sub_permissions ?? []);
-//dd($sub_permissions);
-    // Check for main permissions
-    $hasUserManagementPermission = in_array('user-management', $permissions) || $user->role == 'Admin';
-    $hasRoleManagementPermission = in_array('role-management', $permissions) || $user->role == 'Admin';
-    $hasPoliceStationManagementPermission = in_array('police-station-management', $permissions) || $user->role == 'Admin';
-    $hasPanchayatManagementPermission = in_array('panchayat-management', $permissions) || $user->role == 'Admin';
-    $hasOrderManagementPermission = in_array('order-management', $permissions) || $user->role == 'Admin';
-    $hasCaseManagementPermission = in_array('case-management', $permissions) || $user->role == 'Admin';
-    // Check for sub-permissions within user management
-    $hasUserslistPermission = in_array('users-list', $sub_permissions) || $user->role == 'Admin';
-    $hasRoleslistPermission = in_array('roles-list', $sub_permissions) || $user->role == 'Admin';
-    $hasPermissionslistPermission = in_array('permissions-list', $sub_permissions) || $user->role == 'Admin';
-    $hasAddPermissionPermission = in_array('add-permission', $sub_permissions) || $user->role == 'Admin';
-    $hasEditPermissionPermission = in_array('edit-permission', $sub_permissions) || $user->role == 'Admin';
-    $hasCaseListPermission = in_array('case-list', $sub_permissions) || $user->role == 'Admin';
-    $hasAddCasePermission = in_array('add-case', $sub_permissions) || $user->role == 'Admin';
-    $hasPoliceStationListPermission = in_array('police-station-list', $sub_permissions) || $user->role == 'Admin';
-    $hasAddPoliceStationPermission = in_array('add-police-station', $sub_permissions) || $user->role == 'Admin';
-    $hasEditPoliceStationPermission = in_array('edit-police-station', $sub_permissions) || $user->role == 'Admin';
-    $hasDeletePoliceStationPermission = in_array('delete-police-station', $sub_permissions) || $user->role == 'Admin';
-    $hasPanchayatListPermission = in_array('panchayat-list', $sub_permissions) || $user->role == 'Admin';
-    $hasAddPanchayatPermission = in_array('add-panchayat', $sub_permissions) || $user->role == 'Admin';
-    $hasEditPanchayatPermission = in_array('edit-panchayat', $sub_permissions) || $user->role == 'Admin';
-    $hasDeletePanchayatPermission = in_array('delete-panchayat', $sub_permissions) || $user->role == 'Admin';
-    $hasOrderListPermission = in_array('order-list', $sub_permissions) || $user->role == 'Admin';
-    $hasAddOrderPermission = in_array('add-order', $sub_permissions) || $user->role == 'Admin';
-    $hasEditOrderPermission = in_array('edit-order', $sub_permissions) || $user->role == 'Admin';
-    $hasDeleteOrderPermission = in_array('delete-order', $sub_permissions) || $user->role == 'Admin';
-    $hasPanchayatListPermission = in_array('panchayat-list', $sub_permissions) || $user->role == 'Admin';
-    $hasAddPanchayatPermission = in_array('add-panchayat', $sub_permissions) || $user->role == 'Admin';
-    $hasEditPanchayatPermission = in_array('edit-panchayat', $sub_permissions) || $user->role == 'Admin';
-    $hasDeletePanchayatPermission = in_array('delete-panchayat', $sub_permissions) || $user->role == 'Admin';
-    @endphp
 
 <!DOCTYPE html>
 <html lang="en">
@@ -476,12 +430,44 @@
                   </ul>
                 </li> --}}
 
+                @if(Auth::user()->role =='User')
+                 <li class="sidebar-main-title">
+                  <div>
+                    <h6 class="lan-8">Case Details</h6>
+                  </div>
+                </li>
+                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="svg/icon-sprite.svg#stroke-project"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="svg/icon-sprite.svg#fill-project"></use>
+                    </svg><span>Case         </span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
+                  <ul class="sidebar-submenu" style="display: none;">
+                    <li><a href="{{ url('/case-register') }}">Register Case</a></li>
+                    <li><a href="{{ url('/cases') }}">Case List</a></li>
+                  </ul>
+                </li>
+                @elseif(Auth::user()->role =='RDO')
+                 <li class="sidebar-main-title">
+                  <div>
+                    <h6 class="lan-8">Case List</h6>
+                  </div>
+                </li>
+                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="svg/icon-sprite.svg#stroke-project"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="svg/icon-sprite.svg#fill-project"></use>
+                    </svg><span>Case         </span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
+                  <ul class="sidebar-submenu" style="display: none;">
+                    <li><a href="{{ url('/rdo-cases') }}">All Cases</a></li>
+                    {{-- <li><a href="{{ url('/cases') }}">Case List</a></li> --}}
+                  </ul>
+                </li>
 
-
-
-                {{-- @dd($hasUserManagementPermission); --}}
-
-            @if($hasUserManagementPermission)
+                @else
                 <li class="sidebar-main-title">
                   <div>
                     <h6 class="lan-8">User Management</h6>
@@ -494,64 +480,33 @@
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-project"></use>
                     </svg><span>User Management           </span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
-                    <ul class="sidebar-submenu" style="display: none;">
-
-                    @if ($hasUserslistPermission)
-                        <li><a href="{{ url('/users') }}">Users</a></li>
-                    @endif
-                    @if($hasRoleManagementPermission)
-                        <li><a href="{{ url('/roles') }}">Roles</a></li>
-                    @endif
+                  <ul class="sidebar-submenu" style="display: none;">
+                    <li><a href="{{ url('/users') }}">Users</a></li>
+                    <li><a href="{{ url('/roles') }}">Roles</a></li>
                   </ul>
                 </li>
-            @endif
-            @if($hasCaseManagementPermission)
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
-                    <svg class="stroke-icon">
-                        <use href="svg/icon-sprite.svg#stroke-project"></use>
-                    </svg>
-                    <svg class="fill-icon">
-                        <use href="svg/icon-sprite.svg#fill-project"></use>
-                    </svg>
-                    <span>Case</span>
-                    <div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
-                    <ul class="sidebar-submenu" style="display: none;">
-                        @if ($hasAddCasePermission)<li><a href="{{ url('/case-register') }}">Register Case</a></li>@endif
-                        @if ($hasCaseListPermission && !(Auth::user()->role =='RDO'))<li><a href="{{ url('/cases') }}">Case List</a></li>@endif
-                        @if(Auth::user()->role =='RDO' && $hasCaseListPermission)<li><a href="{{ url('/rdo-cases') }}">All Cases</a></li>@endif
-                    </ul>
-              </li>
-                @endif
-                @if($hasPoliceStationManagementPermission)
                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{ url('/policestation') }}">
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-file"></use>
                     </svg>
                     <svg class="fill-icon">
                       <use href="svg/icon-sprite.svg#fill-file"></use>
-                    </svg><span>Police Station</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
-                </li>
-@endif
-@if($hasPanchayatManagementPermission)
+                    </svg><span>Police Station</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{ url('/panchayat') }}">
                         <svg class="stroke-icon">
                           <use href="svg/icon-sprite.svg#stroke-file"></use>
                         </svg>
                         <svg class="fill-icon">
                           <use href="svg/icon-sprite.svg#fill-file"></use>
-                        </svg><span>Panchayat</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
-                    </li>
-@endif
-@if($hasOrderManagementPermission)
+                        </svg><span>Panchayat</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{ url('/orders') }}">
                         <svg class="stroke-icon">
                           <use href="svg/icon-sprite.svg#stroke-file"></use>
                         </svg>
                         <svg class="fill-icon">
                           <use href="svg/icon-sprite.svg#fill-file"></use>
-                        </svg><span>Orders</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
-                    </li>
-@endif
+                        </svg><span>Orders</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
+
                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="calendar-basic.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-calendar"></use>
@@ -989,7 +944,7 @@
                       <use href="svg/icon-sprite.svg#fill-support-tickets"></use>
                     </svg><span>Support Ticket</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a></li>
 
-
+              @endif
               </div>
             </div>
           </div>
@@ -1008,7 +963,7 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12 footer-copyright text-center">
-                <p class="mb-0">Copyright 2024 ©   </p>
+                <p class="mb-0">Copyright 2024 © Riho theme by pixelstrap  </p>
               </div>
             </div>
           </div>
