@@ -6,34 +6,31 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckPermission
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string  $permission
-     * @return mixed
-     */
-    public function handle($request, Closure $next, $permission)
+    public function handle($request, Closure $next, $permission, $subPermission = null)
     {
         $user = Auth::user();
 
         if (!$user) {
-            // User is not authenticated
             return redirect('/login');
         }
 
         $role = $user->role;
 
-        // Fetch the permissions for the current user's role
         $rolePermission = \App\Models\RolePermission::where('role', $role)->first();
 
         $permissions = $rolePermission && is_string($rolePermission->permission)
             ? json_decode($rolePermission->permission, true)
             : ($rolePermission->permission ?? []);
 
+        $subPermissions = $rolePermission && is_string($rolePermission->sub_permissions)
+            ? json_decode($rolePermission->sub_permissions, true)
+            : ($rolePermission->sub_permissions ?? []);
+
         if (!in_array($permission, $permissions) && $role !== 'Admin') {
-            // Permission denied
+            return redirect('/no-permission');
+        }
+
+        if ($subPermission && !in_array($subPermission, $subPermissions) && $role !== 'Admin') {
             return redirect('/no-permission');
         }
 
