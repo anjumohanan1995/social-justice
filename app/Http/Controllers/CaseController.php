@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use MongoDB\BSON\UTCDateTime;
 use Illuminate\Support\Facades\Auth;
+use App\Models\RolePermission;
+
+
 
 
 class CaseController extends Controller
@@ -254,6 +257,21 @@ class CaseController extends Controller
     public function getCaseList(Request $request)
     {
 
+
+    $user = Auth::user();
+    $role = $user->role;
+
+    // Fetch the permissions for the current user's role
+    $permission = RolePermission::where('role', $role)->first();
+
+    // Ensure the permissions are decoded only if they are not already arrays
+    $permissions = $permission && is_string($permission->permission) ? json_decode($permission->permission, true) : ($permission->permission ?? []);
+    $sub_permissions = $permission && is_string($permission->sub_permissions) ? json_decode($permission->sub_permissions, true) : ($permission->sub_permissions ?? []);
+    
+    $hasEditCasePermission = in_array('edit-case', $sub_permissions) || $user->role == 'Admin';
+    $hasDeleteCasePermission = in_array('delete-case', $sub_permissions) || $user->role == 'Admin';
+$hasViewCasePermission = in_array('view-case', $sub_permissions) || $user->role == 'Admin';
+
         ## Read value
         $draw = $request->get('draw');
         $start = $request->get("start");
@@ -297,7 +315,22 @@ class CaseController extends Controller
                 $opposition_address =  $record->opposition_address;
                 $case_details  =  $record->case_details;
                 $case_id  =  $record->case_id;
-                $edit = '<a  href="' . url('cases/'.$id.'/edit') . '" class="btn btn-primary edit-btn">Edit</a>&nbsp;&nbsp;<button class="btn btn-danger delete-btn" data-id="'.$id.'">Delete</button>&nbsp;&nbsp;<a  href="' . route('ViewCases', $id) . '" class="btn btn-primary edit-btn">view</a>';
+                $edit = '';
+
+// Check conditions for edit button
+if ($hasEditCasePermission) {
+    $edit .= '<a href="' . url('cases/'.$id.'/edit') . '" class="btn btn-primary edit-btn">Edit</a>&nbsp;&nbsp;';
+}
+
+// Check conditions for delete button
+if ($hasDeleteCasePermission) {
+    $edit .= '<button class="btn btn-danger delete-btn" data-id="'.$id.'">Delete</button>&nbsp;&nbsp;';
+}
+
+// Check conditions for view button
+if ($hasViewCasePermission) {
+    $edit .= '<a href="' . route('ViewCases', $id) . '" class="btn btn-primary edit-btn">View</a>';
+}
 
                 $data_arr[] = array(
                     "id" => $i,

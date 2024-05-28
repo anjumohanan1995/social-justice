@@ -44,9 +44,9 @@
                         @endif
                     </div>
                     <div class="card-body">
-                       
-                     
-                       
+
+
+
                         <form name="createForm" method="post" action="{{route('roles.permission.store',$role_name)}}" class="row g-3 needs-validation custom-input">
 									@csrf
                            <div class="form-group">
@@ -55,23 +55,77 @@
 											<div class="col-md-9">
 
 
-                                                    @foreach($totalRecord as $permission)
-                                                    <div class="topic" >
-                                                    <input type="checkbox" name="permission[]" id="{{$permission->id}}" value="{{$permission->name}}" @if($checked !=null) @if(!empty($checked->permission)){{ (in_array($permission->name, $checked->permission )) ? 'checked' : '' }} @endif  @endif /> <label for="permission">{{$permission->name}}</label><br>
-                                                </div>
-                                                    @if(!empty($permission->sub_permission))
-                                               <div class="subtopic" data-parentid="{{$permission->id}}">
-                                                  <ul class="inputs-list">
-                                                     <li style=" list-style-type: none">
-                                                        @foreach(json_decode($permission->sub_permission) as $detail )
-                                                        &nbsp; &nbsp;  &nbsp;  &nbsp;
-                                                         <input type="checkbox" name="sub_permission[]" id="sub_permission" value="{{$detail}}" @if($checked !=null) @if(!empty($checked->sub_permissions)){{ (in_array($detail, json_decode($checked->sub_permissions) )) ? 'checked' : '' }} @endif @endif/> <label for="permission">{{$detail}}</label><br>
-                                                     </li>
-                                               @endforeach
-                                                        </ul>
-                                                    </div>
-                                                    @endif
-                                               @endforeach
+                                                @foreach($totalRecord as $permission)
+    <div class="topic">
+        <input type="checkbox" class="parent-permission" name="permission[]" id="{{$permission->id}}" value="{{$permission->name}}"
+        @if($checked !=null)
+            @if(!empty($checked->permission))
+                {{ (in_array($permission->name, $checked->permission )) ? 'checked' : '' }}
+            @endif
+        @endif
+        />
+        <label for="{{$permission->id}}">{{$permission->name}}</label><br>
+    </div>
+    @if(!empty($permission->sub_permission))
+        <div class="subtopic" data-parentid="{{$permission->id}}">
+            <ul class="inputs-list">
+                <li style="list-style-type: none">
+                    @foreach(json_decode($permission->sub_permission) as $detail)
+                        &nbsp; &nbsp;  &nbsp;  &nbsp;
+                        <input type="checkbox" class="child-permission" data-parentid="{{$permission->id}}" name="sub_permission[]" id="sub_permission_{{$detail}}" value="{{$detail}}"
+                        @if($checked !=null)
+                            @if(!empty($checked->sub_permissions))
+                                {{ (in_array($detail, json_decode($checked->sub_permissions) )) ? 'checked' : '' }}
+                            @endif
+                        @endif
+                        />
+                        <label for="sub_permission_{{$detail}}">{{$detail}}</label><br>
+                    @endforeach
+                </li>
+            </ul>
+        </div>
+    @endif
+@endforeach
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select all parent checkboxes
+        const parentCheckboxes = document.querySelectorAll('.parent-permission');
+
+        parentCheckboxes.forEach(parentCheckbox => {
+            const parentId = parentCheckbox.id;
+            const childCheckboxes = document.querySelectorAll(`.child-permission[data-parentid="${parentId}"]`);
+
+            // Function to check if any child checkboxes are checked
+            const checkChildren = () => {
+                const anyChecked = Array.from(childCheckboxes).some(child => child.checked);
+                parentCheckbox.checked = anyChecked;
+            };
+
+            // Function to select/deselect all child checkboxes
+            const toggleChildren = (isChecked) => {
+                childCheckboxes.forEach(child => {
+                    child.checked = isChecked;
+                });
+            };
+
+            // Initial check on page load
+            checkChildren();
+
+            // Add event listener to parent checkbox
+            parentCheckbox.addEventListener('change', function() {
+                toggleChildren(this.checked);
+            });
+
+            // Add event listener to each child checkbox
+            childCheckboxes.forEach(childCheckbox => {
+                childCheckbox.addEventListener('change', checkChildren);
+            });
+        });
+    });
+    </script>
+
+
 
 
 

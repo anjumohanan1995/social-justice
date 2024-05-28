@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\RolePermission;
 
 class UsersController extends Controller
 {
@@ -149,7 +149,21 @@ class UsersController extends Controller
     public function getUsersList(Request $request)
     {
 
-        ## Read value
+
+
+            $user = Auth::user();
+            $role = $user->role;
+
+            // Fetch the permissions for the current user's role
+            $permission = RolePermission::where('role', $role)->first();
+
+            // Ensure the permissions are decoded only if they are not already arrays
+            //$permissions = $permission && is_string($permission->permission) ? json_decode($permission->permission, true) : ($permission->permission ?? []);
+            $sub_permissions = $permission && is_string($permission->sub_permissions) ? json_decode($permission->sub_permissions, true) : ($permission->sub_permissions ?? []);
+            $hasEditUserPermission = in_array('edit-user', $sub_permissions) || $user->role == 'Admin';
+            $hasDeleteUserPermission = in_array('delete-user', $sub_permissions) || $user->role == 'Admin';
+
+            ## Read value
         $draw = $request->get('draw');
         $start = $request->get("start");
         $rowperpage = $request->get("length"); // Rows display per page
@@ -185,7 +199,17 @@ class UsersController extends Controller
                 $name = $record->name;
                 $email =  $record->email;
                 $role  =  $record->role;
-                $edit = '<a  href="' . url('users/'.$id.'/edit') . '" class="btn btn-primary edit-btn">Edit</a>&nbsp;&nbsp;<button class="btn btn-danger delete-btn" data-id="'.$id.'">Delete</button>';
+                $edit = '';
+
+// Check conditions for edit button
+if ($hasEditUserPermission) {
+    $edit .= '<a  href="' . url('users/'.$id.'/edit') . '" class="btn btn-primary edit-btn">Edit</a>&nbsp;&nbsp;';
+}
+
+// Check conditions for delete button
+if ($hasDeleteUserPermission) {
+    $edit .= '<button class="btn btn-danger delete-btn" data-id="'.$id.'">Delete</button>';
+}
 
                 $data_arr[] = array(
                     "id" => $i,
