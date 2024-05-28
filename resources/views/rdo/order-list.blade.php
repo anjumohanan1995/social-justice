@@ -44,7 +44,7 @@
                                             <th>Opposition Name</th>
                                             <th>Opposition Address</th>
                                             <th>Case Details</th>
-                                            <th>Order</th>
+                                            {{-- <th>Order</th> --}}
                                             <th>ACTION</th>
                                         </tr>
                                     </thead>
@@ -92,7 +92,7 @@
                 { data: 'opposition_name' },
                 { data: 'opposition_address' },
                 { data: 'case_details' },
-                { data: 'order' },
+                // { data: 'order' },
                 { data: 'edit' }
 			],
             "order": [0, 'desc'],
@@ -100,29 +100,29 @@
         });
       	table.draw();
     });
-    $(document).on('click', '.delete-btn', function() {
-        var Id = $(this).data('id');
-        if (confirm('Are you sure you want to delete this item?')) {
-            $.ajax({
-                url: '/users/' + Id,
-                type: 'POST', // Use POST method
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    _method: 'DELETE' // Override method to DELETE
-                },
-                success: function(response) {
-                    // Handle success response
-                    // Reload the page
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    // Handle error response
-                    console.error(xhr.responseText)
-                }
-            });
-        }
-    });
+    // $(document).on('click', '.delete-btn', function() {
+    //     var Id = $(this).data('id');
+    //     if (confirm('Are you sure you want to delete this item?')) {
+    //         $.ajax({
+    //             url: '/users/' + Id,
+    //             type: 'POST', // Use POST method
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             },
+    //             data: {
+    //                 _method: 'DELETE' // Override method to DELETE
+    //             },
+    //             success: function(response) {
+    //                 // Handle success response
+    //                 // Reload the page
+    //                 location.reload();
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 // Handle error response
+    //                 console.error(xhr.responseText)
+    //             }
+    //         });
+    //     }
+    // });
 </script>
 @endsection

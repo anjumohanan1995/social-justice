@@ -345,7 +345,7 @@
                                             <label for=""> മൊബൈല്‍ നമ്പര്‍ <br> <span class="small required">Mobile Number </span></label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label for=""> വിലാസം <br> <span class="small required">Address </span></label>
+                                            <label for=""> വിലാസം <br> <span class="small">Address </span></label>
                                         </div>
                                         <div class="col-md-2">
                                             <label for=""> എതിര്‍കക്ഷിയുടെ ജോലി/പ്രതിമാസവരുമാനം(ഏകദേശം) <br> <span class="small">Opposition Job/Salary </span></label>
@@ -382,7 +382,7 @@
                                         </div>
 
                                         <div class="col-md-2">
-                                            <input type="text" value="{{ htmlspecialchars(old('opposition_address')[0] ?? '') }}" class="form-control case_registration--add--inputbox" placeholder="വിലാസം " name="opposition_address[]" required />
+                                            <input type="text" value="{{ htmlspecialchars(old('opposition_address')[0] ?? '') }}" class="form-control case_registration--add--inputbox" placeholder="വിലാസം " name="opposition_address[]" />
                                             @error('opposition_address')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -396,7 +396,7 @@
                                         </div>
 
                                         <div class="col-md-1">
-                                            <a class="insert">+</a>
+                                            <a class="btn btn-success add">+</a>
                                         </div>
                                     </div>
 
@@ -436,7 +436,7 @@
                                                 </div>
 
                                                 <div class="col-md-2">
-                                                    <input type="text" value="{{ old('opposition_address')[$index] }}" class="form-control case_registration--add--inputbox" placeholder="വിലാസം" name="opposition_address[]" required />
+                                                    <input type="text" value="{{ old('opposition_address')[$index] }}" class="form-control case_registration--add--inputbox" placeholder="വിലാസം" name="opposition_address[]" />
                                                     @error('opposition_address')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -450,7 +450,7 @@
                                                 </div>
 
                                                 <div class="col-md-1">
-                                                    <a class="delete">-</a>
+                                                    <a class="btn btn-danger delete">-</a>
                                                 </div>
                                             </div>
                                         @endforeach
@@ -461,6 +461,186 @@
                                 <br>
 
 
+{{--
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for=""> എതിർകക്ഷികളുടെ പേര്<br> <span class="small required">Opposition Name </span></label>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label for=""> വയസ്സ് <br> <span class="small">Age</span> </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for=""> ബന്ധം <br> <span class="small">Relationship </span></label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for=""> മൊബൈല്‍ നമ്പര്‍ <br> <span class="small required">Mobile Number </span></label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for=""> വിലാസം <br> <span class="small">Address </span></label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for=""> എതിര്‍കക്ഷിയുടെ ജോലി/പ്രതിമാസവരുമാനം(ഏകദേശം) <br> <span class="small">Opposition Job/Salary </span></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row addRow">
+                                        <div class="col-md-2">
+                                            <input type="text"
+                                                value="{{ htmlspecialchars(old('opposition_name')[0] ?? '') }}"
+                                                class="form-control case_registration--add--imputbox "
+                                                placeholder="എതിർകക്ഷികളുടെ പേര്" name="opposition_name[]" required />
+                                            @error('opposition_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+
+                                        <div class="col-md-1">
+                                            <input type="text" value="{{ htmlspecialchars(old('opposition_age')[0] ?? '') }}"
+                                                class="form-control case_registration--add--imputbox "
+                                                placeholder="വയസ്സ്" name="opposition_age[]" />
+                                            <span id="nameError" class="text-danger"></span>
+                                            @error('opposition_age')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input type="text"
+                                                value="{{ htmlspecialchars(old('opposition_relationship')[0] ?? '') }}"
+                                                class="form-control case_registration--add--imputbox "
+                                                placeholder="ബന്ധം " name="opposition_relationship[]" />
+                                            <span id="nameError" class="text-danger"></span>
+                                            @error('opposition_relationship')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input type="text"
+                                                value="{{ htmlspecialchars(old('opposition_mobile')[0] ?? '') }}"
+                                                class="form-control case_registration--add--imputbox "
+                                                placeholder="മൊബൈല്‍ നമ്പര്‍ " name="opposition_mobile[]" required />
+                                            <span id="nameError" class="text-danger"></span>
+                                            @error('opposition_mobile')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input type="text"
+                                                value="{{ htmlspecialchars(old('opposition_address')[0] ?? '') }}"
+                                                class="form-control case_registration--add--imputbox "
+                                                placeholder="വിലാസം " name="opposition_address[]" />
+                                            <span id="nameError" class="text-danger"></span>
+                                            @error('opposition_address')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input type="text"
+                                                value="{{ htmlspecialchars(old('opposition_salary')[0] ?? '') }}"
+                                                class="form-control case_registration--add--imputbox "
+                                                placeholder="എതിര്‍കക്ഷിയുടെ ജോലി/പ്രതിമാസവരുമാനം(ഏകദേശം) " name="opposition_salary[]" />
+                                            <span id="nameError" class="text-danger"></span>
+                                            @error('opposition_salary')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-1">
+                                            {{-- <a class="btn btn-danger delete">-</a> --}}
+                                            {{-- <a class="btn btn-success add">+</a> --}}
+                                            <a class="btn btn-success add">+</a>
+
+                                        </div>
+                                    </div>
+
+
+                                    @php
+                                        $i = 0;
+                                        // $oldValues = old() ? json_decode(json_encode(old()), true) : [];
+                                    @endphp
+
+                                    @if (!empty(old('opposition_name')))
+                                        @foreach (old('opposition_name') as $item)
+                                            @php
+                                                $i++;
+                                            @endphp
+
+                                            <div class="row addRow">
+                                                <div class="col-md-2">
+                                                    <input type="text" value="{{ old('opposition_name')[$i] ?? '' }}"
+                                                        class="form-control case_registration--add--inputbox"
+                                                        placeholder="എതിർകക്ഷികളുടെ പേര്" name="opposition_name[]" required />
+                                                    @error('opposition_name')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <input type="text" value="{{ old('opposition_age')[$i] ?? '' }}"
+                                                        class="form-control case_registration--add--inputbox"
+                                                        placeholder="വയസ്സ്" name="opposition_age[]" />
+                                                    @error('opposition_age')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <input type="text" value="{{ old('opposition_relationship')[$i] ?? '' }}"
+                                                        class="form-control case_registration--add--inputbox"
+                                                        placeholder="ബന്ധം" name="opposition_relationship[]" />
+                                                    @error('opposition_relationship')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <input type="text" value="{{ old('opposition_mobile')[$i] ?? '' }}"
+                                                        class="form-control case_registration--add--inputbox"
+                                                        placeholder="മൊബൈല്‍ നമ്പര്‍" name="opposition_mobile[]" required />
+                                                    @error('opposition_mobile')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <input type="text" value="{{ old('opposition_address')[$i] ?? '' }}"
+                                                        class="form-control case_registration--add--inputbox"
+                                                        placeholder="വിലാസം" name="opposition_address[]" />
+                                                    @error('opposition_address')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <input type="text" value="{{ old('opposition_salary')[$i] ?? '' }}"
+                                                        class="form-control case_registration--add--inputbox"
+                                                        placeholder="എതിര്‍കക്ഷിയുടെ ജോലി/പ്രതിമാസവരുമാനം(ഏകദേശം)" name="opposition_salary[]" />
+                                                    @error('opposition_salary')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    {{-- <a class="btn btn-success add">+</a> --}}
+                                                    <a class="btn btn-danger delete">-</a>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+
+
+
+
+                                    <div id="items"></div>
+
+                                </div>
+                                <br> --}}
+
                                 <div class="row">
                                     <div class="col-md-12 mb-12">
                                         <label class="form-label">എതിര്‍കക്ഷിയില്‍ നിന്നും ഉണ്ടായ
@@ -468,8 +648,8 @@
                                             ആധാരമായ കാരണങ്ങള്‍
                                             <br> <span class="small required">Violence from the opposite party :/
                                                 Grounds for application </span> </label>
-                                            <textarea type="text" value="{{ old('case_details') }}" class="form-control" name="case_details" placeholder="എതിര്‍കക്ഷിയില്‍ നിന്നും ഉണ്ടായ അക്രമം : / അപേക്ഷയ്ക്ക് ആധാരമായ കാരണങ്ങള്‍" required>{{ old('case_details') }}</textarea>
-                                        @error('case_details')
+                                            <textarea type="text" value="{{ old('case_datails') }}" class="form-control" name="case_datails" placeholder="എതിര്‍കക്ഷിയില്‍ നിന്നും ഉണ്ടായ അക്രമം : / അപേക്ഷയ്ക്ക് ആധാരമായ കാരണങ്ങള്‍" required>{{ old('case_datails') }}</textarea>
+                                        @error('case_datails')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -714,66 +894,81 @@ $("#districtid").change(function(){
 
 </script>
 <script>
-$(document).ready(function() {
-    let count = 1;
+        $(document).ready(function() {
+            let count = 1;
 
-    $(".insert").click(function(e) {
-        e.preventDefault();
+            $(".add").click(function(e) {
+                e.preventDefault();
+
+                // Increment the count for each new row.
+                count++;
+
+                // Access old input values.
+                var nameValue = $(this).closest(".addRow").data('opposition_name') || '';
+                var jobValue = $(this).closest(".addRow").data('opposition_age') || '';
+                var salaryValue = $(this).closest(".addRow").data('opposition_relationship') || '';
+                var salaryValue = $(this).closest(".addRow").data('opposition_mobile') || '';
+                var salaryValue = $(this).closest(".addRow").data('opposition_address') || '';
+                var salaryValue = $(this).closest(".addRow").data('opposition_salary[]') || '';
+
+                // Build the HTML using jQuery.
+                var html = '<div class="row addRow">' +
+                    '<div class="col-md-2">' +
+                    '<input type="text" class="form-control case_registration--add--inputbox" placeholder="എതിർകക്ഷികളുടെ പേര്" name="opposition_name[]" />' +
+                    '<span class="text-danger error-message" id="nameError' + count +
+                    '"></span>' +
+                    '</div>' +
+
+                    '<div class="col-md-1">' +
+                    '<input type="text" class="form-control case_registration--add--inputbox" placeholder="വയസ്സ്" name="opposition_age[]" />' +
+                    '<span class="text-danger error-message" id="jobError' + count +
+                    '"></span>' +
+                    '</div>' +
+
+                    '<div class="col-md-2">' +
+                    '<input type="text" class="form-control case_registration--add--inputbox" placeholder="ബന്ധം" name="opposition_relationship[]" />' +
+                    '<span class="text-danger error-message" id="salaryError' + count +
+                    '"></span>' +
+                    '</div>' +
+
+                    '<div class="col-md-2">' +
+                    '<input type="text" class="form-control case_registration--add--inputbox" placeholder="മൊബൈല്‍ നമ്പര്‍" name="opposition_mobile[]" />' +
+                    '<span class="text-danger error-message" id="salaryError' + count +
+                    '"></span>' +
+                    '</div>' +
+
+                    '<div class="col-md-2">' +
+                    '<input type="text" class="form-control case_registration--add--inputbox" placeholder="വിലാസം" name="opposition_address[]" />' +
+                    '<span class="text-danger error-message" id="salaryError' + count +
+                    '"></span>' +
+                    '</div>' +
+
+                    '<div class="col-md-2">' +
+                    '<input type="text" class="form-control case_registration--add--inputbox" placeholder="എതിര്‍കക്ഷിയുടെ ജോലി/പ്രതിമാസവരുമാനം(ഏകദേശം)" name="opposition_salary[]" />' +
+                    '<span class="text-danger error-message" id="salaryError' + count +
+                    '"></span>' +
+                    '</div>' +
+
+                    '<div class="col-md-1">' +
+                    '<a class="btn btn-danger delete">-</a>' +
+                    '</div>' +
+                    '</div>';
+
+                // Append the newly built HTML to the "#items" div
+                $("#items").append(html);
+
+                // Set the values after appending the HTML if needed
+                // $(".addRow:last-child input[name='name[]']").val(nameValue);
+                // $(".addRow:last-child input[name='job[]']").val(jobValue);
+                // $(".addRow:last-child input[name='salary[]']").val(salaryValue);
+            });
+
+            $("body").on("click", ".delete", function(e) {
+                $(this).closest(".addRow").remove();
+            });
+        });
 
 
-        // Increment the count for each new row.
-        count++;
-
-        // Build the HTML using jQuery.
-        var html = '<div class="row addRow">' +
-            '<div class="col-md-2">' +
-            '<input type="text" class="form-control case_registration--add--inputbox" placeholder="എതിർകക്ഷികളുടെ പേര്" name="opposition_name[]" required />' +
-            '<span class="text-danger error-message" id="nameError' + count + '"></span>' +
-            '</div>' +
-
-            '<div class="col-md-1">' +
-            '<input type="text" class="form-control case_registration--add--inputbox" placeholder="വയസ്സ്" name="opposition_age[]" />' +
-            '<span class="text-danger error-message" id="ageError' + count + '"></span>' +
-            '</div>' +
-
-            '<div class="col-md-2">' +
-            '<input type="text" class="form-control case_registration--add--inputbox" placeholder="ബന്ധം" name="opposition_relationship[]" />' +
-            '<span class="text-danger error-message" id="relationshipError' + count + '"></span>' +
-            '</div>' +
-
-            '<div class="col-md-2">' +
-            '<input type="text" class="form-control case_registration--add--inputbox" placeholder="മൊബൈല്‍ നമ്പര്‍" name="opposition_mobile[]" required />' +
-            '<span class="text-danger error-message" id="mobileError' + count + '"></span>' +
-            '</div>' +
-
-            '<div class="col-md-2">' +
-            '<input type="text" class="form-control case_registration--add--inputbox" placeholder="വിലാസം" name="opposition_address[]" />' +
-            '<span class="text-danger error-message" id="addressError' + count + '"></span>' +
-            '</div>' +
-
-            '<div class="col-md-2">' +
-            '<input type="text" class="form-control case_registration--add--inputbox" placeholder="എതിര്‍കക്ഷിയുടെ ജോലി/പ്രതിമാസവരുമാനം(ഏകദേശം)" name="opposition_salary[]" />' +
-            '<span class="text-danger error-message" id="salaryError' + count + '"></span>' +
-            '</div>' +
-
-            '<div class="col-md-1">' +
-            '<a class="delete">-</a>' +
-            '</div>' +
-            '</div>';
-
-        // Append the newly built HTML to the "#items" div
-        $("#items").append(html);
-    });
-
-    $("body").on("click", ".delete", function(e) {
-        e.preventDefault();
-        $(this).closest(".addRow").remove();
-    });
-});
-
-
-</script>
-<script>
 
         //duplication code ends here.
 

@@ -85,11 +85,11 @@
                                     <h5>Beneficiary</h5>
                                     <div class="mb-3">
                                         <label for="beneficiaryName" class="form-label">Name:</label>
-                                        <p class="form-data">{{ @$opposition->user->name }}</p>
+                                        <p class="form-data">{{ @$opposition->applicant_name }}</p>
                                     </div>
                                     <div class="mb-3">
                                         <label for="beneficiaryAddress" class="form-label">Address:</label>
-                                        <p class="form-data">{{ @$opposition->user->address }}</p>
+                                        <p class="form-data">{{ @$opposition->address }}</p>
                                     </div>
                                     <div class="mb-3">
                                         <label for="beneficiaryDistrict" class="form-label">District:</label>
@@ -128,7 +128,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="oppositionPhone" class="form-label">Phone Number:</label>
-                                        <p class="form-data">{{ @$opposition->opp_phone }}</p>
+                                        <p class="form-data">{{ @$opposition->opposition_mobile }}</p>
                                     </div>
                                     <div class="mb-3">
                                         <label for="oppositionEmail" class="form-label">Email:</label>
@@ -139,10 +139,10 @@
                                         <div class="mb-3">
                                             <button id="submitButton" class="btn btn-primary">File for Appeal</button>
                                         </div><br><br><br><br><br>
-                                        <div class="mb-3">
+                                        {{-- <div class="mb-3">
                                             <label for="executionPetition" class="form-label">Execution Petition:</label>
                                             <input type="file" class="form-control" id="executionPetition" name="executionPetition">
-                                        </div>
+                                        </div> --}}
 
                                 </div>
 

@@ -53,30 +53,78 @@ class CaseController extends Controller
      */
     public function storecaseRegister(Request $request)
     {
-        //dd( $request);
+        // dd($request);
 
 
         $validate = Validator::make($request->all(),
         [
-          'opposition_name' => 'required',
-          'case_details' => 'required' ,
-          'opposition_address' => 'required',
-          'district_id' => 'required',
-          'police_station' => 'required',
+            'opposition_name' => 'required',
+            'opposition_mobile' => 'required' ,
+            'applicant_name' => 'required',
+            'opposition_address' => 'required',
+            'relative_name' => 'required',
+            'applicant_place' => 'required',
+            'applicant_sign' => 'required',
+            'date' => 'required',
+            'appellant' => 'required',
+            'district_id' => 'required',
+            'police_station' => 'required',
+            'case_details' => 'required',
+            'address' => 'required',
+            'pincode' => 'required',
         ]);
         if ($validate->fails()) {
-            //dd($validate);
+            // dd($validate);
             return Redirect::back()->withInput()->withErrors($validate);
         }
 
         $data =CaseDetails::create([
-            'opposition_name' => @$request->opposition_name? $request->opposition_name:'',
-            'district_id' => @$request->district_id? $request->district_id:'',
-            'police_station' => @$request->police_station? $request->police_station:'',
-            'opposition_address' => @$request->opposition_address?$request->opposition_address:'',
-            'pincode' => @$request->pincode?$request->pincode:'',
-            'opp_phone' => @$request->opp_phone?$request->opp_phone:'',
+            'name' => @$request->name ? $request->name : '',
+            'age' => @$request->age ? $request->age : '',
+            'job' => @$request->job ? $request->job : '',
+            'panchayath' => @$request->panchayath ? $request->panchayath : '',
+            'address' => @$request->address ? $request->address : '',
+            'ward_no' => @$request->ward_no ? $request->ward_no : '',
+            'pincode' => @$request->pincode ? $request->pincode : '',
+            'organization_name' => @$request->organization_name ? $request->organization_name : '',
+            'organization_address' => @$request->organization_address ? $request->organization_address : '',
+            'organization_phone_number' => @$request->organization_phone_number ? $request->organization_phone_number : '',
+            'organization_email' => @$request->organization_email ? $request->organization_email : '',
+            'applicant_phone_number' => @$request->applicant_phone_number ? $request->applicant_phone_number : '',
+            'alter_phone_number' => @$request->alter_phone_number ? $request->alter_phone_number : '',
+            'applicant_email' => @$request->applicant_email ? $request->applicant_email : '',
+            'aadhaar_no' => @$request->aadhaar_no ? $request->aadhaar_no : '',
+            'petitioner_properties' => @$request->petitioner_properties ? $request->petitioner_properties : '',
+            'account_number' => @$request->account_number ? $request->account_number : '',
+            'bank' => @$request->bank ? $request->bank : '',
             'case_details' => @$request->case_details?$request->case_details:'',
+            'ifsc_code' => @$request->ifsc_code ? $request->ifsc_code : '',
+            'district_id' => @$request->district_id ? $request->district_id : '',
+            'police_station' => @$request->police_station ? $request->police_station : '',
+            'pension' => @$request->pension ? $request->pension : '',
+            'savings' => @$request->savings ? $request->savings : '',
+            'other_income' => @$request->other_income ? $request->other_income : '',
+            'opposition_name' => @$request->opposition_name ? $request->opposition_name : '',
+            'opposition_age' => @$request->opposition_age ? $request->opposition_age : '',
+            'opposition_relationship' => @$request->opposition_relationship ? $request->opposition_relationship : '',
+            'opposition_mobile' => @$request->opposition_mobile ? $request->opposition_mobile : '',
+            'opposition_address' => @$request->opposition_address ? $request->opposition_address : '',
+            'opposition_salary' => @$request->opposition_salary ? $request->opposition_salary : '',
+            'opposition_reason' => @$request->opposition_reason ? $request->opposition_reason : '',
+            'opposition_alimony' => @$request->opposition_alimony ? $request->opposition_alimony : '',
+            'opposition_property' => @$request->opposition_property ? $request->opposition_property : '',
+            'opposition_medical' => @$request->opposition_medical ? $request->opposition_medical : '',
+            'opposition_oppertunity' => @$request->opposition_oppertunity ? $request->opposition_oppertunity : '',
+            'opposition_avoid' => @$request->opposition_avoid ? $request->opposition_avoid : '',
+            'opposition_police' => @$request->opposition_police ? $request->opposition_police : '',
+            'opposition_others' => @$request->opposition_others ? $request->opposition_others : '',
+            'complaint_details' => @$request->complaint_details ? $request->complaint_details : '',
+            'applicant_name' => @$request->applicant_name ? $request->applicant_name : '',
+            'relative_name' => @$request->relative_name ? $request->relative_name : '',
+            'applicant_place' => @$request->applicant_place ? $request->applicant_place : '',
+            'applicant_sign' => @$request->applicant_sign ? $request->applicant_sign : '',
+            'date' => @$request->date ? $request->date : '',
+            'appellant' => @$request->appellant ? $request->appellant : '',
             'user_id'=> Auth::user()->id,
         ]);
 
@@ -160,13 +208,17 @@ class CaseController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $validate = Validator::make($request->all(),
         [
           'opposition_name' => 'required',
-          'case_details' => 'required' ,
-          'opposition_address' => 'required',
-          'district_id' => 'required',
-          'police_station' => 'required',
+          'opposition_mobile' => 'required' ,
+          'applicant_name' => 'required',
+          'relative_name' => 'required',
+          'applicant_place' => 'required',
+          'applicant_sign' => 'required',
+          'date' => 'required',
+          'appellant' => 'required'
         ]);
         if ($validate->fails()) {
             //dd($validate);

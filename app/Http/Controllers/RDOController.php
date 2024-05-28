@@ -251,7 +251,7 @@ class RDOController extends Controller
             $totalRecordswithFilter = $totalRecordswithFilte->select('count(*) as allcount')->count();
 
             // Fetch records
-            $items = CaseDetails::where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder)->where('Rdo_status',1)->where('Rdo_status',2);
+            $items = CaseDetails::where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder);
             $records = $items->skip($start)->take($rowperpage)->get();
 
             $data_arr = array();
@@ -272,7 +272,6 @@ class RDOController extends Controller
                 } else if ($status == 2) {
                     $edit = '<a  href="' . route('ViewRdoOrders', $id) . '" class="btn btn-primary edit-btn">view</a>&nbsp;&nbsp;<div class="badge bg-danger">Rejected</div>';
                 }
-
 
 
 

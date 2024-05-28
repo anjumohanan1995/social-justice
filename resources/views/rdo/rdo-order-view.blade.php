@@ -78,7 +78,71 @@
                     </style>
 
 <div class="container">
-    <div class="form-container">
+<div class="row">
+    <div class="col-6">
+    <h1>Order Status</h1>
+    <div class="order-details">
+      <table>
+        <thead>
+          <tr>
+            <th>Case ID:</th>
+            <th>Order Type:</th>
+            <th>Compliance Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td> <td></td> <td></td> </tr>
+        </tbody>
+      </table>
+      <p>Order issue date:</p>
+      <p>--</p> <h2>Beneficiary</h2>
+      <p>Name: <span></span></p> <p>Address: <span></span></p> <p>Ph No: <span></span></p> <h2>Stakeholder</h2>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>RDO:</td>
+            <td></td> </tr>
+          <tr>
+            <td>Police Station:</td>
+            <td></td> </tr>
+          <tr>
+            <td>District Panchayat:</td>
+            <td></td> </tr>
+          <tr>
+            <td>Muncipality:</td>
+
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+</div>
+<div class="col-6">
+    <h1>Compliance Status</h1>
+    <div>
+        <p>Status:</p>
+        <p>RDO (Date: 06/10/2023 Time: 16:32:02)</p>
+        <p>Order Issued: &lt;Order details&gt;</p>
+        <p>Village Officer (Date: 08/10/2023 Time: 11:56:45)</p>
+        <p>Follow-up made. The opposing party has complied</p>
+    </div>
+    <div>
+        <p>Complied/Not Complied</p>
+        <td><input type="text" placeholder="Type the message here..."></td>
+        <button type="submit">Send</button>
+    </div>
+</div>
+</div>
+
+
+    {{-- <div class="form-container">
         <h2 class="form-title">Case ID: {{ @$opposition->case_id }}</h2>
         <div class="row form-section">
             <div class="col-md-4">
@@ -148,7 +212,7 @@
         </div>
 
 
-    </div>
+    </div> --}}
 
 
 </div>
