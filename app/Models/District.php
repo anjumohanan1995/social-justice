@@ -18,6 +18,11 @@ class District extends Eloquent
 
     ];
 
+    public function policeStations()
+    {
+        return $this->hasMany(PoliceStation::class, 'district_id', '_id');
+    }
+
 
 
 

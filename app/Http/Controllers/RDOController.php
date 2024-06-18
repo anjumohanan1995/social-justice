@@ -174,6 +174,7 @@ class RDOController extends Controller
     {
         $opposition = CaseDetails::find($id);
         $opposition = CaseDetails::with('district', 'user')->findOrFail($id);
+        // dd($opposition);
         return view('rdo.rdo-case-view',compact('opposition'));
     }
 

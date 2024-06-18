@@ -38,16 +38,24 @@ Route::group(['middleware' => ['check.permission:role-management']], function ()
 });
 
 // Case Management Routes
-Route::group(['middleware' => ['check.permission:case-management']], function () {
-    Route::resource('cases', CaseController::class);
-    Route::get('cases-list/get', [CaseController::class, 'getCaseList'])->name('get.cases-list');
-    Route::get('/ViewCases/{id}', [CaseController::class, 'ViewCases'])->name('ViewCases')->middleware('check.permission:case-management:case-list');
-    Route::get('case-register', [CaseController::class, 'caseRegister'])->name('case.register');
-    Route::post('case-register', [CaseController::class, 'storecaseRegister'])->name('case.store');
-});
+// Route::group(['middleware' => ['check.permission:case-management']], function () {
+//     Route::resource('cases', CaseController::class);
+//     Route::get('cases-list/get', [CaseController::class, 'getCaseList'])->name('get.cases-list');
+//     Route::get('/ViewCases/{id}', [CaseController::class, 'ViewCases'])->name('ViewCases')->middleware('check.permission:case-management:case-list');
+//     Route::get('case-register', [CaseController::class, 'caseRegister'])->name('case.register');
+//     Route::post('case-register', [CaseController::class, 'storecaseRegister'])->name('case.store');
+// });
+
+Route::get('appeal/{id}', [CaseController::class, 'caseAppeal'])->name('appeal');
+Route::post('appeal-case', [CaseController::class, 'storeAppealcase'])->name('appeal.store');
+
 
 // RDO Cases Routes
 Route::group(['middleware' => ['check.permission:case-management']], function () {
+    // Check if the user is authenticated
+    if (auth()->check()) {
+        // User is authenticated, now check the role
+        if (auth()->user()->role === 'RDO') {
     Route::get('rdo-cases', [RDOController::class, 'index'])->name('case.list')->middleware('check.permission:case-management:case-list');
     Route::get('rdo/cases-list/get', [RDOController::class, 'getCaseList'])->name('rdo.get.cases-list');
     Route::get('/ViewRdoCases/{id}', [RDOController::class, 'ViewRdoCases'])->name('ViewRdoCases')->middleware('check.permission:case-management:case-list');
@@ -56,6 +64,16 @@ Route::group(['middleware' => ['check.permission:case-management']], function ()
     Route::get('rdo-orders', [RDOController::class, 'rdoOders'])->name('orders.list')->middleware('check.permission:case-management:case-list');
     Route::get('rdo/orders-list/get', [RDOController::class, 'getOrderList'])->name('rdo.get.orders-list');
     Route::get('/ViewRdoOrders/{id}', [RDOController::class, 'ViewRdoOrders'])->name('ViewRdoOrders')->middleware('check.permission:case-management:case-list');
+    } else {
+        Route::group(['middleware' => ['check.permission:case-management']], function () {
+            Route::resource('cases', CaseController::class);
+            Route::get('cases-list/get', [CaseController::class, 'getCaseList'])->name('get.cases-list');
+            Route::get('/ViewCases/{id}', [CaseController::class, 'ViewCases'])->name('ViewCases')->middleware('check.permission:case-management:case-list');
+            Route::get('case-register', [CaseController::class, 'caseRegister'])->name('case.register');
+            Route::post('case-register', [CaseController::class, 'storecaseRegister'])->name('case.store');
+        });
+    }
+}
 });
 
 // Police Station Management Routes
@@ -157,10 +175,10 @@ Route::delete('/panchayat/{id}',[PanchayatController::class,'destroy' ])->name('
 Route::post('/get-police-station',[PoliceStationController::class, 'get_police_station'])->name('get-police-station');
 
 // orders module
-Route::get('/orders',[OrdersController::class,'index'])->name('orders.index');
-Route::get('/orders-create',[OrdersController::class, 'create'])->name('orders.create');
-Route::post('/orders',[OrdersController::class, 'store'])->name('orders.store');
-Route::get('/orders-list',[OrdersController::class, 'getOrdersList'])->name('getOrdersList');
+// Route::get('/orders',[OrdersController::class,'index'])->name('orders.index');
+// Route::get('/orders-create',[OrdersController::class, 'create'])->name('orders.create');
+// Route::post('/orders',[OrdersController::class, 'store'])->name('orders.store');
+// Route::get('/orders-list',[OrdersController::class, 'getOrdersList'])->name('getOrdersList');
 // No Permission Route
 Route::get('/no-permission', function () {
     return view('user.no-permission');

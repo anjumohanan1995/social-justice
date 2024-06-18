@@ -15,8 +15,11 @@ class PoliceStation extends Eloquent
     protected $collection = 'policestations';
 
     protected $fillable = ['district_id','name'];
-    public function district() {
-        return $this->belongsTo(District::class);
+
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', '_id');
     }
 
 }

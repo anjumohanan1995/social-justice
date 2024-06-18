@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use MongoDB\BSON\UTCDateTime;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RolePermission;
+use App\Models\AppealCaseDetails;
+
 
 
 
@@ -81,6 +83,21 @@ class CaseController extends Controller
             return Redirect::back()->withInput()->withErrors($validate);
         }
 
+
+        if ($request->hasfile('applicant_sign')) {
+
+            $image = $request->applicant_sign;
+            $imgfileName = time() . rand(100, 999) . '.' . $image->extension();
+
+            $image->move(public_path('/sign/applicant_sign'), $imgfileName);
+
+            $applicant_sign = $imgfileName;
+
+        }else{
+            $applicant_sign = '';
+        }
+
+
         $data =CaseDetails::create([
             'name' => @$request->name ? $request->name : '',
             'age' => @$request->age ? $request->age : '',
@@ -125,7 +142,7 @@ class CaseController extends Controller
             'applicant_name' => @$request->applicant_name ? $request->applicant_name : '',
             'relative_name' => @$request->relative_name ? $request->relative_name : '',
             'applicant_place' => @$request->applicant_place ? $request->applicant_place : '',
-            'applicant_sign' => @$request->applicant_sign ? $request->applicant_sign : '',
+            'applicant_sign' => @$applicant_sign,
             'date' => @$request->date ? $request->date : '',
             'appellant' => @$request->appellant ? $request->appellant : '',
             'user_id'=> Auth::user()->id,
@@ -198,6 +215,7 @@ class CaseController extends Controller
     public function edit($id)
     {
         $cases = CaseDetails::find($id);
+        // dd($cases);
         $districts = District::get();
         return view('user.case-edit',compact('cases','districts'));
     }
@@ -214,30 +232,95 @@ class CaseController extends Controller
 
         $validate = Validator::make($request->all(),
         [
-          'opposition_name' => 'required',
-          'opposition_mobile' => 'required' ,
-          'applicant_name' => 'required',
-          'relative_name' => 'required',
-          'applicant_place' => 'required',
-          'applicant_sign' => 'required',
-          'date' => 'required',
-          'appellant' => 'required'
+            'opposition_name' => 'required',
+            'opposition_mobile' => 'required' ,
+            'applicant_name' => 'required',
+            'opposition_address' => 'required',
+            'relative_name' => 'required',
+            'applicant_place' => 'required',
+            'date' => 'required',
+            'appellant' => 'required',
+            'district_id' => 'required',
+            'police_station' => 'required',
+            'case_details' => 'required',
+            'address' => 'required',
+            'pincode' => 'required',
         ]);
         if ($validate->fails()) {
             //dd($validate);
             return Redirect::back()->withInput()->withErrors($validate);
         }
+
+        $data = CaseDetails::find($id);
+        // dd($data);
+
+
+
+// Handle file upload
+
+if ($request->hasfile('applicant_sign')) {
+
+    $image = $request->applicant_sign;
+    $imgfileName = time() . rand(100, 999) . '.' . $image->extension();
+
+    $image->move(public_path('/sign/applicant_sign'), $imgfileName);
+
+    $applicant_sign = $imgfileName;
+} else {
+    $applicant_sign = @$data->applicant_sign;
+}
+
         $case = CaseDetails::find($id);
         $data = $case->update([
-            'opposition_name' => @$request->opposition_name? $request->opposition_name:'',
-            'district_id' => @$request->district_id? $request->district_id:'',
-            'police_station' => @$request->police_station? $request->police_station:'',
-            'opposition_address' => @$request->opposition_address?$request->opposition_address:'',
-            'pincode' => @$request->pincode?$request->pincode:'',
-            'opp_phone' => @$request->opp_phone?$request->opp_phone:'',
+            'name' => @$request->name ? $request->name : '',
+            'age' => @$request->age ? $request->age : '',
+            'job' => @$request->job ? $request->job : '',
+            'panchayath' => @$request->panchayath ? $request->panchayath : '',
+            'address' => @$request->address ? $request->address : '',
+            'ward_no' => @$request->ward_no ? $request->ward_no : '',
+            'pincode' => @$request->pincode ? $request->pincode : '',
+            'organization_name' => @$request->organization_name ? $request->organization_name : '',
+            'organization_address' => @$request->organization_address ? $request->organization_address : '',
+            'organization_phone_number' => @$request->organization_phone_number ? $request->organization_phone_number : '',
+            'organization_email' => @$request->organization_email ? $request->organization_email : '',
+            'applicant_phone_number' => @$request->applicant_phone_number ? $request->applicant_phone_number : '',
+            'alter_phone_number' => @$request->alter_phone_number ? $request->alter_phone_number : '',
+            'applicant_email' => @$request->applicant_email ? $request->applicant_email : '',
+            'aadhaar_no' => @$request->aadhaar_no ? $request->aadhaar_no : '',
+            'petitioner_properties' => @$request->petitioner_properties ? $request->petitioner_properties : '',
+            'account_number' => @$request->account_number ? $request->account_number : '',
+            'bank' => @$request->bank ? $request->bank : '',
             'case_details' => @$request->case_details?$request->case_details:'',
+            'ifsc_code' => @$request->ifsc_code ? $request->ifsc_code : '',
+            'district_id' => @$request->district_id ? $request->district_id : '',
+            'police_station' => @$request->police_station ? $request->police_station : '',
+            'pension' => @$request->pension ? $request->pension : '',
+            'savings' => @$request->savings ? $request->savings : '',
+            'other_income' => @$request->other_income ? $request->other_income : '',
+            'opposition_name' => @$request->opposition_name ? $request->opposition_name : '',
+            'opposition_age' => @$request->opposition_age ? $request->opposition_age : '',
+            'opposition_relationship' => @$request->opposition_relationship ? $request->opposition_relationship : '',
+            'opposition_mobile' => @$request->opposition_mobile ? $request->opposition_mobile : '',
+            'opposition_address' => @$request->opposition_address ? $request->opposition_address : '',
+            'opposition_salary' => @$request->opposition_salary ? $request->opposition_salary : '',
+            'opposition_reason' => @$request->opposition_reason ? $request->opposition_reason : '',
+            'opposition_alimony' => @$request->opposition_alimony ? $request->opposition_alimony : '',
+            'opposition_property' => @$request->opposition_property ? $request->opposition_property : '',
+            'opposition_medical' => @$request->opposition_medical ? $request->opposition_medical : '',
+            'opposition_oppertunity' => @$request->opposition_oppertunity ? $request->opposition_oppertunity : '',
+            'opposition_avoid' => @$request->opposition_avoid ? $request->opposition_avoid : '',
+            'opposition_police' => @$request->opposition_police ? $request->opposition_police : '',
+            'opposition_others' => @$request->opposition_others ? $request->opposition_others : '',
+            'complaint_details' => @$request->complaint_details ? $request->complaint_details : '',
+            'applicant_name' => @$request->applicant_name ? $request->applicant_name : '',
+            'relative_name' => @$request->relative_name ? $request->relative_name : '',
+            'applicant_place' => @$request->applicant_place ? $request->applicant_place : '',
+            'applicant_sign' => @$applicant_sign,
+            'date' => @$request->date ? $request->date : '',
+            'appellant' => @$request->appellant ? $request->appellant : '',
             'user_id'=> Auth::user()->id,
         ]);
+
 
         return redirect()->route('cases.index')->with('success','Case Updated successfully.');
     }
@@ -267,10 +350,10 @@ class CaseController extends Controller
     // Ensure the permissions are decoded only if they are not already arrays
     $permissions = $permission && is_string($permission->permission) ? json_decode($permission->permission, true) : ($permission->permission ?? []);
     $sub_permissions = $permission && is_string($permission->sub_permissions) ? json_decode($permission->sub_permissions, true) : ($permission->sub_permissions ?? []);
-    
+
     $hasEditCasePermission = in_array('edit-case', $sub_permissions) || $user->role == 'Admin';
     $hasDeleteCasePermission = in_array('delete-case', $sub_permissions) || $user->role == 'Admin';
-$hasViewCasePermission = in_array('view-case', $sub_permissions) || $user->role == 'Admin';
+    $hasViewCasePermission = in_array('case-list', $sub_permissions) || $user->role == 'Admin';
 
         ## Read value
         $draw = $request->get('draw');
@@ -317,6 +400,18 @@ $hasViewCasePermission = in_array('view-case', $sub_permissions) || $user->role 
                 $case_id  =  $record->case_id;
                 $edit = '';
 
+                $formatted_opposition_names = '';
+                $formatted_opposition_addresses = '';
+
+if (is_array($opposition_name) && is_array($opposition_address)) {
+    foreach ($opposition_name as $index => $name) {
+        $formatted_opposition_names .= ($index + 1) . '. ' . $name . '<br>';
+        $formatted_opposition_addresses .= ($index + 1) . '. ' . $opposition_address[$index] . '<br>';
+    }
+}
+
+// dd($formatted_opposition_addresses);
+
 // Check conditions for edit button
 if ($hasEditCasePermission) {
     $edit .= '<a href="' . url('cases/'.$id.'/edit') . '" class="btn btn-primary edit-btn">Edit</a>&nbsp;&nbsp;';
@@ -334,8 +429,8 @@ if ($hasViewCasePermission) {
 
                 $data_arr[] = array(
                     "id" => $i,
-                    "opposition_name" => $opposition_name,
-                    "opposition_address" => $opposition_address,
+                    "opposition_name" => $formatted_opposition_names,
+                    "opposition_address" => $formatted_opposition_addresses,
                     "case_details" => $case_details,
                     "case_id"=>$case_id,
                     "edit" => $edit
@@ -354,11 +449,73 @@ if ($hasViewCasePermission) {
 
     public function ViewCases($id)
     {
-        $opposition = CaseDetails::find($id);
-        $opposition = CaseDetails::with('district', 'user')->findOrFail($id);
-        return view('user.case-view',compact('opposition'));
+        $cases = CaseDetails::find($id);
+        // dd($cases);
+        $districts = District::get();
+        return view('user.case-view',compact('cases','districts'));
     }
 
+
+    public function caseAppeal($id){
+        $cases = CaseDetails::find($id);
+        // dd($cases);
+        $districts = District::get();
+        return view('user.case-appeal',compact('cases','districts'));
+    }
+
+    public function storeAppealcase(Request $request){
+        // dd($request);
+        $validate = Validator::make($request->all(),
+        [
+            'maintenance_tribunal' => 'required',
+            'order_challenging_reason' => 'required' ,
+            'order_stay_reason' => 'required',
+            'desired_solution' => 'required',
+            'appeal_appellant' => 'required',
+            'appeal_applicant_place' => 'required',
+            'appeal_applicant_sign' => 'required',
+            'appeal_date' => 'required',
+            'case_details_id' => 'required',
+        ]);
+        if ($validate->fails()) {
+            // dd($validate);
+            return Redirect::back()->withInput()->withErrors($validate);
+        }
+
+
+        if ($request->hasfile('appeal_applicant_sign')) {
+
+            $image = $request->appeal_applicant_sign;
+            $imgfileName = time() . rand(100, 999) . '.' . $image->extension();
+
+            $image->move(public_path('/sign/applicant_sign'), $imgfileName);
+
+            $appeal_applicant_sign = $imgfileName;
+
+        }else{
+            $appeal_applicant_sign = '';
+        }
+
+
+
+        $data =AppealCaseDetails::create([
+            'maintenance_tribunal' => @$request->maintenance_tribunal ? $request->maintenance_tribunal : '',
+            'order_challenging_reason' => @$request->order_challenging_reason ? $request->order_challenging_reason : '',
+            'order_stay_reason' => @$request->order_stay_reason ? $request->order_stay_reason : '',
+            'desired_solution' => @$request->desired_solution ? $request->desired_solution : '',
+            'appeal_appellant' => @$request->appeal_appellant ? $request->appeal_appellant : '',
+            'appeal_applicant_place' => @$request->appeal_applicant_place ? $request->appeal_applicant_place : '',
+            'appeal_applicant_sign' => @$appeal_applicant_sign,
+            'appeal_date' => @$request->appeal_date ? $request->appeal_date : '',
+            'user_id'=> Auth::user()->id,
+            'case_details_id' => @$request->case_details_id ? $request->case_details_id : '',
+        ]);
+
+
+        return redirect()->back()->with('success','Appeal Added successfully.');
+
+
+    }
 
 
 

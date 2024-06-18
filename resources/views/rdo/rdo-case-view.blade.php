@@ -112,23 +112,19 @@
                 <h5 style="font-weight: bold; text-decoration: underline;">Opposition</h5>
                 <div class="mb-3">
                     <label for="oppositionName" class="form-label">Name:</label>
-                    <p class="form-data">{{ @$opposition->opposition_name }}</p>
+                    <p class="form-data">{{ @$opposition->opposition_name[0] }}</p>
                 </div>
                 <div class="mb-3">
                     <label for="oppositionAddress" class="form-label">Address:</label>
-                    <p class="form-data">{{ @$opposition->opposition_address }}</p>
+                    <p class="form-data">{{ @$opposition->opposition_address[0] }}</p>
                 </div>
                 <div class="mb-3">
                     <label for="oppositionDistrict" class="form-label">District:</label>
-                    <p class="form-data">{{ @$opposition->district->name }}</p>
-                </div>
-                <div class="mb-3">
-                    <label for="oppositionPincode" class="form-label">Pincode:</label>
-                    <p class="form-data">{{ @$opposition->pincode }}</p>
+                    <p class="form-data">{{ @$opposition->opposition_age[0] }}</p>
                 </div>
                 <div class="mb-3">
                     <label for="oppositionPhone" class="form-label">Phone Number:</label>
-                    <p class="form-data">{{ @$opposition->opp_phone }}</p>
+                    <p class="form-data">{{ @$opposition->opposition_mobile[0] }}</p>
                 </div>
                 <div class="mb-3">
                     <label for="oppositionEmail" class="form-label">Email:</label>

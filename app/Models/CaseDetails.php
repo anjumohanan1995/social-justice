@@ -37,4 +37,8 @@ class CaseDetails extends Eloquent
         return $this->belongsTo(User::class);
     }
 
+    public function appealCaseDetails() {
+        return $this->hasMany(AppealCaseDetails::class, 'case_details_id');
+    }
+
 }

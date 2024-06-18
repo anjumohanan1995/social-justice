@@ -17,7 +17,7 @@
     $hasRoleManagementPermission = in_array('role-management', $permissions) || $user->role == 'Admin';
     $hasPoliceStationManagementPermission = in_array('police-station-management', $permissions) || $user->role == 'Admin';
     $hasPanchayatManagementPermission = in_array('panchayat-management', $permissions) || $user->role == 'Admin';
-    $hasOrderManagementPermission = in_array('order-management', $permissions) || $user->role == 'Admin';
+    $hasOrderManagementPermission = in_array('orders-management', $permissions) || $user->role == 'Admin';
     $hasCaseManagementPermission = in_array('case-management', $permissions) || $user->role == 'Admin';
     // Check for sub-permissions within user management
     $hasUserslistPermission = in_array('users-list', $sub_permissions) || $user->role == 'Admin';
@@ -475,7 +475,7 @@
                     <li> <a href="hide-on-scroll.html">Hide Nav Scroll</a></li>
                   </ul>
                 </li> --}}
-
+{{--
 
                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
                     <svg class="stroke-icon">
@@ -485,12 +485,12 @@
                       <use href="svg/icon-sprite.svg#fill-project"></use>
                     </svg><span>Orders         </span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
                   <ul class="sidebar-submenu" style="display: none;">
-                    <li><a href="{{ url('/rdo-orders') }}">All Orders</a></li>
+                    <li><a href="{{ url('/rdo-orders') }}">All Orders</a></li> --}}
                     {{-- <li><a href="{{ url('/cases') }}">Case List</a></li> --}}
-                  </ul>
-                </li>
+                  {{-- </ul>
+                </li> --}}
 
-                @else
+                {{-- @else --}}
 
 
                 {{-- @dd($hasUserManagementPermission); --}}
@@ -556,16 +556,60 @@
                         </svg><span>Panchayat</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
                     </li>
 @endif
-@if($hasOrderManagementPermission)
-                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{ url('/orders') }}">
+
+
+
+{{-- @if($hasOrderManagementPermission)
+<li class="sidebar-main-title">
+    <div>
+      <h6 class="lan-8">Orders</h6>
+    </div>
+  </li>
+                    <li class="sidebar-list">
+                        <i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{ url('/orders') }}">
                         <svg class="stroke-icon">
                           <use href="svg/icon-sprite.svg#stroke-file"></use>
                         </svg>
                         <svg class="fill-icon">
                           <use href="svg/icon-sprite.svg#fill-file"></use>
                         </svg><span>Orders</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
+                        <ul class="sidebar-submenu" style="display: none;">
+                            <li><a href="{{ url('/rdo-orders') }}">All Orders</a></li>
+                        </ul>
                     </li>
-@endif
+
+@endif --}}
+
+
+@if($hasOrderManagementPermission)
+                <li class="sidebar-main-title">
+                  <div>
+                    <h6 class="lan-8">Orders</h6>
+                  </div>
+                </li>
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="svg/icon-sprite.svg#stroke-project"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="svg/icon-sprite.svg#fill-project"></use>
+                    </svg><span>Orders</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
+                    <ul class="sidebar-submenu" style="display: none;">
+
+                    {{-- @if ($hasUserslistPermission) --}}
+                    <li><a href="{{ url('/rdo-orders') }}">All Orders</a></li>
+                    {{-- @endif
+                    @if($hasRoleManagementPermission) --}}
+                        <li><a class="sidebar-link sidebar-title link-nav" href="{{ url('/orders') }}">Orders</a></li>
+                    {{-- @endif --}}
+                  </ul>
+                </li>
+            @endif
+
+
+
+
+
                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="calendar-basic.html" hidden>
                     <svg class="stroke-icon">
                       <use href="svg/icon-sprite.svg#stroke-calendar"></use>

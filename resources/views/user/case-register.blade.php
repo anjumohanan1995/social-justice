@@ -52,7 +52,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form class="row g-3 needs-validation custom-input" action="{{ route('case.store') }}" method="POST">
+                        <form class="row g-3 needs-validation custom-input" action="{{ route('case.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                             <div class="form-group">
                                 <div class="row">
@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="col-md-4 mb-4">
                                         <label class="form-label">തൊഴില്‍ <br><span class="small"> Job</span> </label>
-                                        <input type="number" value="{{ old('job') }}" class="form-control"
+                                        <input type="text" value="{{ old('job') }}" class="form-control"
                                             name="job" placeholder="തൊഴില്‍"  />
                                         @error('job')
                                             <span class="text-danger">{{ $message }}</span>
@@ -630,8 +630,9 @@
                                         <label class="form-label">
                                             ഒപ്പ്
                                             <br> <span class="small required">Signature </span> </label>
-                                            <input type="file" class="form-control"  name="applicant_sign"  id="applicant_sign" onchange="validateImage()"  accept="image/*" required />
-                                        @error('applicant_sign')
+
+                                            <input type="file" class="form-control" name="applicant_sign" id="applicant_sign" accept="image/jpeg,image/png,image/jpg" required />
+                                            @error('applicant_sign')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -790,23 +791,31 @@ $(document).ready(function() {
 	});
 
     function validateImage() {
-        var input = document.getElementById('applicant_sign');
-        var errorMessage = document.getElementById('errorMessage');
+    var input = document.getElementById('applicant_sign');
+    var errorMessage = document.getElementById('errorMessage');
 
-        if (input.files.length > 0) {
-            var fileSize = input.files[0].size; // in bytes
-            var maxSize = 2 * 1024 * 1024; // 2MB
+    if (input.files.length > 0) {
+        var fileSize = input.files[0].size; // in bytes
+        var maxSize = 2 * 1024 * 1024; // 2MB
+        var validExtensions = ['jpg', 'png', 'jpeg'];
 
-            if (fileSize > maxSize) {
-                errorMessage.innerText = 'Error: Image size exceeds 2MB limit';
-                input.value = ''; // Clear the file input
-                  $("#submit").prop("disabled", true);
-            } else {
-                errorMessage.innerText = '';
-                 $("#submit").prop("disabled", false);
-            }
+        var fileExtension = input.files[0].name.split('.').pop().toLowerCase();
+
+        if (fileSize > maxSize) {
+            errorMessage.innerText = 'Error: Image size exceeds 2MB limit';
+            input.value = ''; // Clear the file input
+            $("#submit").prop("disabled", true);
+        } else if (!validExtensions.includes(fileExtension)) {
+            errorMessage.innerText = 'Error: Image must be in JPG, PNG, or JPEG format';
+            input.value = ''; // Clear the file input
+            $("#submit").prop("disabled", true);
+        } else {
+            errorMessage.innerText = '';
+            $("#submit").prop("disabled", false);
         }
+    }
 }
+
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {

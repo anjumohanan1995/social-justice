@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         'name' => 'Social Justice',
         'email' => 'admin@gmail.com',
         'mobile' => '9865326592',
-        'role' => 'Super Admin',
+        'role' => 'Admin',
         'password' => Hash::make('12345678')
 
     ]);

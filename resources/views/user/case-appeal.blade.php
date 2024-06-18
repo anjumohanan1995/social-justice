@@ -6,88 +6,54 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h4>View Case</h4>
+                        <h4>Appeal Form</h4>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="index.html">
-                                    <svg class="stroke-icon">
-                                        <use href="svg/icon-sprite.svg#stroke-home"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item">Case</li>
-                            <li class="breadcrumb-item active">View Case</li>
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <svg class="stroke-icon">
+                                    <use href="svg/icon-sprite.svg#stroke-home"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">Case</li>
+                        <li class="breadcrumb-item active"> Appeal Form </li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
-
+        <style>
+            .required::after {
+                content: "*";
+                color: red;
+                margin-left: 5px;
+            }
+        </style>
         <div class="container-fluid">
-            <div class="card">
-                <div class="card-header" hidden>
-                    {{-- <h4>Tooltip form validation</h4>
-                    <p class="f-m-light mt-1">
-                        If your form layout allows it, you can swap the <code>.{valid|invalid}</code>-feedback classes for <code>.{valid|invalid}</code>-tooltip classes to display validation feedback in a styled tooltip. Be sure to have a parent with <code>position: relative</code> on it for tooltip positioning.
-                    </p> --}}
-                </div>
-
-                <div class="m-4 d-flex justify-content-between">
-                    @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show w-100" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-                </div>
-
-                <div class="card-body">
-                    <style>
-                        /* Style for form container */
-                        .form-container {
-                            max-width: 8000px;
-                            margin: 0 auto;
-                            padding: 20px;
-                            background-color: #f8f9fa;
-                            border: 1px solid #ced4da;
-                            border-radius: 8px;
-                        }
-
-                        /* Style for form title */
-                        .form-title {
-                            font-size: 24px;
-                            margin-bottom: 20px;
-                        }
-
-                        /* Style for form sections */
-                        .form-section {
-                            margin-bottom: 30px;
-                        }
-
-                        /* Style for form labels */
-                        .form-label {
-                            font-weight: bold;
-                        }
-
-                        /* Style for form data */
-                        .form-data {
-                            font-size: 16px;
-                        }
-                    </style>
-
-                    <div class="container">
-                        <div class="form-container">
-                            <div class="card-body">
-                                <div id="btnHide" class="row justify-content-end m-3" style="position: absolute; top: 100px; right: 200px;">
-                                    <a style="width: 20px; height: 20px;" onclick="printDiv()">
-                                        <img src="{{ asset('admin/uploads/icons/printer.png') }}" alt="Print Icon" style="height: 200%;">
-                                    </a>
-                                </div>
-                                <div id="print_content">
-                            <h2 class="form-title">Case ID: {{ @$cases->case_id }}</h2>
-                        <form class="row g-3 needs-validation custom-p" >
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>ആപ്ലിക്കേഷൻ ഫോം</h4>
+                        <h4 class="f-m-light mt-1">
+                            {{-- If your form layout allows it, you can swap the <code>.{valid|invalid}</code>-feedback classes for<code>.{valid|invalid}</code>-tooltip classes to display validation feedback in a styled tooltip. Be sure to have a parent with <code>position: relative</code> on it for tooltip positioning. --}}
+                            മാതാപിതാക്കളുടെയും മുതിർന്ന പൗരൻമാരുടെയും സംരക്ഷണവും ക്ഷേമവും സംബന്ധിച്ച നിയമം – 2007
+                        </h4>
+                    </div>
+                    <div class=" m-4 d-flex justify-content-between">
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show w-100" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="card-body">
+                         <form class="row g-3 needs-validation custom-input" action="{{ route('appeal.store') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4 mb-4">
@@ -109,7 +75,7 @@
                                         <p>{{ @$cases->panchayath }}</p>
                                     </div>
                                     <div class="col-md-6 mb-6">
-                                        <label class="form-label">സ്ഥിരമായ വിലാസം<br><span class="small required"> Address</span></label>
+                                        <label class="form-label">സ്ഥിരമായ വിലാസം<br><span class="small"> Address</span></label>
                                         <p>{{ @$cases->address }}</p>
                                     </div>
                                 </div>
@@ -120,7 +86,7 @@
                                         <p>{{ @$cases->ward_no }}</p>
                                     </div>
                                     <div class="col-md-4 mb-4">
-                                        <label class="form-label">പിൻകോഡ്<br><span class="small required">Pincode</span></label>
+                                        <label class="form-label">പിൻകോഡ്<br><span class="small">Pincode</span></label>
                                         <p>{{ @$cases->pincode }}</p>
                                     </div>
                                 </div>
@@ -196,31 +162,36 @@
                                 </div>
                                 <br>
                                 <div class="row">
-                                    <div class="col-12">
-                                        <h4>
-                                            <label class="form-label">
-                                                <b>അപേക്ഷക കക്ഷിയുടെ ബാങ്ക് അക്കൗണ്ട് വിവരങ്ങള്‍ (ജീവനാംശം ആവശ്യമുണ്ടെങ്കില്‍, ബാങ്ക് പാസ് ബൂക്ക് കോപ്പി സഹിതം)</b><br>
-                                                <span class="small"><b>Bank account details of applicant party (maintenance with bank pass book copy if )</b></span>
-                                            </label>
-                                        </h4>
+                                    <div class="col-md-12 mb-12">
+                                        <label class="form-label" style="color: green;"><b>ഉത്തരവ് പുറപ്പെടുവിപ്പിച്ച മെയിന്റനൻസ് ട്രൈബ്യുണലിന്റെ പേരും പ്രസ്തുത ഉത്തരവിന്റെ നമ്പറും തീയതിയും</b> <br><span class="small required">
+                                           <b> Name of the maintenance tribunal, number and date of the said order</b></span> </label>
+                                        <textarea type="text" value="{{ old('maintenance_tribunal') }}" class="form-control" name="maintenance_tribunal" placeholder="ഉത്തരവ് പുറപ്പെടുവിപ്പിച്ച മെയിന്റനൻസ് ട്രൈബ്യുണലിന്റെ പേരും പ്രസ്തുത ഉത്തരവിന്റെ നമ്പറും തീയതിയും" required>{{ old('maintenance_tribunal') }}</textarea>
+                                        @error('maintenance_tribunal')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
-                                <br>
                                 <div class="row">
-                                    <div class="col-md-4 mb-4">
-                                        <label class="form-label">a.) അക്കൗണ്ട് നമ്പര്‍<br><span class="small">Bank Account number</span></label>
-                                        <p>{{ @$cases->account_number }}</p>
-                                    </div>
-                                    <div class="col-md-4 mb-4">
-                                        <label class="form-label">b.) ബാങ്ക് / ബ്രാഞ്ച് പേര്<br><span class="small">Bank/Branch Name</span></label>
-                                        <p>{{ @$cases->bank }}</p>
-                                    </div>
-                                    <div class="col-md-4 mb-4">
-                                        <label class="form-label">c.) IFSC code<br><span class="small">IFSC code</span></label>
-                                        <p>{{ @$cases->ifsc_code }}</p>
+                                    <div class="col-md-12 mb-12">
+                                        <label class="form-label" style="color: green;"><b>ഉത്തരവിനെ ചോദ്യം ചെയ്യുന്നതിനുള്ള കാരണങ്ങൾ</b> <br><span class="small required">
+                                           <b>Grounds for challenging the order</b></span> </label>
+                                        <textarea type="text" value="{{ old('order_challenging_reason') }}" class="form-control" name="order_challenging_reason" placeholder="ഉത്തരവിനെ ചോദ്യം ചെയ്യുന്നതിനുള്ള കാരണങ്ങൾ" required>{{ old('order_challenging_reason') }}</textarea>
+                                        @error('order_challenging_reason')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
-                                <br>
+                                <div class="row">
+                                    <div class="col-md-12 mb-12">
+                                        <label class="form-label" style="color: green;"><b>സ്റ്റേ ഉത്തരവ് ആവശ്യപ്പെടുന്നുവെങ്കിൽ അതിനുള്ള കാരണങ്ങൾ</b> <br><span class="small required">
+                                           <b>Reasons for requesting a stay order</b></span> </label>
+                                        <textarea type="text" value="{{ old('order_stay_reason') }}" class="form-control" name="order_stay_reason" placeholder="സ്റ്റേ ഉത്തരവ് ആവശ്യപ്പെടുന്നുവെങ്കിൽ അതിനുള്ള കാരണങ്ങൾ" required>{{ old('order_stay_reason') }}</textarea>
+                                        @error('order_stay_reason')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-12">
                                         <h4>
@@ -235,7 +206,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6 mb-6">
-                                        <label class="form-label">District<br><span class="small required">ജില്ല</span></label>
+                                        <label class="form-label">District<br><span class="small">ജില്ല</span></label>
                                         <p>
                                             @foreach($districts as $district)
                                                 @if($district->_id == $cases->district_id)
@@ -245,7 +216,7 @@
                                         </p>
                                     </div>
                                     <div class="col-md-6 mb-6">
-                                        <label class="form-label">Police Station<br><span class="small required">പോലീസ് സ്റ്റേഷൻ</span></label>
+                                        <label class="form-label">Police Station<br><span class="small">പോലീസ് സ്റ്റേഷൻ</span></label>
                                         <p>
                                             @foreach($districts as $district)
                                                 @foreach($district->policeStations as $station)
@@ -288,7 +259,7 @@
                                 <div class="row">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label>എതിർകക്ഷികളുടെ പേര്<br><span class="small required">Opposition Name</span></label>
+                                            <label>എതിർകക്ഷികളുടെ പേര്<br><span class="small">Opposition Name</span></label>
                                         </div>
                                         <div class="col-md-1">
                                             <label>വയസ്സ്<br><span class="small">Age</span></label>
@@ -297,10 +268,10 @@
                                             <label>ബന്ധം<br><span class="small">Relationship</span></label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label>മൊബൈല്‍ നമ്പര്‍<br><span class="small required">Mobile Number</span></label>
+                                            <label>മൊബൈല്‍ നമ്പര്‍<br><span class="small">Mobile Number</span></label>
                                         </div>
                                         <div class="col-md-2">
-                                            <label>വിലാസം<br><span class="small required">Address</span></label>
+                                            <label>വിലാസം<br><span class="small">Address</span></label>
                                         </div>
                                         <div class="col-md-2">
                                             <label>എതിര്‍കക്ഷിയുടെ ജോലി/പ്രതിമാസവരുമാനം(ഏകദേശം)<br><span class="small">Opposition Job/Salary</span></label>
@@ -332,86 +303,14 @@
                                 </div>
                                 <br>
 
-
-
                                 <div class="row">
                                     <div class="col-md-12 mb-12">
-                                        <label class="form-label">എതിര്‍കക്ഷിയില്‍ നിന്നും ഉണ്ടായ
-                                            അക്രമം : / അപേക്ഷയ്ക്ക്
-                                            ആധാരമായ കാരണങ്ങള്‍
-                                            <br> <span class="small required">Violence from the opposite party :/
-                                                Grounds for application </span> </label>
-                                        <p>{{ @$cases->case_details }}</p>
-                                    </div>
-                                </div><br>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h4><label class="form-label"><b>എതിര്‍കക്ഷികളില്‍ നിന്ന് ഏത്
-                                            തരത്തിലുള്ള പരിഹാരം
-                                            /സംരക്ഷണം / ക്ഷേമമാണ്
-                                            ആവശ്യപ്പെടുന്നത് / പ്രതീക്ഷിക്കുന്നത്
-
-                                            ?</b><br><span class="small">
-                                            <b>
-                                                What kind of settlement / protection / welfare is sought / expected from the opposite parties
-                                            </b></span> </label></h4>
-                                    </div>
-                                </div><br>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-6">
-                                        <label class="form-label">a)പ്രതിമാസം ജീവനാംശം ലഭിക്കൽ
-                                            <br> <span class="small">
-                                                a)Receipt of monthly alimony </span> </label>
-                                        <p>{{ @$cases->opposition_alimony }}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-6">
-                                        <label class="form-label">b)സ്വത്ത് തിരികെ ലഭിക്കൽ
-                                            <br> <span class="small">
-                                                b) Recovery of property </span> </label>
-                                        <p>{{ @$cases->opposition_property }}</p>
-                                    </div>
-                                </div><br>
-                                <div class="row">
-                                    <div class="col-md-6 mb-6">
-                                        <label class="form-label">c)സംരക്ഷണം ഉറപ്പു വരുത്തൽ
-                                            (ഭക്ഷണം, വസ്ത്രം,താമസം )
-                                            <br> <span class="small">c) Ensuring protection
-                                                (Food, clothing, accommodation) </span> </label>
-                                        <p>{{ @$cases->opposition_reason }}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-6">
-                                        <label class="form-label">d)മരുന്ന് / ചികിത്സ / വൈദ്യശുശ്രൂഷ ഉറപ്പാക്കുന്നതിന്
-                                            <br> <span class="small">
-                                                d) To secure medicine / treatment / medical care </span> </label>
-                                        <p>{{ @$cases->opposition_medical }}</p>
-                                    </div>
-                                </div><br>
-                                <div class="row">
-                                    <div class="col-md-6 mb-6">
-                                        <label class="form-label">e) മക്കളെ കാണുന്നതിനുള്ള
-                                            അവസരം ഒരുക്കൽ
-                                            <br> <span class="small">e) Oppertunity to see childrens </span> </label>
-                                        <p>{{ @$cases->opposition_oppertunity }}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-6">
-                                        <label class="form-label">f) എതിർകക്ഷിയെ വീട്ടിൽ നിന്നും
-                                            ഒഴിവാക്കൽ
-                                            <br> <span class="small">f) Avoid opposite parties from home </span> </label>
-                                        <p>{{ @$cases->opposition_avoid }}</p>
-                                    </div>
-                                </div><br>
-                                <div class="row">
-                                    <div class="col-md-6 mb-6">
-                                        <label class="form-label">g)പോലീസ് സഹായം / സംരക്ഷണം
-                                            <br> <span class="small">g) Police Assistance / Protection </span> </label>
-                                        <p>{{ @$cases->opposition_police }}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-6">
-                                        <label class="form-label">h)മറ്റുള്ളവ, വിശദീകരിക്കുക :
-                                            <br> <span class="small">h)Others, please explain : </span> </label>
-                                        <p>{{ @$cases->opposition_others }}</p>
+                                        <label class="form-label" style="color: green;"><b>ആഗ്രഹിക്കപ്പെടുന്ന പരിഹാരം</b> <br><span class="small required">
+                                           <b>Desired solution</b></span> </label>
+                                        <textarea type="text" value="{{ old('desired_solution') }}" class="form-control" name="desired_solution" placeholder="ആഗ്രഹിക്കപ്പെടുന്ന പരിഹാരം" required>{{ old('desired_solution') }}</textarea>
+                                        @error('desired_solution')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div><br>
 
@@ -439,67 +338,67 @@
                                             </label>
                                             <p>{{ @$cases->complaint_details }}</p>
                                         </div>
-                                    </div><br>
+                                    </div><br><br><br>
                                 </div>
                                 @endif
 
                                 <div class="row">
-                                    <div class="col-md-4 mb-4">
-                                        <label class="form-label">
-                                            അപേക്ഷകൻ്റെ പേര്
-                                            <br> <span class="small required">Name of Applicant </span>
-                                        </label>
-                                        <p>{{ @$cases->applicant_name }}</p>
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label" style="color: green;">
+                                            അപ്പീൽ വാദി
+                                            <br> <span class="small required">Appellant </span> </label>
+                                        <input type="text" value="{{ old('appeal_appellant') }}" class="form-control" name="appeal_appellant" id="appeal_appellant" placeholder="അപ്പീൽ വാദി" required/>
+                                        @error('appeal_appellant')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="col-md-4 mb-4">
-                                        <label class="form-label">S/o, D/o, W/o
-                                            <br> <span class="small required">S/o, D/o, W/o </span>
-                                        </label>
-                                        <p>{{ @$cases->relative_name }}</p>
-                                    </div>
-                                    <div class="col-md-4 mb-4">
-                                        <label class="form-label">
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label" style="color: green;">
                                             സ്ഥലം
-                                            <br> <span class="small required">Place </span>
-                                        </label>
-                                        <p>{{ @$cases->applicant_place }}</p>
+                                            <br> <span class="small required">Place </span> </label>
+                                        <input type="text" value="{{ old('appeal_applicant_place') }}" class="form-control" name="appeal_applicant_place" id="appeal_applicant_place" placeholder="സ്ഥലം" required />
+                                        @error('appeal_applicant_place')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
+
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label" style="color: green;">
+                                            ഒപ്പ്
+                                            <br> <span class="small required">Signature </span> </label>
+
+                                            <input type="file" class="form-control" name="appeal_applicant_sign" id="appeal_applicant_sign" accept="image/jpeg,image/png,image/jpg" required />
+                                            @error('appeal_applicant_sign')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label" style="color: green;">തീയതി
+                                            <br> <span class="small required">Date </span> </label>
+                                        <input type="Date" value="{{ old('appeal_date') }}" class="form-control" name="appeal_date" id="appeal_date" placeholder="തീയതി" required />
+                                        @error('appeal_date')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-4 mb-4">
-                                        <label class="form-label">
-                                            ഒപ്പ്
-                                            <br> <span class="small required">Signature </span>
-                                        </label>
-                                        @if(@$cases['applicant_sign'])
-                                        {{-- <iframe src="{{ asset('sign/huband/' . @$childFinancialHelp['husband_sign']) }}" width="400" height="200"></iframe> --}}
-                                        <img src="{{ asset('/sign/applicant_sign/' . @$cases['applicant_sign']) }}" width="120px" height="60px">
-                                    @endif
-                                        {{-- <p>{{ @$cases->applicant_sign }}</p> --}}
-                                    </div>
-                                    <div class="col-md-4 mb-4">
-                                        <label class="form-label">തീയതി
-                                            <br> <span class="small required">Date </span>
-                                        </label>
-                                        <p>{{ @$cases->date }}</p>
-                                    </div>
-                                    <div class="col-md-4 mb-4">
-                                        <label class="form-label">
-                                            അപ്പീൽ വാദി
-                                            <br> <span class="small required">Appellant </span>
-                                        </label>
-                                        <p>{{ @$cases->appellant }}</p>
+                                    <div class="col-12 mb-4">
+                                        <h4><label class="form-label"><b>സത്യവാങ്മൂലം</b><br><span class="small">
+                                            <b>Declaration
+                                            </b></span> </label></h4>
+                                            <textarea class="form-control" rows="4" id="declaration" readonly></textarea>
+
                                     </div>
                                 </div>
+                                <input type="hidden" name="case_details_id" value="{{ $cases->id }}">
 
-                                <div class="col-md-12 d-flex justify-content-end">
-                                    <a id="submitButton" href="{{ route('appeal', $cases->id) }}" class="btn btn-primary">File for Appeal</a>
+                                <div class="col-12">
+                                    <button class="btn btn-primary" type="submit">Submit form</button>
                                 </div>
-
                             </div>
                         </form>
-                        </div>
                         </div>
                     </div>
 
@@ -518,15 +417,32 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
-            function printDiv() {
-        var printContents = document.getElementById('print_content').innerHTML;
-        var originalContents = document.body.innerHTML;
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const appellantInput = document.getElementById('appeal_appellant');
+            const placeNameInput = document.getElementById('appeal_applicant_place');
+            const signatureInput = document.getElementById('appeal_applicant_sign');
+            const dateInput = document.getElementById('appeal_date');
+            const declarationTextarea = document.getElementById('declaration');
 
-        document.body.innerHTML = printContents;
+            function updateDeclaration() {
+                const appellant = appellantInput.value;
+                const place = placeNameInput.value;
+                const signature = signatureInput.value;
+                const date = dateInput.value;
+                declarationTextarea.value = `മുകളിൽ പറഞ്ഞട്ടുള്ള വസ്തു വകകൾ ഉത്തമമായ എന്റെ അറിവിലും വിശ്വാസത്തലും പെട്ടിടത്തോളം സത്യവും സത്യവും ശരിയുമാണെന്നും അപ്പീൽ വാദിയായ ${appellant}, എന്ന ഞാൻ ഇതിനാൽ പ്രസ്താവിക്കുന്നു. മെയിന്റനൻസ് ട്രൈബ്യുണലിന്റെ ഉത്തരവിന്റെ ഒരു പകർപ്പ് തോടൊപ്പം ചേർത്തരിക്കുന്നു.
+    സ്ഥലം : ${place}                                                                      ഒപ്പ് : ${signature}
+    തീയതി : ${date}                                                                       അപ്പീൽ വാദി : ${appellant}`;
+            }
 
-        window.print();
+            appellantInput.addEventListener('input', updateDeclaration);
+            placeNameInput.addEventListener('input', updateDeclaration);
+            signatureInput.addEventListener('input', updateDeclaration);
+            dateInput.addEventListener('input', updateDeclaration);
 
-        document.body.innerHTML = originalContents;
-    }
+
+            // Initial update in case there are old values
+            updateDeclaration();
+        });
     </script>
+
 @endsection
