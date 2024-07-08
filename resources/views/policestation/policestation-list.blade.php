@@ -26,7 +26,7 @@
                                 <h4 class="card-title mg-b-10">
                                     Police Station
                                 </h4>
-                                <div class="col-md-1 col-6 text-center">
+                                <div class="col-md-1 col-6 text-center" hidden>
                                     <div class="task-box primary  mb-0">
                                         <a class="text-white" href="{{ route('policestation.create') }}">
                                             <p class="mb-0 tx-12">Add </p>

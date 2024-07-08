@@ -26,6 +26,7 @@
     $hasAddPermissionPermission = in_array('add-permission', $sub_permissions) || $user->role == 'Admin';
     $hasEditPermissionPermission = in_array('edit-permission', $sub_permissions) || $user->role == 'Admin';
     $hasCaseListPermission = in_array('case-list', $sub_permissions) || $user->role == 'Admin';
+    // $$hasAppealCasePermission = in_array('appeal', $sub_permissions) || $user->role == 'Admin';
     $hasAddCasePermission = in_array('add-case', $sub_permissions) || $user->role == 'Admin';
     $hasPoliceStationListPermission = in_array('police-station-list', $sub_permissions) || $user->role == 'Admin';
     $hasAddPoliceStationPermission = in_array('add-police-station', $sub_permissions) || $user->role == 'Admin';
@@ -520,6 +521,7 @@
                 </li>
             @endif
             @if($hasCaseManagementPermission)
+            {{-- @unless(Auth::user()->role == 'Admin') --}}
                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
                     <svg class="stroke-icon">
                         <use href="svg/icon-sprite.svg#stroke-project"></use>
@@ -527,6 +529,7 @@
                     <svg class="fill-icon">
                         <use href="svg/icon-sprite.svg#fill-project"></use>
                     </svg>
+
                     <span>Case</span>
                     <div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
                     <ul class="sidebar-submenu" style="display: none;">
@@ -534,7 +537,9 @@
                         @if ($hasCaseListPermission && !(Auth::user()->role =='RDO'))<li><a href="{{ url('/cases') }}">Case List</a></li>@endif
                         @if(Auth::user()->role =='RDO' && $hasCaseListPermission)<li><a href="{{ url('/rdo-cases') }}">All Cases</a></li>@endif
                     </ul>
+
               </li>
+              {{-- @endunless --}}
                 @endif
                 @if($hasPoliceStationManagementPermission)
                 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{ url('/policestation') }}">

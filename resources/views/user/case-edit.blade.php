@@ -24,6 +24,73 @@
                 </div>
             </div>
         </div>
+        <style>
+            .required::after {
+                content: "*";
+                color: red;
+                margin-left: 5px;
+            }
+        </style>
+        <style>
+            .upload-btn-wrapper {
+                position: relative;
+                overflow: hidden;
+                display: inline-block;
+            }
+
+            .btn-upload {
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 18px;
+                font-weight: bold;
+                color: #ffffff;
+                background-color: #688569;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+            .btn-upload:hover {
+                background-color: #45a049;
+            }
+
+            /* Optional: Styles for the upload icon */
+            .upload-icon {
+                margin-right: 10px;
+                vertical-align: middle;
+            }
+
+            .upload-icon svg {
+                width: 24px;
+                height: 24px;
+                fill: #eb1414;
+                vertical-align: middle;
+            }
+              </style>
+                  <style>
+                    .button-container {
+                        display: flex;
+                        justify-content: flex-end;
+                        margin-top: 20px; /* Adjust as needed */
+                    }
+
+                    /* Adjusted styles for button */
+                    .btn-primary {
+                        padding: 15px 30px; /* Increased padding for larger size */
+                        font-size: 18px; /* Increased font size */
+                        font-weight: bold;
+                        color: #ffffff;
+                        background-color: #007bff;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+                    }
+
+                    .btn-primary:hover {
+                        background-color: #0056b3;
+                    }
+                </style>
         <div class="container-fluid">
             <div class="container-fluid">
                 <div class="card">
@@ -104,8 +171,8 @@
 
                                     <div class="col-md-4 mb-4">
                                         <label class="form-label">പിൻകോഡ് <br><span class="small required">Pincode</span></label>
-                                        <input type="text" value="{{ @$cases->pincode }}" class="form-control"
-                                            name="pincode" id="pincode" placeholder="പിൻകോഡ്" required />
+                                        <input type="text" value="{{ old('pincode')}}" class="form-control"
+                                            name="pincode" id="pincode" placeholder="പിൻകോഡ്" oninput="fetchDistrict()" required />
                                         @error('pincode')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -249,41 +316,22 @@
                                 </div><br>
                                 <div class="row">
                                     <div class="col-md-6 mb-6">
-                                            <label class="form-label" for="validationTooltipUsername">District<br><span class="small required">
-                                                ജില്ല</span></label>
-                                            <div class="input-group has-validation">
-                                                <select name="district_id" id="districtid"  class="form-control" required>
-                                                    <option value="" >
-                                                        ജില്ല</option>
-                                                        @foreach($districts as $district)
-                                                        <option value="{{ $district->_id }}" {{ $district->_id == $cases->district_id ? 'selected' : '' }} >{{ $district->name }}</option>
-                                                        @endforeach
-                                                        @error('district_id')
-                                                            <span class="text-danger">{{$message}}</span>
-                                                        @enderror
-                                                </select>
-
-                                            </div>
+                                        <label class="form-label" for="validationTooltipUsername">District<br><span class="small required">ജില്ല</span></label>
+                                        <div class="input-group has-validation">
+                                            <select name="district_id" id="districtid" class="form-control" required>
+                                                <option value="">ജില്ല</option>
+                                                <!-- Options will be populated dynamically via API -->
+                                            </select>
+                                            {{-- <div id="selectedValueDisplay"></div> --}}
+                                        </div>
                                     </div>
                                     <div class="col-md-6 mb-6">
-                                            <label class="form-label" for="validationTooltipUsername">Police Station<br><span class="small required">
-                                                പോലീസ് സ്റ്റേഷൻ</span></label>
-                                            <div class="input-group has-validation">
-                                                <select name="police_station" id="police_station"  class="form-control" required>
-                                                    {{-- <option value="" >പോലീസ് സ്റ്റേഷൻ</option> --}}
-                                                    @foreach($districts as $district)
-                                                    @foreach($district->policeStations as $station)
-                                                    <option value="{{ $station->_id }}" {{ $station->_id == $cases->police_station_id ? 'selected' : '' }}>
-                                                        {{ $station->name }}
-                                                    </option>
-                                                @endforeach
-                                                @endforeach
-                                                        @error('police_station')
-                                                            <span class="text-danger">{{$message}}</span>
-                                                        @enderror
-                                                </select>
-
-                                            </div>
+                                        <label class="form-label" for="validationTooltipUsername">Police Station<br><span class="small required">പോലീസ് സ്റ്റേഷൻ</span></label>
+                                        <div class="input-group has-validation">
+                                            <select name="police_station" id="police_station" class="form-control" required>
+                                                <option value="">പോലീസ് സ്റ്റേഷൻ</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div><br>
                                 <div class="row">
@@ -664,9 +712,27 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <div class="upload-btn-wrapper">
+                                            <span class="upload-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="#000000">
+                                                    <path d="M20 4H12L10 2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10zm-8-5h4v1h-4v4H12v-4H8v-1h4v-4z" />
+                                                </svg>
+                                            </span>
+                                            {{-- <label for="file-upload" class="btn-upload">Choose File</label> --}}
+                                            <input type="file" class="btn-upload" name="file-upload" id="file-upload">
+                                            <span id="file-name">{{ @$cases->uploaded_file }}</span>
+                                            @error('file-upload')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 {{-- end '''''''''''''''''''' --}}
-                                <div class="col-12">
+                                <div class="col-12 button-container">
                                     <button class="btn btn-primary" type="submit">Submit form</button>
                                 </div>
                             </div>
@@ -676,7 +742,7 @@
 
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
+    {{-- <script>
     $("#districtid").change(function(){
         var district_id = $(this).val();
 
@@ -705,7 +771,7 @@
 
 
 
-    </script>
+    </script> --}}
     <script>
     $(document).ready(function() {
         let count = 1;
@@ -845,6 +911,94 @@
         document.getElementById('file-name').textContent = fileName;
     }
 </script> --}}
+
+
+<script>
+    async function fetchDistrict() {
+        const pincode = document.getElementById('pincode').value.trim();  // trim to remove any leading/trailing spaces
+
+        if (pincode.length === 6 && /^\d{6}$/.test(pincode)) {  // validate pincode format
+            try {
+                const response = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
+                const data = await response.json();
+
+                const districtDropdown = document.getElementById('districtid');
+                districtDropdown.innerHTML = '';  // clear existing options
+
+                if (data[0].Status === "Success" && data[0].PostOffice.length > 0) {
+                    // Create a Set to store unique district names
+                    const uniqueDistricts = new Set();
+
+                    // Iterate through each post office
+                    data[0].PostOffice.forEach(postOffice => {
+                        // Add district name to the Set (which automatically handles duplicates)
+                        uniqueDistricts.add(postOffice.District);
+                    });
+
+                    // Convert Set back to an array and sort alphabetically (optional)
+                    const sortedDistricts = Array.from(uniqueDistricts).sort();
+
+                    // Create options for each unique district name
+                    sortedDistricts.forEach(districtName => {
+                        const option = document.createElement('option');
+                        option.value = districtName;
+                        option.textContent = districtName;
+                        districtDropdown.appendChild(option);
+                        // selectedDistrict = option.value;
+                        fetchPoliceStations(option.value);
+
+                    });
+
+                    // Function to handle AJAX request on district selection
+                    function fetchPoliceStations(selectedDistrict) {
+                        // alert(selectedDistrict);
+                        // alert($('#districtid').value());
+                        $.ajax({
+                            url: "{{ route('get-police-station') }}",
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                district_name: selectedDistrict
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                if (response) {
+                                    $("#police_station").empty(); // Clear previous options
+
+                                    // Populate police station dropdown
+                                    $.each(response, function(i, item) {
+                                        $("#police_station").append('<option value="' + item.id + '">' + item.name + '</option>');
+                                    });
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error:', error);
+                            }
+                        });
+                    }
+
+                    // // Trigger AJAX request when district is selected
+                    // districtDropdown.addEventListener('change', function() {
+                    //     const selectedDistrict = this.value;
+                    //     console.log(selectedDistrict);
+                    //     fetchPoliceStations(selectedDistrict);
+                    // });
+                } else {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'District not found';
+                    districtDropdown.appendChild(option);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                // Handle error, e.g., display a message to the user
+            }
+        }
+    }
+
+
+    </script>
 
 
 @endsection

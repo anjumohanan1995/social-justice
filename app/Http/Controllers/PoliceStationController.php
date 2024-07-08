@@ -21,18 +21,24 @@ class PoliceStationController extends Controller
     }
 
     public function store(Request $request){
+        // dd($request);
         $validate = Validator::make($request->all(),
         [
-          'name' => 'required',
-           'district' => 'required'
+            'district_id' => 'required',
+            'district' => 'required',
+            'name' => 'required'
+
+
         ]);
         if ($validate->fails()) {
             //dd($validate);
             return Redirect::back()->withInput()->withErrors($validate);
         }
         PoliceStation::create([
-            'district_id' => $request->district,
+            'district_id' => $request->district_id,
+            'district_name' => strtolower($request->district),
             'name' => $request->name
+
         ]);
         return redirect()->route('policestation')->with('success','policestation Added successfully.');
     }
@@ -74,7 +80,7 @@ class PoliceStationController extends Controller
             foreach($records as $record){
                 $i++;
                 $id = $record->id;
-                $district = $record->district->name;
+                $district = $record->district_name;
                 $policestation =  $record->name;
                 $edit = '<a href="' . url('policestation/'.$id.'/edit') . '" class="btn btn-primary edit-btn">Edit</a>&nbsp;&nbsp;<button class="btn btn-danger delete-btn" data-id="'.$id.'">Delete</button>';
 
@@ -114,7 +120,7 @@ class PoliceStationController extends Controller
             return Redirect::back()->withInput()->withErrors($validate);
         }
         $police_station = PoliceStation::find($id);
-        $police_station->district_id = $request->district;
+        $police_station->district_name = strtolower($request->district);
         $police_station->name = $request->name;
         $police_station->update();
         return redirect()->route('policestation')->with('success','policestation Updated successfully.');
@@ -127,8 +133,17 @@ class PoliceStationController extends Controller
         return response()->json(['success' => 'Police Station successfully deleted!']);
     }
 
-    public function get_police_station(Request $request){
-        $police_stations = PoliceStation::where('district_id', $request->district_id)->get();
-        return response()->json($police_stations);
+    public function get_police_station(Request $request)
+    {
+        //dd("hgdhndhd");
+        $districtName = $request->input('district_name');
+        // dd($districtName);
+
+        // Assuming PoliceStation is your model for police stations
+        $policeStations = PoliceStation::where('district_name', 'regexp', '/' . preg_quote($districtName, '/') . '/i')->get();
+
+        // dd($policeStations);
+
+        return response()->json($policeStations);
     }
 }

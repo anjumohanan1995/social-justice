@@ -43,13 +43,14 @@ class PermissionSeeder extends Seeder
             ['name' => 'permission-management', 'sub_permission' => json_encode([
                 "permission-list",
                 "add-permission",
-                "edit-permission"
+                "edit-permission",
             ])],
             ['name' => 'case-management', 'sub_permission' => json_encode([
                 "case-list",
                 "add-case",
                 "edit-case",
-                "delete-case"
+                "delete-case",
+                "appeal-case"
             ])],
             ['name' => 'police-station-management', 'sub_permission' => json_encode([
                 "police-station-list",
@@ -67,7 +68,8 @@ class PermissionSeeder extends Seeder
                 "panchayat-list",
                 "add-panchayat",
                 "edit-panchayat",
-                "delete-panchayat"
+                "delete-panchayat",
+                "get-panchayath-list-user"
             ])],
         ];
     }

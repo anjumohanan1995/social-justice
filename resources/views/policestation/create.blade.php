@@ -52,13 +52,17 @@
                                     <select id="district" name="district" class="form-control" value="{{ old('district') }}" required>
                                         <option value="">--Select District--</option>
                                         @foreach ($districts as $district)
-                                        <option value="{{ $district->id }}"> {{ $district->name }} </option>
+                                        <option value="{{ $district->name }}"> {{ $district->name }} </option>
                                         @endforeach
                                     </select>
+
                                     @error('district')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                             </div>
+                            @foreach ($districts as $district)
+                            <input type="hidden" id="district_id" name="district_id" value="{{ $district->id }}">
+                            @endforeach
                             <div class="col-md-6 position-relative">
                                 <label class="form-label" for="validationTooltip01"> Name</label>
                                     <input type="text" id="name" name="name" class="form-control" placeholder="Enter police station name" value="{{ old('name') }}" required>

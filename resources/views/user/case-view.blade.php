@@ -493,9 +493,9 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12 d-flex justify-content-end">
+                                {{-- <div class="col-md-12 d-flex justify-content-end">
                                     <a id="submitButton" href="{{ route('appeal', $cases->id) }}" class="btn btn-primary">File for Appeal</a>
-                                </div>
+                                </div> --}}
 
                             </div>
                         </form>

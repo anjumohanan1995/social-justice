@@ -77,6 +77,7 @@ class CaseController extends Controller
             'case_details' => 'required',
             'address' => 'required',
             'pincode' => 'required',
+            'file-upload' => 'required|file|mimes:pdf|max:2048', // max:2048 KB = 2MB
         ]);
         if ($validate->fails()) {
             // dd($validate);
@@ -97,6 +98,31 @@ class CaseController extends Controller
             $applicant_sign = '';
         }
 
+        if ($request->hasFile('file-upload')) {
+            $file = $request->file('file-upload');
+            $originalFileName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+
+            // Generate a unique filename
+            $fileName = time() . '_' . uniqid() . '.' . $extension;
+
+            // Validate and move the file
+            $validated = $request->validate([
+                'file-upload' => 'required|file|mimes:pdf|max:2048', // max:2048 KB = 2MB
+            ]);
+
+            // Move the validated file to the desired directory
+            $file->move(public_path('/pdf/uploads'), $fileName);
+
+            // Save $fileName to the database or use it as needed
+            $uploadedFile = $fileName;
+            // dd($uploadedFile);
+        } else {
+            // Handle case when no file is uploaded
+            $uploadedFile = null; // or handle accordingly, e.g., set a default file name or show an error
+        }
+
+
 
         $data =CaseDetails::create([
             'name' => @$request->name ? $request->name : '',
@@ -104,6 +130,7 @@ class CaseController extends Controller
             'job' => @$request->job ? $request->job : '',
             'panchayath' => @$request->panchayath ? $request->panchayath : '',
             'address' => @$request->address ? $request->address : '',
+            // 'panchayath' => @$request->panchayath ? $request->panchayath : '',
             'ward_no' => @$request->ward_no ? $request->ward_no : '',
             'pincode' => @$request->pincode ? $request->pincode : '',
             'organization_name' => @$request->organization_name ? $request->organization_name : '',
@@ -119,7 +146,7 @@ class CaseController extends Controller
             'bank' => @$request->bank ? $request->bank : '',
             'case_details' => @$request->case_details?$request->case_details:'',
             'ifsc_code' => @$request->ifsc_code ? $request->ifsc_code : '',
-            'district_id' => @$request->district_id ? $request->district_id : '',
+            'district_name' => @$request->district_id ? $request->district_id : '',
             'police_station' => @$request->police_station ? $request->police_station : '',
             'pension' => @$request->pension ? $request->pension : '',
             'savings' => @$request->savings ? $request->savings : '',
@@ -143,6 +170,7 @@ class CaseController extends Controller
             'relative_name' => @$request->relative_name ? $request->relative_name : '',
             'applicant_place' => @$request->applicant_place ? $request->applicant_place : '',
             'applicant_sign' => @$applicant_sign,
+            'uploaded_file' => @$uploadedFile,
             'date' => @$request->date ? $request->date : '',
             'appellant' => @$request->appellant ? $request->appellant : '',
             'user_id'=> Auth::user()->id,
@@ -216,8 +244,8 @@ class CaseController extends Controller
     {
         $cases = CaseDetails::find($id);
         // dd($cases);
-        $districts = District::get();
-        return view('user.case-edit',compact('cases','districts'));
+        // $districts = District::get();
+        return view('user.case-edit',compact('cases'));
     }
 
     /**
@@ -230,22 +258,38 @@ class CaseController extends Controller
     public function update(Request $request, $id)
     {
 
-        $validate = Validator::make($request->all(),
-        [
-            'opposition_name' => 'required',
-            'opposition_mobile' => 'required' ,
-            'applicant_name' => 'required',
-            'opposition_address' => 'required',
-            'relative_name' => 'required',
-            'applicant_place' => 'required',
-            'date' => 'required',
-            'appellant' => 'required',
-            'district_id' => 'required',
-            'police_station' => 'required',
-            'case_details' => 'required',
-            'address' => 'required',
-            'pincode' => 'required',
-        ]);
+     // Define main validation rules
+     $mainRules = [
+        'opposition_name' => 'required',
+        'opposition_mobile' => 'required',
+        'applicant_name' => 'required',
+        'opposition_address' => 'required',
+        'relative_name' => 'required',
+        'applicant_place' => 'required',
+        'date' => 'required',
+        'appellant' => 'required',
+        'district_id' => 'required',
+        'police_station' => 'required',
+        'case_details' => 'required',
+        'address' => 'required',
+        'pincode' => 'required',
+    ];
+
+    // Define rules and messages for file-upload
+    $fileRules = [
+        'file-upload' => 'nullable|file|mimes:pdf|max:2048', // max:2048 KB = 2MB
+    ];
+
+    $messages = [
+        'file-upload.mimes' => 'The file must be a PDF.',
+        'file-upload.max' => 'The file may not be greater than 2MB in size.',
+    ];
+
+    // Merge main rules with file-upload rules
+    $rules = array_merge($mainRules, $fileRules);
+
+    // Validate the request
+    $validate = Validator::make($request->all(), $rules, $messages);
         if ($validate->fails()) {
             //dd($validate);
             return Redirect::back()->withInput()->withErrors($validate);
@@ -270,6 +314,32 @@ if ($request->hasfile('applicant_sign')) {
     $applicant_sign = @$data->applicant_sign;
 }
 
+
+if ($request->hasFile('file-upload')) {
+    $file = $request->file('file-upload');
+    $originalFileName = $file->getClientOriginalName();
+    $extension = $file->getClientOriginalExtension();
+
+    // Generate a unique filename
+    $fileName = time() . '_' . uniqid() . '.' . $extension;
+
+    // Validate and move the file
+    // $validated = $request->validate([
+    //     'file-upload' => 'required|file|mimes:pdf|max:2048', // max:2048 KB = 2MB
+    // ]);
+
+    // Move the validated file to the desired directory
+    $file->move(public_path('/pdf/uploads'), $fileName);
+
+    // Save $fileName to the database or use it as needed
+    $uploadedFile = $fileName;
+    // dd($uploadedFile);
+} else {
+    // Handle case when no file is uploaded
+    $uploadedFile = @$data->uploaded_file;
+
+}
+
         $case = CaseDetails::find($id);
         $data = $case->update([
             'name' => @$request->name ? $request->name : '',
@@ -292,7 +362,7 @@ if ($request->hasfile('applicant_sign')) {
             'bank' => @$request->bank ? $request->bank : '',
             'case_details' => @$request->case_details?$request->case_details:'',
             'ifsc_code' => @$request->ifsc_code ? $request->ifsc_code : '',
-            'district_id' => @$request->district_id ? $request->district_id : '',
+            'district_name' => @$request->district_id ? $request->district_id : '',
             'police_station' => @$request->police_station ? $request->police_station : '',
             'pension' => @$request->pension ? $request->pension : '',
             'savings' => @$request->savings ? $request->savings : '',
@@ -316,6 +386,7 @@ if ($request->hasfile('applicant_sign')) {
             'relative_name' => @$request->relative_name ? $request->relative_name : '',
             'applicant_place' => @$request->applicant_place ? $request->applicant_place : '',
             'applicant_sign' => @$applicant_sign,
+            'uploaded_file' => @$uploadedFile,
             'date' => @$request->date ? $request->date : '',
             'appellant' => @$request->appellant ? $request->appellant : '',
             'user_id'=> Auth::user()->id,
@@ -354,7 +425,8 @@ if ($request->hasfile('applicant_sign')) {
     $hasEditCasePermission = in_array('edit-case', $sub_permissions) || $user->role == 'Admin';
     $hasDeleteCasePermission = in_array('delete-case', $sub_permissions) || $user->role == 'Admin';
     $hasViewCasePermission = in_array('case-list', $sub_permissions) || $user->role == 'Admin';
-
+    $hasAppealCasePermission = in_array('appeal-case', $sub_permissions) || $user->role == 'Admin';
+// dd($hasViewCasePermission);
         ## Read value
         $draw = $request->get('draw');
         $start = $request->get("start");
@@ -377,20 +449,26 @@ if ($request->hasfile('applicant_sign')) {
 
             $totalRecordswithFilte = CaseDetails::where('user_id',Auth::user()->id)->where('deleted_at',null)->orderBy('created_at','desc');
             $totalRecordswithFilter = $totalRecordswithFilte->select('count(*) as allcount')->count();
-
-            // Fetch records
+            if($user->role == 'Admin'){
+            $items = CaseDetails::where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder);
+            } else {
+                // Fetch records
             $items = CaseDetails::where('user_id',Auth::user()->id)->where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder);
+
+            }
+
+
             if($request->casenumber){
                 $items->where('case_id',$request->casenumber);
             }
             if($request->name){
                 $items->where('opposition_name',$request->name);
             }
-            $records = $items->skip($start)->take($rowperpage)->get();
+            $records = $items->skip($start)->take($rowperpage)->get();   //dd($records);
 
             $data_arr = array();
             $i=$start;
-
+//dd($records);
             foreach($records as $record){
                 $i++;
                 $id = $record->id;
@@ -426,6 +504,10 @@ if ($hasDeleteCasePermission) {
 if ($hasViewCasePermission) {
     $edit .= '<a href="' . route('ViewCases', $id) . '" class="btn btn-primary edit-btn">View</a>';
 }
+if ($hasAppealCasePermission) {
+    $edit .= '<a href="' . route('appeal', $id) . '" class="btn btn-primary edit-btn">File for Appeal</a>';
+}
+
 
                 $data_arr[] = array(
                     "id" => $i,
@@ -436,7 +518,7 @@ if ($hasViewCasePermission) {
                     "edit" => $edit
                 );
             }
-
+//dd($data_arr);
             $response = array(
             "draw" => intval($draw),
             "iTotalRecords" => $totalRecords,

@@ -45,10 +45,10 @@ Route::group(['middleware' => ['check.permission:role-management']], function ()
 //     Route::get('case-register', [CaseController::class, 'caseRegister'])->name('case.register');
 //     Route::post('case-register', [CaseController::class, 'storecaseRegister'])->name('case.store');
 // });
-
+Route::group(['middleware' => ['check.permission:case-management']], function () {
 Route::get('appeal/{id}', [CaseController::class, 'caseAppeal'])->name('appeal');
 Route::post('appeal-case', [CaseController::class, 'storeAppealcase'])->name('appeal.store');
-
+});
 
 // RDO Cases Routes
 Route::group(['middleware' => ['check.permission:case-management']], function () {
@@ -64,13 +64,15 @@ Route::group(['middleware' => ['check.permission:case-management']], function ()
     Route::get('rdo-orders', [RDOController::class, 'rdoOders'])->name('orders.list')->middleware('check.permission:case-management:case-list');
     Route::get('rdo/orders-list/get', [RDOController::class, 'getOrderList'])->name('rdo.get.orders-list');
     Route::get('/ViewRdoOrders/{id}', [RDOController::class, 'ViewRdoOrders'])->name('ViewRdoOrders')->middleware('check.permission:case-management:case-list');
-    } else {
+    } if (auth()->user()->role === 'User') {
         Route::group(['middleware' => ['check.permission:case-management']], function () {
             Route::resource('cases', CaseController::class);
             Route::get('cases-list/get', [CaseController::class, 'getCaseList'])->name('get.cases-list');
             Route::get('/ViewCases/{id}', [CaseController::class, 'ViewCases'])->name('ViewCases')->middleware('check.permission:case-management:case-list');
             Route::get('case-register', [CaseController::class, 'caseRegister'])->name('case.register');
             Route::post('case-register', [CaseController::class, 'storecaseRegister'])->name('case.store');
+            // Route::get('appeal/{id}', [CaseController::class, 'caseAppeal'])->name('appeal')->middleware('check.permission:case-management:appeal-case');
+            // Route::post('appeal-case', [CaseController::class, 'storeAppealcase'])->name('appeal.store');
         });
     }
 }
@@ -85,8 +87,19 @@ Route::group(['middleware' => ['check.permission:police-station-management']], f
     Route::get('/policestation/{id}/edit', [PoliceStationController::class, 'edit']);
     Route::put('/policestation/{id}', [PoliceStationController::class, 'update'])->name('policestation.update');
     Route::delete('/policestation/{id}', [PoliceStationController::class, 'destroy'])->name('policestation.delete');
-    Route::post('/get-police-station', [PoliceStationController::class, 'get_police_station'])->name('get-police-station')->middleware('check.permission:police-station-management:police-station-list');
+    // Route::post('/get-police-station', [PoliceStationController::class, 'get_police_station'])->name('get-police-station')->middleware('check.permission:police-station-management:police-station-list');
+
 });
+
+Route::post('/get-police-station', [PoliceStationController::class, 'get_police_station'])
+    ->name('get-police-station')
+    ->middleware('check.permission:police-station-management:police-station-list');
+
+
+    Route::post('/get-panchayat', [PanchayatController::class, 'getPanchayat'])
+    ->name('get-panchayat');
+    // ->middleware('check.permission:panchayat-management:get-panchayath-list-user');
+
 
 // Panchayat Management Routes
 Route::group(['middleware' => ['check.permission:panchayat-management']], function () {
@@ -111,6 +124,7 @@ Route::group(['middleware' => ['check.permission:panchayat-management']], functi
     Route::delete('/panchayat/{id}', [PanchayatController::class, 'destroy'])
         ->name('panchayat.delete')
         ->middleware('check.permission:panchayat-management:delete-panchayat');
+
 });
 // Orders Management Routes
 // Orders Management Routes
@@ -172,7 +186,7 @@ Route::delete('/panchayat/{id}',[PanchayatController::class,'destroy' ])->name('
 
 //finding policestation based on district
 
-Route::post('/get-police-station',[PoliceStationController::class, 'get_police_station'])->name('get-police-station');
+// Route::post('/get-police-station',[PoliceStationController::class, 'get_police_station'])->name('get-police-station');
 
 // orders module
 // Route::get('/orders',[OrdersController::class,'index'])->name('orders.index');

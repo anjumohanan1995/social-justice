@@ -50,7 +50,7 @@ class PanchayatController extends Controller
 
             foreach($records as $record){
                 $i++;
-                $id = $record->district->name;
+                $id = $record->district_name;
                 $panchayat = $record->name;
                 $edit = '<a  href="' . url('panchayat/'.$record->id.'/edit').'" class="btn btn-primary edit-btn">Edit</a>&nbsp;&nbsp;<button class="btn btn-danger delete-btn" data-id="'.$record->id.'">Delete</button>';
 
@@ -118,6 +118,21 @@ class PanchayatController extends Controller
         $data = Panchayat::findOrFail($id);
         $data->delete();
         return response()->json(['success' => 'Panchayat successfully deleted!']);
+    }
+
+
+    public function getPanchayat(Request $request)
+    {
+        //dd("hgdhndhd");
+        $districtName = $request->input('district_name');
+        // dd($districtName);
+
+        // Assuming PoliceStation is your model for police stations
+        $panchayats = Panchayat::where('district_name', 'regexp', '/' . preg_quote($districtName, '/') . '/i')->get();
+
+        // dd($panchayats);
+
+        return response()->json($panchayats);
     }
 
 }
