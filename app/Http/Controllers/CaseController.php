@@ -59,8 +59,7 @@ class CaseController extends Controller
     public function storecaseRegister(Request $request)
     {
         // dd($request);
-
-
+// dd($request);
         $validate = Validator::make($request->all(),
         [
             'opposition_name' => 'required',
@@ -74,6 +73,7 @@ class CaseController extends Controller
             'appellant' => 'required',
             'district_id' => 'required',
             'police_station' => 'required',
+            'panchayat' => 'required',
             'case_details' => 'required',
             'address' => 'required',
             'pincode' => 'required',
@@ -128,7 +128,7 @@ class CaseController extends Controller
             'name' => @$request->name ? $request->name : '',
             'age' => @$request->age ? $request->age : '',
             'job' => @$request->job ? $request->job : '',
-            'panchayath' => @$request->panchayath ? $request->panchayath : '',
+            'panchayat' => @$request->panchayat ? $request->panchayat : '',
             'address' => @$request->address ? $request->address : '',
             // 'panchayath' => @$request->panchayath ? $request->panchayath : '',
             'ward_no' => @$request->ward_no ? $request->ward_no : '',

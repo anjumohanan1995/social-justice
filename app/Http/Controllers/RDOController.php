@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use MongoDB\BSON\UTCDateTime;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
 
 
 class RDOController extends Controller
@@ -172,32 +173,70 @@ class RDOController extends Controller
 
     public function ViewRdoCases($id)
     {
-        $opposition = CaseDetails::find($id);
-        $opposition = CaseDetails::with('district', 'user')->findOrFail($id);
+        $caseDetails = CaseDetails::find($id);
+        // $opposition = CaseDetails::with('district', 'user')->findOrFail($id);
         // dd($opposition);
-        return view('rdo.rdo-case-view',compact('opposition'));
+        return view('rdo.rdo-case-view',compact('caseDetails'));
     }
 
     public function caseDataRdoApprove(Request $request)
     {
+        $request->validate([
+            'orderfile' => 'required|file|mimes:pdf,doc,docx,jpg,png|max:2048', // Validate the file type and size
+        ]);
+
+        // Find the case data
         $caseDataRdo = CaseDetails::where('_id', $request->id)->first();
         $id = $request->id;
         $reason = $request->reason;
-        //  $currentTime = Carbon::now();
+
+        $ordertype = $request->ordertype;
+        $case_id = $request->case_id;
         $currentTimeInKerala = now()->timezone('Asia/Kolkata');
         $currenttime = $currentTimeInKerala->format('d-m-Y h:i a');
 
+        // Handle the file upload
+        if ($request->hasFile('orderfile')) {
+            $orderfile = $request->file('orderfile');
+            $originalFileName = $orderfile->getClientOriginalName();
+            $extension = $orderfile->getClientOriginalExtension();
 
+            // Generate a unique filename
+            $fileName = time() . '_' . uniqid() . '.' . $extension;
+
+            // Move the validated file to the desired directory
+            $orderfile->move(public_path('/orders/uploads'), $fileName);
+
+            // Save the file name to the database
+            $uploadedFile = $fileName;
+        } else {
+            // Handle case when no file is uploaded
+            $uploadedFile = null; // or handle accordingly, e.g., set a default file name or show an error
+        }
+
+        // Update the case data
         $caseDataRdo->update([
             'Rdo_status' => 1,
             'Rdo_status_date' => $currenttime,
             'Rdo_status_id' => Auth::user()->id,
             'Rdo_status_reason' => $reason,
         ]);
-        return response()->json([
-            'success' => 'Rdo Approved successfully.'
+
+        // Save to the new collection
+        Order::create([
+            'order_type' => $ordertype,
+            'order_file' => $uploadedFile, // Save the file name
+            'case_no' => $case_id,
+            'casedetails_id' => $id,
         ]);
-    }
+
+    // Return a JSON response with the redirect URL
+    return response()->json([
+        'success' => 'Rdo Approved successfully.',
+        'redirect' => route('case.list')
+    ]);
+
+}
     public function caseDataRdoReject(Request $request)
     {
         $caseDataRdo = CaseDetails::where('_id', $request->id)->first();

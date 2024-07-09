@@ -1,47 +1,55 @@
-@extends('layouts.app')
-
+@extends('layouts.app-login')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
+    <div class="container-fluid p-0">
+      <div class="row m-0">
+        <div class="col-12 p-0">
+          <div class="login-card login-dark">
+            <div>
+              <div>
+                <a class="logo" href="{{ url('/') }}">
+                    <img class="img-fluid for-dark" src="{{ asset('images/logo.png')}}" alt="looginpage">
+                    <img class="img-fluid for-light" src="{{ asset('images/logo.png')}}" alt="looginpage">
+                </a>
+            </div>
+              <div class="login-main">
+              <form method="POST" action="{{ route('sendmail') }}">
+                        @csrf
+                        @if (session('status'))
+                        <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
+                  <h4>Reset Link</h4>
+                  <p>Enter Your Email To Create A New Password</p>
+                  <div class="form-group">
+                    <label class="col-form-label">Email Address</label>
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
+                        @error('email')
+                            <span class="error" style="color:red">**{{ $message }}</span>
+                        @enderror
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                    <input class="form-control" type="text" name="email"  required="" placeholder="Email...">
+                  </div>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <div class="text-end mt-3">
+                      <button class="btn btn-primary btn-block w-100" type="submit">Click To get a Reset Link</button>
+                    </div>
+                    <br>
+                <a href="/login">Back
+                    {{-- <i class="fa-solid fa-arrow-left"></i> --}}
+                </a>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                  </div>
+                  {{-- <h6 class="text-muted mt-4 or">Or Sign in with</h6>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                  <p class="mt-4 mb-0 text-center">Don't have account?<a class="ms-2" href="sign-up.html">Create Account</a></p> --}}
+                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+
 @endsection

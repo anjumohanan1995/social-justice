@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     AdminController, PanchayatController, UsersController, RoleController, AuthController, CaseController, PoliceStationController, RDOController, OrdersController
 };
-
+use App\Http\Controllers\Auth\ForgotPasswordController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -11,6 +11,11 @@ Route::get('/', function () {
 // Authentication Routes
 Auth::routes();
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+//Forgot Password
+Route::get('/forgot', [ForgotPasswordController::class, 'forgot'])->name('forgot');
+Route::post('/sendmail', [ForgotPasswordController::class, 'sendmail'])->name('sendmail');
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('reset.password');
+Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
 
 // Home Route
 Route::get('/home', [AdminController::class, 'index'])->name('home');

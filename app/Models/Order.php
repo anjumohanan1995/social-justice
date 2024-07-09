@@ -12,5 +12,10 @@ class Order extends Eloquent
     use HasFactory,SoftDeletes;
     protected $connection = 'mongodb';
     protected $collection = 'orders';
-    protected $fillable = ['type','file'];
+    protected $fillable = [
+        'order_type',
+        'order_file',
+        'case_no',
+        'casedetails_id',
+    ];
 }

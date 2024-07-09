@@ -211,6 +211,17 @@
                                             {{-- <div id="selectedValueDisplay"></div> --}}
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6 mb-6">
+                                        <label class="form-label" for="validationTooltipUsername">Police Station<br><span class="small required">പോലീസ് സ്റ്റേഷൻ</span></label>
+                                        <div class="input-group has-validation">
+                                            <select name="police_station" id="police_station" class="form-control" required>
+                                                <option value="">പോലീസ് സ്റ്റേഷൻ</option>
+                                                <!-- Add your options here -->
+                                            </select>
+                                        </div>
+                                    </div>
+{{--
                                     <div class="col-md-6 mb-6">
                                         <label class="form-label" for="validationTooltipUsername">Police Station<br><span class="small required">പോലീസ് സ്റ്റേഷൻ</span></label>
                                         <div class="input-group has-validation">
@@ -218,7 +229,7 @@
                                                 <option value="">പോലീസ് സ്റ്റേഷൻ</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div><br><br>
                                 {{-- </div> --}}
                                 {{-- <div id="organizationPart" style="display: none;"> --}}
@@ -1004,12 +1015,13 @@ async function fetchDistrict() {
                         },
                         success: function(response) {
                             console.log(response);
+                            // dd(response);
                             if (response) {
                                 $("#police_station").empty(); // Clear previous options
 
                                 // Populate police station dropdown
                                 $.each(response, function(i, item) {
-                                    $("#police_station").append('<option value="' + item.id + '">' + item.name + '</option>');
+                                    $("#police_station").append('<option value="' + item.name + '">' + item.name + '</option>');
                                 });
                             }
                         },
@@ -1037,7 +1049,7 @@ async function fetchDistrict() {
 
                                 // Populate police station dropdown
                                 $.each(response, function(i, item) {
-                                    $("#panchayat").append('<option value="' + item.id + '">' + item.name + '</option>');
+                                    $("#panchayat").append('<option value="' + item.name + '">' + item.name + '</option>');
                                 });
                             }
                         },

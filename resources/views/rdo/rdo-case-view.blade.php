@@ -79,75 +79,135 @@
 
 <div class="container">
     <div class="form-container">
-        <h2 class="form-title">Case ID: {{ @$opposition->case_id }}</h2>
+        <h2 class="form-title">Case ID: {{ @$caseDetails->case_id }}</h2>
+
+        <!-- Beneficiary Section -->
         <div class="row form-section">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <h5 style="font-weight: bold; text-decoration: underline;">Beneficiary</h5>
-                <div class="mb-3">
-                    <label for="beneficiaryName" class="form-label">Name:</label>
-                    <p class="form-data">{{ @$opposition->user->name }}</p>
-                </div>
-                <div class="mb-3">
-                    <label for="beneficiaryAddress" class="form-label">Address:</label>
-                    <p class="form-data">{{ @$opposition->user->address }}</p>
-                </div>
-                <div class="mb-3">
-                    <label for="beneficiaryDistrict" class="form-label">District:</label>
-                    <p class="form-data">{{ @$opposition->user->district->name }}</p>
-                </div>
-                <div class="mb-3">
-                    <label for="beneficiaryPincode" class="form-label">Pincode:</label>
-                    <p class="form-data">{{ @$opposition->user->pincode }}</p>
-                </div>
-                <div class="mb-3">
-                    <label for="beneficiaryPhone" class="form-label">Phone Number:</label>
-                    <p class="form-data">{{ @$opposition->user->phone }}</p>
-                </div>
-                <div class="mb-3">
-                    <label for="beneficiaryEmail" class="form-label">Email:</label>
-                    <p class="form-data">{{ @$opposition->user->email }}</p>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th><b>Name</b></th>
+                                <th><b>Address</b></th>
+                                <th><b>District</b></th>
+                                <th><b>Pincode</b></th>
+                                <th><b>Phone Number</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ $caseDetails->name ?? 'N/A' }}</td>
+                                <td>{{ $caseDetails->address ?? 'N/A' }}</td>
+                                <td>{{ $caseDetails->district_name ?? 'N/A' }}</td>
+                                <td>{{ $caseDetails->pincode ?? 'N/A' }}</td>
+                                <td>{{ $caseDetails->applicant_phone_number ?? 'N/A' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="col-md-4">
+        </div>
+
+        <hr> <!-- Horizontal line between sections -->
+
+        <!-- Opposition Section -->
+        <div class="row form-section">
+            <div class="col-md-12">
                 <h5 style="font-weight: bold; text-decoration: underline;">Opposition</h5>
-                <div class="mb-3">
-                    <label for="oppositionName" class="form-label">Name:</label>
-                    <p class="form-data">{{ @$opposition->opposition_name[0] }}</p>
-                </div>
-                <div class="mb-3">
-                    <label for="oppositionAddress" class="form-label">Address:</label>
-                    <p class="form-data">{{ @$opposition->opposition_address[0] }}</p>
-                </div>
-                <div class="mb-3">
-                    <label for="oppositionDistrict" class="form-label">District:</label>
-                    <p class="form-data">{{ @$opposition->opposition_age[0] }}</p>
-                </div>
-                <div class="mb-3">
-                    <label for="oppositionPhone" class="form-label">Phone Number:</label>
-                    <p class="form-data">{{ @$opposition->opposition_mobile[0] }}</p>
-                </div>
-                <div class="mb-3">
-                    <label for="oppositionEmail" class="form-label">Email:</label>
-                    <p class="form-data">test@gmail.com</p>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th><b>Name</b></th>
+                                <th><b>Relationship</b></th>
+                                <th><b>Mobile</b></th>
+                                <th><b>Address</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(isset($caseDetails->opposition_name) && is_array($caseDetails->opposition_name))
+                                @foreach($caseDetails->opposition_name as $index => $name)
+                                    <tr>
+                                        <td>{{ $name }}</td>
+                                        <td>{{ $caseDetails->opposition_relationship[$index] ?? 'N/A' }}</td>
+                                        <td>{{ $caseDetails->opposition_mobile[$index] ?? 'N/A' }}</td>
+                                        <td>{{ $caseDetails->opposition_address[$index] ?? 'N/A' }}</td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="4">No data available</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="col-md-4">
+        </div>
+
+        <hr> <!-- Horizontal line between sections -->
+
+        <!-- Stakeholder Section -->
+        <div class="row form-section">
+            <div class="col-md-12">
                 <h5 style="font-weight: bold; text-decoration: underline;">Stakeholder</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th><b>RDO</b></th>
+                                <th><b>Police Station</b></th>
+                                <th><b>Municipality/Panchayat/Corporation</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ $caseDetails->rdo ?? 'N/A' }}</td>
+                                <td>{{ $caseDetails->police_station ?? 'N/A' }}</td>
+                                <td>{{ $caseDetails->panchayat ?? 'N/A' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-
         </div>
 
-        <div class="d-flex justify-content-center">
-            <button class="uploadItem btn btn-success" id="myBtn">Approve</button>&nbsp;&nbsp;&nbsp;
-            <button class="rejectItem btn btn-danger" data-id="{{ @$opposition->id }}">Reject</button>
+        <hr> <!-- Horizontal line between sections -->
+
+        <!-- Case Details -->
+        <div class="row form-section">
+            <div class="col-md-12">
+                <h5 style="font-weight: bold; text-decoration: underline;">Case Details:</h5>
+                <p class="form-control" id="caseDetails" rows="5">{{ $caseDetails->case_details }}</p>
+            </div>
+        </div>
+    </div><br>
+
+        {{-- <!-- View Cases Button -->
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary edit-btn">
+                    <a href="{{ route('ViewCases', ['id' => $caseDetails->_id]) }}" style="color: white; text-decoration: none;">View Cases</a>
+                </button>
+            </div>
+        </div> --}}
+
+        <!-- Approve/Reject Buttons -->
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-12 text-center">
+                <button class="uploadItem btn btn-success" id="myBtn">Approve</button>
+                <button class="rejectItem btn btn-danger" data-id="{{ @$opposition->id }}">Reject</button>
+            </div>
         </div>
 
+        <input type="hidden" name="request_id" id="request_id" value="{{ $caseDetails->_id }}">
+        <input type="hidden" name="case_id" id="case_id" value="{{ @$caseDetails->case_id }}">
 
     </div>
-
-
 </div>
+
 {{-- submit modal --}}
 <div class="modal fade" id="upload-popup" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -157,7 +217,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="uploadOrderForm">
+                <form id="uploadOrderForm" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="orderType" class="form-label">Order Type:</label>
@@ -165,6 +225,8 @@
                             <option value="maintanence">Order for maintenance - Pay</option>
                             <option value="protection">Protection</option>
                             <option value="property">Property</option>
+                            <option value="concilation">Conciliation</option>
+                            <option value="interim Order">Interim Order</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -172,7 +234,7 @@
                         <input type="file" id="orderFile" name="orderFile" class="form-control">
                     </div>
                     <div class="text-center">
-                        <button type="button" class="approveItem btn btn-success" data-id="{{ @$opposition->id }}">Submit</button>
+                        <button type="button" class="approveItem btn btn-success" onclick="approve()">Submit</button>
                     </div>
                 </form>
             </div>
@@ -255,6 +317,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 
+        <!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include toastr -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<!-- Initialize toastr -->
+<script>
+    toastr.options = {
+        closeButton: true,
+        progressBar: true,
+        positionClass: 'toast-top-right',
+        preventDuplicates: true,
+        showDuration: 300,
+        hideDuration: 1000,
+        timeOut: 5000,
+        extendedTimeOut: 1000,
+        showEasing: 'swing',
+        hideEasing: 'linear',
+        showMethod: 'fadeIn',
+        hideMethod: 'fadeOut'
+    };
+</script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $(document).on("click", ".uploadItem", function() {
@@ -279,33 +366,48 @@
 
         function approve() {
             var reason = $('#approve_reason').val();
-            var reqId = $('#requestId').val();
-            var ordertype = $('#orderType').val();
-            var orderfile = $('#orderFile').val();
+    var ordertype = $('#orderType').val();
+    var orderfile = $('#orderFile')[0].files[0];
+    var request_id = $('#request_id').val();
+    var case_id = $('#case_id').val();
 
-            $.ajax({
-                url: "{{ route('caseData.Rdo.approve') }}",
-                type: "POST",
-                data: {
-                    "id": reqId,
-                    "reason": reason,
-                    "ordertype": ordertype,
-                    "orderfile": orderfile,
-                    "_token": "{{ csrf_token() }}"
-                },
-                success: function(response) {
-                    toastr.success(response.success, 'Success!');
-                    $('#approve-popup').modal('hide');
-                    $('#success_message').fadeIn().html(response.success);
-                    setTimeout(function() {
-                        $('#success_message').fadeOut("slow");
-                    }, 2000);
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 2000);
-                }
-            });
+    // Check if reason is provided
+    if (reason.trim() === '') {
+        toastr.error('Please provide a reason for approval.', 'Error!');
+        return; // Exit function if reason is not provided
+    }
+
+    var formData = new FormData();
+    formData.append("id", request_id);
+    formData.append("reason", reason);
+    formData.append("ordertype", ordertype);
+    formData.append("orderfile", orderfile);
+    formData.append("case_id", case_id);
+    formData.append("_token", "{{ csrf_token() }}");
+
+    $.ajax({
+        url: "{{ route('caseData.Rdo.approve') }}",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            console.log(response);
+            toastr.success(response.success, 'Success!');
+            $('#approve-popup').modal('hide');
+            $('#success_message').fadeIn().html(response.success);
+            setTimeout(function() {
+                $('#success_message').fadeOut("slow");
+            }, 2000);
+            setTimeout(function() {
+                window.location.href = response.redirect;
+            }, 2000);
+        },
+        error: function(xhr, status, error) {
+            toastr.error('An error occurred. Please try again.', 'Error!');
         }
+    });
+}
 
         function reject() {
             var reason = $('#reason').val();
