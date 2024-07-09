@@ -202,3 +202,13 @@ Route::delete('/panchayat/{id}',[PanchayatController::class,'destroy' ])->name('
 Route::get('/no-permission', function () {
     return view('user.no-permission');
 });
+// RDO
+Route::get('rdo', [RDOController::class, 'rdo'])->name("rdo");
+Route::get('rdo-create', [RDOController::class, 'rdocreate'])->name("rdo.create");
+Route::post('rdo-store', [RDOController::class, 'rdostore'])->name("rdo.store");
+Route::get('/rdo-list', [RDOController::class, 'list'])
+->name('getRdoList');
+Route::get('/rdo/{id}/edit',[RDOController::class, 'edit'])->name('rdo.edit');
+Route::put('/rdo-update/{id}',[RDOController::class, 'update'])->name('rdo.update');
+Route::get('/rdo/{id}/delete',[RDOController::class,'destroy' ])->name('rdo.delete');
+

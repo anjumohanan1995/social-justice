@@ -44,14 +44,15 @@
                                             <th>Opposition Name</th>
                                             <th>Opposition Address</th>
                                             <th>Case Details</th>
+                                            <th>Hearing Date</th>
                                             <th>ACTION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                   
-                                       
+
+
                                     </tbody>
-                                  
+
                                 </table>
                             </div>
                             </div>
@@ -80,7 +81,7 @@
 			       	"url": "{{ route('rdo.get.cases-list') }}",
 			       	"data": function ( d ) {
 			        	return $.extend( {}, d, {
-				           
+
 			          	});
        				}
        			},
@@ -91,6 +92,7 @@
                 { data: 'opposition_name' },
                 { data: 'opposition_address' },
                 { data: 'case_details' },
+                { data: 'hearing_date' },
                 { data: 'edit' }
 			],
             "order": [0, 'desc'],

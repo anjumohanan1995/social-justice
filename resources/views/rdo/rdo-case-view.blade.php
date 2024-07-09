@@ -44,6 +44,8 @@
                 </div>
 
                 <div class="card-body">
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
                     <style>
                         /* Style for form container */
                         .form-container {
@@ -75,9 +77,149 @@
                         .form-data {
                             font-size: 16px;
                         }
+
+
                     </style>
 
+{{-- <style>
+    .button-container {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Adds space between elements */
+    }
+
+    .button-container input[type="date"] {
+        padding: 8px; /* Adds padding inside the input field */
+        border: 1px solid #ccc; /* Adds a border to the input field */
+        border-radius: 5px; /* Rounds the corners of the input field */
+        background-color: #f9f9f9; /* Sets the background color of the input field */
+        color: #333; /* Sets the text color inside the input field */
+        font-size: 14px; /* Sets the font size of the text inside the input field */
+    }
+
+    .view-btn {
+        background-color: #4CAF50; /* Green background color */
+        color: white; /* White text color */
+        padding: 10px 20px; /* Adds padding to the button */
+        text-align: center; /* Centers the text inside the button */
+        text-decoration: none; /* Removes underline from the link */
+        display: inline-block; /* Allows setting the width and height */
+        font-size: 16px; /* Sets the font size */
+        margin: 4px 2px; /* Adds margin around the button */
+        cursor: pointer; /* Changes cursor to pointer on hover */
+        border-radius: 5px; /* Rounds the corners of the button */
+    }
+
+    .view-btn i {
+        margin-right: 5px; /* Adds space between the icon and text */
+    }
+
+    .uploadItem {
+        padding: 10px 20px; /* Adds padding to the button */
+        border-radius: 5px; /* Rounds the corners of the button */
+        font-size: 16px; /* Sets the font size */
+    }
+
+    .uploadrejectItem {
+        padding: 10px 20px; /* Adds padding to the button */
+        border-radius: 5px; /* Rounds the corners of the button */
+        font-size: 16px; /* Sets the font size */
+    }
+</style> --}}
+
+<style>
+    /* Style for View button */
+    .view-btn {
+        display: inline-block;
+        padding: 8px 12px;
+        background-color: #007bff; /* Blue background color */
+        color: #fff; /* White text color */
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .view-btn:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
+
+    /* Style for Submit button */
+    .btn-primary {
+        background-color: #28a745; /* Green background color */
+        color: #fff; /* White text color */
+        border: none;
+        border-radius: 4px;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #218838; /* Darker green on hover */
+    }
+
+    /* Style for Accept button */
+    .btn-success {
+        background-color: #28a745; /* Green background color */
+        color: #fff; /* White text color */
+        border: none;
+        border-radius: 4px;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background-color: #218838; /* Darker green on hover */
+    }
+
+    /* Style for Reject button */
+    .btn-danger {
+        background-color: #dc3545; /* Red background color */
+        color: #fff; /* White text color */
+        border: none;
+        border-radius: 4px;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333; /* Darker red on hover */
+    }
+</style>
+
+<style>
+    /* Styling for the date input */
+    #hearingDateInput {
+        padding: 0.5em;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none; /* Removes the default blue outline on focus */
+    }
+</style>
+
 <div class="container">
+    <div class="button-container">
+        <div class="row">
+            <div class="col-6">
+                <a href="{{ route('ViewCases', ['id' => $caseDetails->_id]) }}" class="view-btn">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <!-- Approve/Reject Buttons -->
+                <input type="date" id="hearingDateInput">
+                <button class="btn btn-primary" type="button" onclick="updateHearingDate()">Submit</button>
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3">
+                <button class="uploadItem btn btn-success">Accept</button>
+                <button class="uploadrejectItem btn btn-danger">Reject</button>
+            </div>
+    </div>
+</div><br><br>
+
     <div class="form-container">
         <h2 class="form-title">Case ID: {{ @$caseDetails->case_id }}</h2>
 
@@ -194,14 +336,6 @@
             </div>
         </div> --}}
 
-        <!-- Approve/Reject Buttons -->
-        <div class="row justify-content-center mt-3">
-            <div class="col-md-12 text-center">
-                <button class="uploadItem btn btn-success" id="myBtn">Approve</button>
-                <button class="rejectItem btn btn-danger" data-id="{{ @$opposition->id }}">Reject</button>
-            </div>
-        </div>
-
         <input type="hidden" name="request_id" id="request_id" value="{{ $caseDetails->_id }}">
         <input type="hidden" name="case_id" id="case_id" value="{{ @$caseDetails->case_id }}">
 
@@ -243,6 +377,38 @@
 </div>
 
 
+<div class="modal fade" id="rejection-upload-popup" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Upload the Order</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="uploadRejectionOrderForm" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="rejectionOrderType" class="form-label">Reason:</label>
+                        <select id="rejectionOrderType" class="form-select" name="rejectionOrderType">
+                            <option value="dropped">Dropped</option>
+                            <option value="deceased">Deceased</option>
+                            <option value="notmaintenanceact">Not Maintenance Act</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rejectionOrderFile" class="form-label">Upload File:</label>
+                        <input type="file" id="rejectionOrderFile" name="rejectionOrderFile" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="rejectItem btn btn-success" onclick="reject()">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 <!-- Approve Modal -->
@@ -255,12 +421,12 @@
             </div>
             <div class="modal-body">
                 <div class="text-center">
-                    <h4>Are you sure to Approve this Application?</h4>
+                    <h4>Are you sure to Accept this Application?</h4>
                 </div>
                 <form id="approveForm">
                     @csrf
                     <div class="text-center">
-                        <h5>Reason for Approval</h5>
+                        <h5>Reason for Accept</h5>
                         <textarea class="form-control" name="approve_reason" id="approve_reason" required></textarea>
                         <span id="approval-error"></span>
                     </div>
@@ -288,7 +454,7 @@
                     @csrf
                     <div class="text-center">
                         <h5>Reason for Rejection</h5>
-                        <textarea class="form-control" name="reason" id="reason" required></textarea>
+                        <textarea class="form-control" name="reject_reason" id="reject_reason" required></textarea>
                         <span id="rejection-error"></span>
                     </div>
                     <input type="hidden" id="requestId2" name="requestId2" value="" />
@@ -356,6 +522,11 @@
                 $('#approve-popup').modal('show');
             });
 
+            $(document).on("click", ".uploadrejectItem", function() {
+                console.log("Reject-item-Upload button clicked");
+                $('#rejection-upload-popup').modal('show');
+            });
+
             $(document).on("click", ".rejectItem", function() {
                 console.log("Reject button clicked");
                 var id = $(this).attr('data-id');
@@ -409,37 +580,84 @@
     });
 }
 
-        function reject() {
-            var reason = $('#reason').val();
-            if (reason == "") {
-                $('#rejection-error').html("<span style='color: red;'>Please enter the reason for rejection</span>");
-            } else {
-                $('#rejection-error').html("");
-                var reqId = $('#requestId2').val();
 
-                $.ajax({
-                    url: "{{ route('caseData.Rdo.reject') }}",
-                    type: "POST",
-                    data: {
-                        "id": reqId,
-                        "reason": reason,
-                        "_token": "{{ csrf_token() }}"
-                    },
-                    success: function(response) {
-                        toastr.success(response.success, 'Success!');
-                        $('#rejection-popup').modal('hide');
-                        $('#success_message').fadeIn().html(response.success);
-                        setTimeout(function() {
-                            $('#success_message').fadeOut("slow");
-                        }, 2000);
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 2000);
-                    }
-                });
-            }
+function reject() {
+            var reason = $('#reject_reason').val();
+    var rejectionOrderType = $('#rejectionOrderType').val();
+    var orderfile = $('#rejectionOrderFile')[0].files[0];
+    var request_id = $('#request_id').val();
+    var case_id = $('#case_id').val();
+
+    // Check if reason is provided
+    if (reason.trim() === '') {
+        toastr.error('Please provide a reason for rejection.', 'Error!');
+        return; // Exit function if reason is not provided
+    }
+
+    var formData = new FormData();
+    formData.append("id", request_id);
+    formData.append("reason", reason);
+    formData.append("rejectionOrderType", rejectionOrderType);
+    formData.append("orderfile", orderfile);
+    formData.append("case_id", case_id);
+    formData.append("_token", "{{ csrf_token() }}");
+
+    $.ajax({
+        url: "{{ route('caseData.Rdo.reject') }}",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            console.log(response);
+            toastr.success(response.success, 'Success!');
+            $('#rejection-popup').modal('hide');
+            $('#success_message').fadeIn().html(response.success);
+            setTimeout(function() {
+                $('#success_message').fadeOut("slow");
+            }, 2000);
+            setTimeout(function() {
+                window.location.href = response.redirect;
+            }, 2000);
+        },
+        error: function(xhr, status, error) {
+            toastr.error('An error occurred. Please try again.', 'Error!');
         }
+    });
+}
     </script>
+
+<script>
+    function updateHearingDate() {
+        // Get the selected date from the input
+        var hearingDate = document.getElementById('hearingDateInput').value;
+        var request_id = $('#request_id').val(); // Assuming you are using jQuery for this
+
+        // Prepare the data to send
+        var data = {
+            hearingDate: hearingDate, // Add a comma to separate properties
+            id: request_id
+        };
+
+        // Ajax request
+        $.ajax({
+            type: 'POST', // Use 'POST' method
+            url: "{{ route('caseData.Rdo.approve') }}",
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}" // Add CSRF token
+            },
+            data: data,
+            success: function(response) {
+                // Handle success response here
+                console.log('Date updated successfully');
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error('Error updating date:', error);
+            }
+        });
+    }
+</script>
 
 
 

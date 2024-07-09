@@ -42,6 +42,13 @@ class PanchayatController extends Controller
 
             // Fetch records
             $items = Panchayat::where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder);
+            if (!empty($searchValue)) {
+                $items->where(function ($query) use ($searchValue) {
+                    $query->where('district_name', 'like', '%' . $searchValue . '%')
+                          ->orWhere('name', 'like', '%' . $searchValue . '%');
+                });
+            }
+
 
             $records = $items->skip($start)->take($rowperpage)->get();
 

@@ -188,6 +188,14 @@ class UsersController extends Controller
 
             // Fetch records
             $items = User::where('deleted_at',null)->orderBy('created_at','desc')->orderBy($columnName,$columnSortOrder);
+            if (!empty($searchValue)) {
+                $items->where(function ($query) use ($searchValue) {
+                    $query->where('name', 'like', '%' . $searchValue . '%')
+                          ->orWhere('email', 'like', '%' . $searchValue . '%')
+                          ->orWhere('role', 'like', '%' . $searchValue . '%');
+
+                });
+            }
             $records = $items->skip($start)->take($rowperpage)->get();
 
             $data_arr = array();
