@@ -562,6 +562,18 @@
                     </li>
 @endif
 
+{{-- RDO --}}
+@if($hasPanchayatManagementPermission)
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{ url('/rdo') }}">
+                        <svg class="stroke-icon">
+                          <use href="svg/icon-sprite.svg#stroke-file"></use>
+                        </svg>
+                        <svg class="fill-icon">
+                          <use href="svg/icon-sprite.svg#fill-file"></use>
+                        </svg><span>RDO</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
+                    </li>
+@endif
+
 
 
 {{-- @if($hasOrderManagementPermission)
