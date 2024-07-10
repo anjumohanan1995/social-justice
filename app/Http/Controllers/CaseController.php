@@ -174,6 +174,7 @@ class CaseController extends Controller
             'date' => @$request->date ? $request->date : '',
             'appellant' => @$request->appellant ? $request->appellant : '',
             'user_id'=> Auth::user()->id,
+            'Rdo_case_status' => 'null',
         ]);
 
 

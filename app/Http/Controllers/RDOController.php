@@ -79,7 +79,7 @@ class RDOController extends Controller
                     $edit = '<a  href="' . route('ViewRdoCases', $id) . '" class="btn btn-primary edit-btn">view</a>&nbsp;&nbsp;<div class="badge bg-success">Approved</div>';
                 } else if ($status == 0) {
                     $edit = '<a  href="' . route('ViewRdoCases', $id) . '" class="btn btn-primary edit-btn">view</a>&nbsp;&nbsp;<div class="badge bg-danger">Rejected</div>';
-                } else if ($status == null) {
+                } else if ($status == 'null') {
                     $edit = '<a  href="' . route('ViewRdoCases', $id) . '" class="btn btn-primary edit-btn">view</a>';
                 }
 
