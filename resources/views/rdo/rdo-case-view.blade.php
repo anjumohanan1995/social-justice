@@ -214,8 +214,14 @@
             </div>
             <div class="col-3"></div>
             <div class="col-3">
+                @if(@$caseDetails->Rdo_case_status == "null")
                 <button class="uploadItem btn btn-success">Accept</button>
                 <button class="uploadrejectItem btn btn-danger">Reject</button>
+                @elseif(@$caseDetails->Rdo_case_status == "1")
+                    <button class="btn btn-success">Accepted</button>
+                @elseif(@$caseDetails->Rdo_case_status == "0")
+                    <button class="btn btn-danger">Rejected</button>
+                @endif
             </div>
     </div>
 </div><br><br>
@@ -648,13 +654,19 @@ function reject() {
             },
             data: data,
             success: function(response) {
-                // Handle success response here
-                console.log('Date updated successfully');
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                console.error('Error updating date:', error);
-            }
+            console.log(response);
+            toastr.success(response.success, 'Success!');
+            $('#success_message').fadeIn().html(response.success);
+            setTimeout(function() {
+                $('#success_message').fadeOut("slow");
+            }, 2000);
+            setTimeout(function() {
+                window.location.href = response.redirect;
+            }, 2000);
+        },
+        error: function(xhr, status, error) {
+            toastr.error('An error occurred. Please try again.', 'Error!');
+        }
         });
     }
 </script>

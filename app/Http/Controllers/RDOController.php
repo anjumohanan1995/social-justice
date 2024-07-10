@@ -14,6 +14,7 @@ use MongoDB\BSON\UTCDateTime;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\RejectionOrder;
+use App\Models\InterimOrders;
 
 
 class RDOController extends Controller
@@ -69,7 +70,7 @@ class RDOController extends Controller
                 $opposition_name = $record->opposition_name;
                 $opposition_address =  $record->opposition_address;
                 $case_details  =  $record->case_details;
-                $hearing_date = '<input type="date" name="hearing_date">';
+                $hearing_date = $record->hearingDate;
                 $case_id  =  $record->case_id;
                 $status = $record->Rdo_case_status;
                 $edit = '';
@@ -172,6 +173,15 @@ class RDOController extends Controller
         ]);
 
         // Save to the new collection
+        if ($ordertype === 'interim Order') {
+            InterimOrders::create([
+                'order_type' => $ordertype,
+                'order_file' => $uploadedFile, // Save the file name
+                'case_no' => $case_id,
+                'casedetails_id' => $id,
+                'Rdo_case_status' => 1,
+            ]);
+        } else {
         Order::create([
             'order_type' => $ordertype,
             'order_file' => $uploadedFile, // Save the file name
@@ -179,6 +189,7 @@ class RDOController extends Controller
             'casedetails_id' => $id,
             'Rdo_case_status' => 1,
         ]);
+        }
 
 
     // Return a JSON response with the redirect URL
